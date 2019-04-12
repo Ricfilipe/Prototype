@@ -37,8 +37,7 @@ public class SelectedArea : MonoBehaviour
             {
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
                 {
-
-                    Debug.Log("teste");
+         
                     activateSelectArea = true;
                     startPos = hit.point;
 
