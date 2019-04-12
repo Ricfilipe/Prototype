@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SelectedArea : MonoBehaviour
 {
@@ -29,14 +30,20 @@ public class SelectedArea : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0))
+        {
             RaycastHit hit;
-
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                Debug.Log(hit.collider.gameObject.name);
-                activateSelectArea = true;
-                startPos = hit.point;
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
+                {
+
+                    Debug.Log("teste");
+                    activateSelectArea = true;
+                    startPos = hit.point;
+
+
+                }
             }
         }
         else if (Input.GetMouseButtonUp(0))
@@ -45,24 +52,29 @@ public class SelectedArea : MonoBehaviour
             clearSelection();
 
             Vector3 squareStart = Camera.main.WorldToScreenPoint(startPos);
-            if (Math.Abs(endPos.x-squareStart.x)<0.5 && Math.Abs(endPos.y - squareStart.y) < 0.5) {
+            if (Math.Abs(endPos.x - squareStart.x) < 0.5 && Math.Abs(endPos.y - squareStart.y) < 0.5)
+            {
                 RaycastHit hit;
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300)) {
-                 
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
+                {
+
                     if (hit.collider.tag == "MyUnit")
                     {
-                       
-                        hit.collider.GetComponent<MoveToClickPoint>().selected=true;
+
+                        hit.collider.GetComponent<MoveToClickPoint>().selected = true;
                         selectedCharacter.Add(hit.collider.gameObject);
                     }
                 }
 
-            } else {
-                              
+            }
+            else
+            {
+
                 Rect selectRect = new Rect(squareStart.x, squareStart.y, endPos.x - squareStart.x, endPos.y - squareStart.y);
                 foreach (GameObject go in myCharacterPool)
                 {
-                    if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.transform.position), true)) {
+                    if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.transform.position), true))
+                    {
                         selectedCharacter.Add(go);
 
                         go.GetComponent<MoveToClickPoint>().selected = true;
@@ -70,10 +82,10 @@ public class SelectedArea : MonoBehaviour
                 }
             }
             selectSquareImage.gameObject.SetActive(false);
-            
+
         }
 
-        else if (Input.GetMouseButton(0)&& activateSelectArea )
+        else if (Input.GetMouseButton(0) && activateSelectArea)
         {
 
             if (!selectSquareImage.gameObject.activeInHierarchy)
