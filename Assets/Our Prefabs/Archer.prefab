@@ -148,7 +148,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   type: 1
+  gm: {fileID: 0}
   selected: 0
+  target: {fileID: 0}
 --- !u!114 &1459792598829595601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +196,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6666726126033619980}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 20.87, z: 0}
+  m_LocalPosition: {x: 0, y: 30, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 0.3333335}
   m_Children: []
   m_Father: {fileID: 5941774880080296154}

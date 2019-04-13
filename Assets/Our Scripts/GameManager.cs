@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SelectedArea : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public List<GameObject> myCharacterPool;
     List<GameObject> selectedCharacter;
@@ -37,7 +37,7 @@ public class SelectedArea : MonoBehaviour
             {
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
                 {
-         
+
                     activateSelectArea = true;
                     startPos = hit.point;
 
@@ -60,7 +60,7 @@ public class SelectedArea : MonoBehaviour
                     if (hit.collider.tag == "MyUnit")
                     {
 
-                        hit.collider.GetComponent<MoveToClickPoint>().selected = true;
+                        hit.collider.GetComponent<MovementManager>().selected = true;
                         selectedCharacter.Add(hit.collider.gameObject);
                     }
                 }
@@ -76,7 +76,7 @@ public class SelectedArea : MonoBehaviour
                     {
                         selectedCharacter.Add(go);
 
-                        go.GetComponent<MoveToClickPoint>().selected = true;
+                        go.GetComponent<MovementManager>().selected = true;
                     }
                 }
             }
@@ -105,16 +105,48 @@ public class SelectedArea : MonoBehaviour
 
             selectSquareImage.sizeDelta = new Vector2(sizex, sizey);
         }
-        
-    }
+
+
+        if (Input.GetMouseButtonDown(1) && selectedCharacter.Count > 0)
+        {
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
+            {
+                if (hit.collider.tag == "Enemie")
+                {
+                    foreach (GameObject go in this.selectedCharacter) {
+                        go.GetComponent<MovementManager>().currentAction = new Normal(hit.collider.gameObject,go);
+
+                    }
+                }
+                else
+                {
+                    foreach (GameObject go in this.selectedCharacter)
+                    {
+                        go.GetComponent<MovementManager>().currentAction = new Normal(hit.point,go);
+
+                    }
+
+                }
+
+            }
+        }
+
+
+
+
+     }
 
     private void clearSelection()
     {
-       
-       foreach(GameObject go in selectedCharacter)
+
+        foreach (GameObject go in selectedCharacter)
         {
-            go.GetComponent<MoveToClickPoint>().selected = false;
+            go.GetComponent<MovementManager>().selected = false;
         }
         selectedCharacter.Clear();
     }
 }
+

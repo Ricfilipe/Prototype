@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 8165074}
   - component: {fileID: 11488424}
   - component: {fileID: 11455738}
-  - component: {fileID: 952029320889213431}
   m_Layer: 0
   m_Name: RTS_Camera
   m_TagString: MainCamera
@@ -46,8 +45,8 @@ Camera:
   m_GameObject: {fileID: 120296}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0.019607844}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -128,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ef8c68bade09b41aca258d42a632f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastTab: 2
+  lastTab: 1
   movementSettingsFoldout: 1
   zoomingSettingsFoldout: 0
   rotationSettingsFoldout: 1
@@ -169,22 +168,8 @@ MonoBehaviour:
   zoomOutKey: 113
   useScrollwheelZooming: 1
   zoomingAxis: Mouse ScrollWheel
-  useKeyboardRotation: 1
+  useKeyboardRotation: 0
   rotateRightKey: 120
   rotateLeftKey: 122
-  useMouseRotation: 1
+  useMouseRotation: 0
   mouseRotationKey: 324
---- !u!114 &952029320889213431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de030d48f5089544897b26e63ec9cb93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myCharacterPool: []
-  selectSquareImage: {fileID: 0}
