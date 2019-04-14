@@ -7,12 +7,15 @@ using UnityEngine.EventSystems;
 public class GameManager : MonoBehaviour
 {
     public List<GameObject> myCharacterPool;
-    List<GameObject> selectedCharacter;
+    public GameObject selectionMenu;
+    [HideInInspector]
+    public List<GameObject> selectedCharacter;
 
     [SerializeField]
     private RectTransform selectSquareImage;
 
     bool activateSelectArea = false;
+    bool UIclick = false;
     Vector3 startPos, endPos;
 
     private void Awake()
@@ -35,6 +38,7 @@ public class GameManager : MonoBehaviour
             RaycastHit hit;
             if (!EventSystem.current.IsPointerOverGameObject())
             {
+                UIclick = false;
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
                 {
 
@@ -44,11 +48,14 @@ public class GameManager : MonoBehaviour
 
                 }
             }
+            else {
+                UIclick = true;
+            }
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0) && !UIclick)
         {
             activateSelectArea = false;
-            clearSelection();
+           
 
             Vector3 squareStart = Camera.main.WorldToScreenPoint(startPos);
             if (Math.Abs(endPos.x - squareStart.x) < 0.5 && Math.Abs(endPos.y - squareStart.y) < 0.5)
@@ -59,9 +66,8 @@ public class GameManager : MonoBehaviour
 
                     if (hit.collider.tag == "MyUnit")
                     {
-
-                        hit.collider.GetComponent<MovementManager>().selected = true;
-                        selectedCharacter.Add(hit.collider.gameObject);
+                        clearSelection();
+                        addToSelection(hit);
                     }
                 }
 
@@ -70,16 +76,20 @@ public class GameManager : MonoBehaviour
             {
 
                 Rect selectRect = new Rect(squareStart.x, squareStart.y, endPos.x - squareStart.x, endPos.y - squareStart.y);
+                int count = 0;
                 foreach (GameObject go in myCharacterPool)
                 {
                     if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.transform.position), true))
                     {
-                        selectedCharacter.Add(go);
-
-                        go.GetComponent<MovementManager>().selected = true;
+                        if (count == 0) {
+                            clearSelection();
+                            count++;
+                        }
+                        addToSelection(go);
                     }
                 }
             }
+            
             selectSquareImage.gameObject.SetActive(false);
 
         }
@@ -139,7 +149,7 @@ public class GameManager : MonoBehaviour
 
      }
 
-    private void clearSelection()
+    public void clearSelection()
     {
 
         foreach (GameObject go in selectedCharacter)
@@ -147,6 +157,19 @@ public class GameManager : MonoBehaviour
             go.GetComponent<MovementManager>().selected = false;
         }
         selectedCharacter.Clear();
+        selectionMenu.GetComponent<generateSelection>().change = true;
+    }
+
+    public void addToSelection( RaycastHit hit) {
+        hit.collider.GetComponent<MovementManager>().selected = true;
+        selectedCharacter.Add(hit.collider.gameObject);
+    }
+
+    public void addToSelection(GameObject go)
+    {
+        selectedCharacter.Add(go);
+
+        go.GetComponent<MovementManager>().selected = true;
     }
 }
 
