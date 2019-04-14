@@ -108,7 +108,12 @@ public class generateSelection : MonoBehaviour
     public void changeSelection(GameObject panel) {
         int idx = this.selectionMenu.FindIndex(0, selectionMenu.Count, p => p == panel);
         GameObject go = selected[idx];
-        gameManager.GetComponent<GameManager>().clearSelection();
-        gameManager.GetComponent<GameManager>().addToSelection(go);
+        if (Input.GetKey(KeyCode.LeftShift)){
+            gameManager.GetComponent<GameManager>().removeFromSelection(go);
+        }
+        else {
+            gameManager.GetComponent<GameManager>().clearSelection();
+            gameManager.GetComponent<GameManager>().addToSelection(go);
+        }
     }
 }

@@ -177,5 +177,12 @@ public class GameManager : MonoBehaviour
 
         go.GetComponent<MovementManager>().selected = true;
     }
+
+    public void removeFromSelection(GameObject go)
+    {
+        selectedCharacter.Remove(go);
+        selectionMenu.GetComponent<generateSelection>().change = true;
+        go.GetComponent<MovementManager>().selected = false;
+    }
 }
 
