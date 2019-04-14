@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class GameManager : MonoBehaviour
     bool activateSelectArea = false;
     bool UIclick = false;
     Vector3 startPos, endPos;
+
+    private int silver;
+    public GameObject silverText;
 
     private void Awake()
     {
@@ -33,6 +37,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        silverText.GetComponent<Text>().text = "Silver: " + silver;
+
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
