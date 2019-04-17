@@ -12,12 +12,12 @@ public class moveCamera:MonoBehaviour
         // Debug.Log(Input.mousePosition.x-gameObject.transform.position.x );
 
 
-        Vector3 helper = rtsCam.WorldToScreenPoint(gameObject.transform.position);
+        Vector3 helper = gameObject.transform.position;
 
-       float x = (Input.mousePosition.x -helper.x) / gameObject.GetComponent<RectTransform>().sizeDelta.x;
+      float x = (Input.mousePosition.x -helper.x) / (gameObject.GetComponent<RectTransform>().sizeDelta.x  *(1920 / Screen.width));
      
-        float y = (Input.mousePosition.y - helper.z) / gameObject.GetComponent<RectTransform>().sizeDelta.y;
-        Debug.Log(x + " " + y);
+        float y = (Input.mousePosition.y - helper.y) / (gameObject.GetComponent<RectTransform>().sizeDelta.y*(1080/Screen.height));
+      
         rtsCam.transform.position=new Vector3(210-(420*y),80,(380*x)-190);
     }
 }
