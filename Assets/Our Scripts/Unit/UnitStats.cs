@@ -162,7 +162,7 @@ public class UnitStats : MonoBehaviour
 		}
 	}
 
-	public int getSpeed(){
+	public float getSpeed(){
 		if (team==Team.England){
 			switch(troop){
 				case Troops.Archer:
