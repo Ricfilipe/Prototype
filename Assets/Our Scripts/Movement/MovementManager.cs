@@ -5,17 +5,10 @@ using UnityEngine.AI;
 public class MovementManager : MonoBehaviour
 {
 
-    public enum Type
-    {
-        King,
-        Archer,
-        MenAtArms
-    }
-
 
     [SerializeField]
     public Camera cam;
-    public Type type;
+    private UnitStats myUnitStats;
     public GameObject gm;
 
     [HideInInspector]
@@ -29,12 +22,14 @@ public class MovementManager : MonoBehaviour
     bool attack = false;
     int counter = 0;
 
+
     void Start()
     {
-        gm.GetComponent<GameManager>().myCharacterPool.Add(gameObject);
-        
+        gm.GetComponent<GameManager>().myCharacterPool.Add(gameObject); 
 
-
+        this.myUnitStats = gm.GetComponent<UnitStats>();
+        gameObject.GetComponent<NavMeshAgent>().speed=myUnitStats.speed;
+        attackRange = myUnitStats.range;
     }
 
 

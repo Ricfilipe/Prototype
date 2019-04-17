@@ -123,7 +123,45 @@ public class UnitStats : MonoBehaviour
     }
 
 
+	public int getMaxHP(){
+		if (team==Team.England){
+			switch(troop){
+				case Troops.Archer:
+					return ArcherMaxHP;
 
+				case Troops.Infantry:
+					return InfantryMaxHP;
+					
+				default:
+					return AD;
+			}
+
+		}
+		else{
+			return MaxHP;
+		}
+	}
+
+	public int getAD(){
+		if (team==Team.England){
+			switch(troop){
+				case Troops.Archer:
+					return ArcherAD;
+
+				case Troops.Infantry:
+					return InfantryAD;
+
+				default:
+					return AD;
+
+			}
+
+		}
+		else{
+			return AD;
+		}
+	}
+	
 
 
 }
