@@ -31,7 +31,8 @@ public class MovementManager : MonoBehaviour
 
     void Start()
     {
-        gm.GetComponent<GameManager>().myCharacterPool.Add(gameObject); 
+        gm.GetComponent<GameManager>().myCharacterPool.Add(gameObject);
+        
 
 
     }

@@ -13,6 +13,8 @@ public class ActionMenu : MonoBehaviour
     private GameManager gm;
     private bool upgradeMenu;
 
+    public GameObject archer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -165,7 +167,8 @@ public class ActionMenu : MonoBehaviour
 
     public void buyArcher()
     {
-        //TODO
+       GameObject go = Instantiate(archer);
+        go.GetComponent<MovementManager>().gm = this.gameManager;
     }
 
 

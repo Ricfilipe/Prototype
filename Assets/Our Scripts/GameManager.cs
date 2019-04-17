@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     {
         knightSelected = new List<GameObject>();
         archerSelected = new List<GameObject>();
-        myCharacterPool = new List<GameObject>();
+        
     }
 
     // Start is called before the first frame update

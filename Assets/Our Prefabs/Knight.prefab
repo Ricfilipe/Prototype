@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
+  outlineMode: 1
   outlineColor: {r: 0.27102178, g: 0.7169812, b: 0.26717696, a: 1}
   outlineWidth: 4
   precomputeOutline: 0
@@ -277,8 +277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 075ce69fede46234a8224a83e6ab36fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 5548020722153965198, guid: 3a1f8a72e8a22514f94efcb58d71a532, type: 3}
   type: 2
-  gm: {fileID: 0}
+  gm: {fileID: 9079459042214660731, guid: 0ca524db14217f245878c82f2047a21d, type: 3}
   selected: 0
   target: {fileID: 0}
