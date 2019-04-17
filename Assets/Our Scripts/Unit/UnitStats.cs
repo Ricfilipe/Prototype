@@ -9,6 +9,8 @@ public class UnitStats : MonoBehaviour
     [HideInInspector]
     public int MaxHP, HP,AD;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
