@@ -26,7 +26,8 @@ public class generateSelection : MonoBehaviour
         this.realText = text.GetComponent<UnityEngine.UI.Text>();
         seq = 0;
         this.selectionMenu = new List<GameObject>();
-        this.selected=gameManager.GetComponent<GameManager>().selectedCharacter;
+        this.selected = new List<GameObject>();
+
         down.active = false;
         up.active = false;
         realText.text = "";
@@ -38,7 +39,15 @@ public class generateSelection : MonoBehaviour
        
         if (change)
         {
-            foreach(GameObject go in selectionMenu)
+            selected.Clear();
+            GameManager gm = gameManager.GetComponent<GameManager>();
+            if (gm.King != null)
+            {
+                this.selected.Add(gm.King);
+            }
+            this.selected.AddRange(gm.archerSelected);
+            this.selected.AddRange(gm.knightSelected);
+            foreach (GameObject go in selectionMenu)
                 Destroy(go);
             selectionMenu.Clear();
             change = false;

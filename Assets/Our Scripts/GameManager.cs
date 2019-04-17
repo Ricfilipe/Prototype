@@ -10,7 +10,19 @@ public class GameManager : MonoBehaviour
     public List<GameObject> myCharacterPool;
     public GameObject selectionMenu;
     [HideInInspector]
-    public List<GameObject> selectedCharacter;
+    public List<GameObject> knightSelected, archerSelected;
+    [HideInInspector]
+    public GameObject King;
+    public GameObject Base;
+    [HideInInspector]
+    public bool baseSelected=false;
+
+    public enum typeAction
+    {
+        Move,
+        Normal,
+        Attack
+    }
 
     [SerializeField]
     private RectTransform selectSquareImage;
@@ -18,13 +30,14 @@ public class GameManager : MonoBehaviour
     bool activateSelectArea = false;
     bool UIclick = false;
     Vector3 startPos, endPos;
-
-    private int silver;
+    [HideInInspector]
+    public int silver;
     public GameObject silverText;
 
     private void Awake()
     {
-        selectedCharacter = new List<GameObject>();
+        knightSelected = new List<GameObject>();
+        archerSelected = new List<GameObject>();
         myCharacterPool = new List<GameObject>();
     }
 
@@ -123,7 +136,7 @@ public class GameManager : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButtonDown(1) && selectedCharacter.Count > 0)
+        if (Input.GetMouseButtonDown(1) && (knightSelected.Count > 0 || archerSelected.Count>0 || King!=null))
         {
 
             RaycastHit hit;
@@ -132,18 +145,11 @@ public class GameManager : MonoBehaviour
             {
                 if (hit.collider.tag == "Enemie")
                 {
-                    foreach (GameObject go in this.selectedCharacter) {
-                        go.GetComponent<MovementManager>().currentAction = new Normal(hit.collider.gameObject,go);
-
-                    }
+                    makeAction(hit.collider.gameObject, typeAction.Normal);
                 }
                 else
                 {
-                    foreach (GameObject go in this.selectedCharacter)
-                    {
-                        go.GetComponent<MovementManager>().currentAction = new Normal(hit.point,go);
-
-                    }
+                    makeAction(hit.point, typeAction.Normal);
 
                 }
 
@@ -158,31 +164,165 @@ public class GameManager : MonoBehaviour
     public void clearSelection()
     {
 
-        foreach (GameObject go in selectedCharacter)
+        foreach (GameObject go in archerSelected)
         {
             go.GetComponent<MovementManager>().selected = false;
         }
-        selectedCharacter.Clear();
+        foreach (GameObject go in knightSelected)
+        {
+            go.GetComponent<MovementManager>().selected = false;
+        }
+        if (King != null)
+        {
+            King.GetComponent<MovementManager>().selected = false;
+            King = null;
+        }
+        archerSelected.Clear();
+        knightSelected.Clear();
         selectionMenu.GetComponent<generateSelection>().change = true;
     }
 
+
+    //TODO Alterar para adicionar ao sitio certo
     public void addToSelection( RaycastHit hit) {
         hit.collider.GetComponent<MovementManager>().selected = true;
-        selectedCharacter.Add(hit.collider.gameObject);
+        archerSelected.Add(hit.collider.gameObject);
     }
 
+    //TODO Alterar para adicionar ao sitio certo
     public void addToSelection(GameObject go)
     {
-        selectedCharacter.Add(go);
+        archerSelected.Add(go);
 
         go.GetComponent<MovementManager>().selected = true;
     }
 
+
+    //TODO Alterar remover do sitio certo
     public void removeFromSelection(GameObject go)
     {
-        selectedCharacter.Remove(go);
+        archerSelected.Remove(go);
         selectionMenu.GetComponent<generateSelection>().change = true;
         go.GetComponent<MovementManager>().selected = false;
     }
+
+    public void makeAction(Vector3 target, typeAction type)
+    {
+        switch (type)
+        {
+            case typeAction.Normal:
+                foreach (GameObject go in this.knightSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Normal(target, go);
+
+                }
+                foreach (GameObject go in this.archerSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Normal(target, go);
+
+                }
+                if (King != null)
+                {
+                    King.GetComponent<MovementManager>().currentAction = new Normal(target, King);
+                }
+                break;
+
+            case typeAction.Attack:
+                foreach (GameObject go in this.knightSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Attack(target, go);
+
+                }
+                foreach (GameObject go in this.archerSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Attack(target, go);
+
+                }
+                if (King != null)
+                {
+                    King.GetComponent<MovementManager>().currentAction = new Attack(target, King);
+                }
+                break;
+
+            case typeAction.Move:
+                foreach (GameObject go in this.knightSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Move(target, go);
+
+                }
+                foreach (GameObject go in this.archerSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Move(target, go);
+
+                }
+                if (King != null)
+                {
+                    King.GetComponent<MovementManager>().currentAction = new Move(target, King);
+                }
+                break;
+
+        }
+    }
+
+    public void makeAction(GameObject target, typeAction type)
+        {
+            switch (type)
+            {
+                case typeAction.Normal:
+                    foreach (GameObject go in this.knightSelected)
+                    {
+                        go.GetComponent<MovementManager>().currentAction = new Normal(target, go);
+
+                    }
+                    foreach (GameObject go in this.archerSelected)
+                    {
+                        go.GetComponent<MovementManager>().currentAction = new Normal(target, go);
+
+                    }
+                    if (King != null)
+                    {
+                        King.GetComponent<MovementManager>().currentAction = new Normal(target, King);
+                    }
+                    break;
+
+                case typeAction.Attack:
+                    foreach (GameObject go in this.knightSelected)
+                    {
+                        go.GetComponent<MovementManager>().currentAction = new Attack(target, go);
+
+                    }
+                    foreach (GameObject go in this.archerSelected)
+                    {
+                        go.GetComponent<MovementManager>().currentAction = new Attack(target, go);
+
+                    }
+                    if (King != null)
+                    {
+                        King.GetComponent<MovementManager>().currentAction = new Attack(target, King);
+                    }
+                    break;
+
+                case typeAction.Move:
+                    foreach (GameObject go in this.knightSelected)
+                    {
+                        go.GetComponent<MovementManager>().currentAction = new Move(target, go);
+
+                    }
+                    foreach (GameObject go in this.archerSelected)
+                    {
+                        go.GetComponent<MovementManager>().currentAction = new Move(target, go);
+
+                    }
+                    if (King != null)
+                    {
+                        King.GetComponent<MovementManager>().currentAction = new Move(target, King);
+                    }
+                    break;
+
+            }
+
+        } 
+
+
 }
 
