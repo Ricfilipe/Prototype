@@ -16,7 +16,6 @@ public class moveCamera:MonoBehaviour
         Vector3 helper = start.transform.position;
         Vector3 helper2 = end.transform.position;
 
-        Debug.Log(helper + " "+helper2);
       float x = (Input.mousePosition.x -helper.x) / (helper2.x-helper.x );
      
         float y = (Input.mousePosition.y - helper.y) / (helper2.y - helper.y+10);

@@ -10456,7 +10456,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2766599763107440719}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1995993791
+--- !u!114 &1995993794
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10468,10 +10468,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7640920b4d82b964e8f0bb2b405636a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textObject: {fileID: 326891149}
+  textObject: {fileID: 1074863394}
   imageObject: {fileID: 517564110}
-  descriptionObject: {fileID: 1074863394}
-  gameManager: {fileID: 0}
+  descriptionObject: {fileID: 326891149}
+  gameManager: {fileID: 954410206}
 --- !u!224 &1998567699 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2917647795582412295, guid: 9ae0e6f8a88edea49afef308b47d92e1,
@@ -11193,6 +11193,37 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 954410206}
+    - target: {fileID: 2917647794994776975, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 65ddf125e4f6b2948892c934a4939f6a,
+        type: 3}
+    - target: {fileID: 2917647794994776975, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917647794994776975, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917647794994776975, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917647794994776975, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917647795353759647, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+        type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2766599763855094435, guid: 9ae0e6f8a88edea49afef308b47d92e1,
         type: 3}
       propertyPath: gameManager
