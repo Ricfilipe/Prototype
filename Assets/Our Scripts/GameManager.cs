@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
+           
             if (!EventSystem.current.IsPointerOverGameObject())
             {
                 UIclick = false;
@@ -63,7 +64,7 @@ public class GameManager : MonoBehaviour
                     
                     activateSelectArea = true;
                     startPos = hit.point;
-                    Debug.Log(startPos);
+                   
 
                 }
             }
