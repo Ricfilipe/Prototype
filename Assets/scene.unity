@@ -978,6 +978,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 924b0ecc34978a4429c5814c54ff0db2, type: 3}
+--- !u!1 &255778028 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5077825767412545961, guid: 5f9bfe95f46db2948a997eeb75dc50e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1067697038}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &264213700
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1079,6 +1085,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1966779644259920233, guid: 924b0ecc34978a4429c5814c54ff0db2,
     type: 3}
   m_PrefabInstance: {fileID: 253651297}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &392364198 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3500854650241862144, guid: e6d017ef2c139dd4580d9de095a3a33c,
+    type: 3}
+  m_PrefabInstance: {fileID: 968464938}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &404169901 stripped
 Transform:
@@ -11118,7 +11130,7 @@ PrefabInstance:
     - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
       propertyPath: myCharacterPool.Array.size
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
@@ -11140,5 +11152,15 @@ PrefabInstance:
       propertyPath: silverText
       value: 
       objectReference: {fileID: 180442505}
+    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
+        type: 3}
+      propertyPath: myCharacterPool.Array.data[0]
+      value: 
+      objectReference: {fileID: 392364198}
+    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
+        type: 3}
+      propertyPath: myCharacterPool.Array.data[1]
+      value: 
+      objectReference: {fileID: 255778028}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ca524db14217f245878c82f2047a21d, type: 3}
