@@ -60,10 +60,10 @@ public class GameManager : MonoBehaviour
                 UIclick = false;
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
                 {
-
+                    
                     activateSelectArea = true;
                     startPos = hit.point;
-
+                    Debug.Log(startPos);
 
                 }
             }
