@@ -14,7 +14,9 @@ public class moveCamera:MonoBehaviour
         
         //double start = rtsCam.WorldToScreenPoint(new Vector3);
        float x = (Input.mousePosition.x - gameObject.transform.position.x) / gameObject.GetComponent<RectTransform>().sizeDelta.x;
+     
         float y = (Input.mousePosition.y - gameObject.transform.position.y) / gameObject.GetComponent<RectTransform>().sizeDelta.y;
+        Debug.Log(x + " " + y);
         rtsCam.transform.position=new Vector3(210-(420*y),80,(380*x)-190);
     }
 }

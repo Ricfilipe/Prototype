@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public List<GameObject> myCharacterPool;
+    public List<GameObject> myCharacterPool = new List<GameObject>();
     public GameObject selectionMenu;
     [HideInInspector]
     public List<GameObject> knightSelected, archerSelected;
@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     {
         knightSelected = new List<GameObject>();
         archerSelected = new List<GameObject>();
+
         
     }
 

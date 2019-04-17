@@ -11130,7 +11130,7 @@ PrefabInstance:
     - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
       propertyPath: myCharacterPool.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
