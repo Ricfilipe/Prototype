@@ -27,8 +27,8 @@ public class MovementManager : MonoBehaviour
     {
         gm.GetComponent<GameManager>().myCharacterPool.Add(gameObject); 
 
-        this.myUnitStats = gm.GetComponent<UnitStats>();
-        gameObject.GetComponent<NavMeshAgent>().speed=myUnitStats.speed;
+        this.myUnitStats = GetComponent<UnitStats>();
+        GetComponent<NavMeshAgent>().speed=myUnitStats.speed;
         attackRange = myUnitStats.range;
     }
 
