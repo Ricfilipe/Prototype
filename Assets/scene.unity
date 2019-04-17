@@ -10964,6 +10964,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2917647796069489785, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+        type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2917647796646162275, guid: 9ae0e6f8a88edea49afef308b47d92e1,
         type: 3}
       propertyPath: gameManager

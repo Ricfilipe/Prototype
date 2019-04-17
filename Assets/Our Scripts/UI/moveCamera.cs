@@ -14,9 +14,9 @@ public class moveCamera:MonoBehaviour
 
         Vector3 helper = gameObject.transform.position;
 
-      float x = (Input.mousePosition.x -helper.x) / (gameObject.GetComponent<RectTransform>().sizeDelta.x  *(1920 / Screen.width));
+      float x = (Input.mousePosition.x -helper.x) / (gameObject.GetComponent<RectTransform>().sizeDelta.x  *2);
      
-        float y = (Input.mousePosition.y - helper.y) / (gameObject.GetComponent<RectTransform>().sizeDelta.y*(1080/Screen.height));
+        float y = (Input.mousePosition.y - helper.y) / (gameObject.GetComponent<RectTransform>().sizeDelta.y*2);
       
         rtsCam.transform.position=new Vector3(210-(420*y),80,(380*x)-190);
     }
