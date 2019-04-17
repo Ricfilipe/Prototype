@@ -9,7 +9,7 @@ public class UnitStats : MonoBehaviour
     [HideInInspector]
     public int MaxHP, HP,AD;
    	
-   	private static int InfantryMaxHP, InfantryAD, ArcherMaxHP, ArcherAD;
+   	private static int InfantryMaxHP, InfantryAD, ArcherMaxHP, ArcherAD, InfantrySpeed, ArcherSpeed;
 
     public enum Team
     {
@@ -40,7 +40,7 @@ public class UnitStats : MonoBehaviour
     			switch(troop)
     			{
     				case Troops.Infantry:
-    					this.speed=4;
+    					InfantrySpeed=4;
 	    				this.range=1.5f;
 	    				this.size=5;
 	    				InfantryMaxHP=6;
@@ -49,7 +49,7 @@ public class UnitStats : MonoBehaviour
 	    				break;
 
 	    			case Troops.Archer:
-	    				this.speed=3;
+	    				ArcherSpeed=3;
 	    				this.range=10;
 	    				this.size=4;
 	    				ArcherMaxHP=4;
@@ -133,7 +133,7 @@ public class UnitStats : MonoBehaviour
 					return InfantryMaxHP;
 					
 				default:
-					return AD;
+					return MaxHP;
 			}
 
 		}
@@ -159,6 +159,26 @@ public class UnitStats : MonoBehaviour
 		}
 		else{
 			return AD;
+		}
+	}
+
+	public int getSpeed(){
+		if (team==Team.England){
+			switch(troop){
+				case Troops.Archer:
+					return ArcherSpeed;
+
+				case Troops.Infantry:
+					return InfantrySpeed;
+
+				default:
+					return speed;
+
+			}
+
+		}
+		else{
+			return speed;
 		}
 	}
 	
