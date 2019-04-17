@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 8348632717401740574}
   - component: {fileID: 9204854165360151041}
   - component: {fileID: 2212740006113495586}
+  - component: {fileID: 7744651086530078581}
   - component: {fileID: 5958307774977208335}
   m_Layer: 0
   m_Name: Knight
@@ -244,6 +245,26 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &7744651086530078581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8930843537059702359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f5e8de52143404c9b73fb89f235c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  range: 0
+  size: 0
+  MaxHP: 0
+  HP: 0
+  AD: 0
+  team: 0
+  troop: 1
 --- !u!114 &5958307774977208335
 MonoBehaviour:
   m_ObjectHideFlags: 0
