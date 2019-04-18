@@ -31,6 +31,7 @@ RectTransform:
   m_LocalScale: {x: 0.3000001, y: 0.4500001, z: 0.75000024}
   m_Children:
   - {fileID: 3444837331691663718}
+  - {fileID: 59425665596949191}
   m_Father: {fileID: 8104828376057021157}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 60, y: -90, z: 0}
@@ -98,7 +99,7 @@ MonoBehaviour:
   m_BlockingObjects: 3
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!1 &3409319447833777627
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,7 +112,7 @@ GameObject:
   - component: {fileID: 7357655954432900174}
   - component: {fileID: 1994004085259433003}
   - component: {fileID: 2673072881755881918}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 376632c91b2772445a9d7ded490c7e65, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 0.4972277, g: 0.745283, b: 0.21444462, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
@@ -279,6 +280,80 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &4624319202660662046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 59425665596949191}
+  - component: {fileID: 6879211564629970243}
+  - component: {fileID: 8374142273528409852}
+  m_Layer: 0
+  m_Name: Red (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &59425665596949191
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4624319202660662046}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8594880708074727376}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.000030517578, y: 0.0000038146973}
+  m_SizeDelta: {x: 6, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6879211564629970243
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4624319202660662046}
+  m_CullTransparentMesh: 1
+--- !u!114 &8374142273528409852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4624319202660662046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: a531f7d47d59e2843aa3f7aa13fe6e35, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
 --- !u!1 &5077825767412545961
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,7 +397,7 @@ GameObject:
   - component: {fileID: 3444837331691663718}
   - component: {fileID: 998849709511782897}
   - component: {fileID: 2075210271716017409}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,8 +444,8 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: a531f7d47d59e2843aa3f7aa13fe6e35, type: 2}
-  m_Color: {r: 0.44705883, g: 0, b: 0, a: 1}
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -572,7 +647,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 5548020722153965198, guid: 3a1f8a72e8a22514f94efcb58d71a532, type: 3}
-  type: 2
   gm: {fileID: 9079459042214660731, guid: 0ca524db14217f245878c82f2047a21d, type: 3}
   selected: 0
   target: {fileID: 0}
