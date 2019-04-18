@@ -10,6 +10,7 @@ public class generateSelection : MonoBehaviour
     public GameObject gameManager;
     public GameObject prefab;
     public GameObject up, down,text;
+    public List<Sprite> images;
 
     [HideInInspector]
     public bool change = false;
@@ -57,6 +58,22 @@ public class generateSelection : MonoBehaviour
                 GameObject ui = Instantiate(prefab, transform);
                ui.GetComponent<RectTransform>().anchoredPosition = new Vector2(59 + 83 * (j % 5), -52 - 84 * (j / 5));
                 ui.GetComponent<PanelInterface>().selection = this.gameObject;
+
+                switch (selected[i].GetComponent<UnitStats>().troop)
+                {
+                    case UnitStats.Troops.King:
+                        ui.GetComponent<PanelInterface>().putImage(images[0]);
+                        break;
+                    case UnitStats.Troops.Archer:
+                        ui.GetComponent<PanelInterface>().putImage(images[1]);
+                        break;
+                    case UnitStats.Troops.Infantry:
+                        ui.GetComponent<PanelInterface>().putImage(images[2]);
+                        break;
+
+                }
+               
+
                 selectionMenu.Add(ui);
                
                 if (i%10 == 9)

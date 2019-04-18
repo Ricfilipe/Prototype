@@ -16,6 +16,7 @@ public class PanelInterface:MonoBehaviour
     {
         this.hp = HPBar.GetComponent<MenuHPBar>();
         this.GetComponent<Button>().onClick.AddListener(click);
+        
     }
 
     private void click() {
@@ -26,4 +27,11 @@ public class PanelInterface:MonoBehaviour
     {
         hp.updateBar(unit);
     }
+
+    public void putImage(Sprite image)
+    {
+        potrait.GetComponent<Image>().sprite = image;
+    }
+
+
 }

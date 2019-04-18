@@ -13811,9 +13811,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2917647796646162275, guid: 9ae0e6f8a88edea49afef308b47d92e1,
         type: 3}
+      propertyPath: images.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917647796646162275, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+        type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 954410206}
+    - target: {fileID: 2917647796646162275, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+        type: 3}
+      propertyPath: images.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 35a5b9219e850b94a8d0ab14e5f22369,
+        type: 3}
+    - target: {fileID: 2917647796646162275, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+        type: 3}
+      propertyPath: images.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: e726529e2bbcc134fbec7f58aef3dd53,
+        type: 3}
+    - target: {fileID: 2917647796646162275, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+        type: 3}
+      propertyPath: images.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: ff73731b532575245be5457ddebdb9f6,
+        type: 3}
     - target: {fileID: 2917647794994776975, guid: 9ae0e6f8a88edea49afef308b47d92e1,
         type: 3}
       propertyPath: m_Sprite
