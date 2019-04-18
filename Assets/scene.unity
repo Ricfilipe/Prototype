@@ -13506,11 +13506,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2917647796069489785, guid: 9ae0e6f8a88edea49afef308b47d92e1,
-        type: 3}
-      propertyPath: m_ScreenMatchMode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2917647795582412295, guid: 9ae0e6f8a88edea49afef308b47d92e1,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -13535,6 +13530,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 223.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917647796069489785, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+        type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2917647796646162275, guid: 9ae0e6f8a88edea49afef308b47d92e1,
         type: 3}
@@ -13630,7 +13630,7 @@ PrefabInstance:
     - target: {fileID: 5548020722152383334, guid: 3a1f8a72e8a22514f94efcb58d71a532,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -134
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5548020722152383334, guid: 3a1f8a72e8a22514f94efcb58d71a532,
         type: 3}
@@ -13640,7 +13640,7 @@ PrefabInstance:
     - target: {fileID: 5548020722152383334, guid: 3a1f8a72e8a22514f94efcb58d71a532,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -55.399994
+      value: 19.2
       objectReference: {fileID: 0}
     - target: {fileID: 5548020722152383334, guid: 3a1f8a72e8a22514f94efcb58d71a532,
         type: 3}
@@ -13704,6 +13704,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
+        type: 3}
+      propertyPath: myCharacterPool.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
+        type: 3}
+      propertyPath: selectionMenu
+      value: 
+      objectReference: {fileID: 1651150523}
+    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
+        type: 3}
+      propertyPath: Base
+      value: 
+      objectReference: {fileID: 788702165}
+    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
+        type: 3}
+      propertyPath: selectSquareImage
+      value: 
+      objectReference: {fileID: 100126941}
+    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
+        type: 3}
+      propertyPath: silverText
+      value: 
+      objectReference: {fileID: 180442505}
+    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
+        type: 3}
+      propertyPath: myCharacterPool.Array.data[0]
+      value: 
+      objectReference: {fileID: 392364198}
+    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
+        type: 3}
+      propertyPath: myCharacterPool.Array.data[1]
+      value: 
+      objectReference: {fileID: 255778028}
     - target: {fileID: 9079459042214660677, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13759,40 +13794,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: myCharacterPool.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: selectionMenu
-      value: 
-      objectReference: {fileID: 1651150523}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: Base
-      value: 
-      objectReference: {fileID: 788702165}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: selectSquareImage
-      value: 
-      objectReference: {fileID: 100126941}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: silverText
-      value: 
-      objectReference: {fileID: 180442505}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: myCharacterPool.Array.data[0]
-      value: 
-      objectReference: {fileID: 392364198}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: myCharacterPool.Array.data[1]
-      value: 
-      objectReference: {fileID: 255778028}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ca524db14217f245878c82f2047a21d, type: 3}

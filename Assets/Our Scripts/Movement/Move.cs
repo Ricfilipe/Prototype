@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Move : UnitAction
 {
-    public Move(GameObject enemy, GameObject go) : base(enemy, go)
+    public Move(GameObject enemy, GameObject go, GameManager gm) : base(enemy, go, gm)
     {
     }
 
-    public Move(Vector3 targetPos, GameObject go) : base(targetPos, go)
+    public Move(Vector3 targetPos, GameObject go, GameManager gm) : base(targetPos, go, gm)
     {
     }
 

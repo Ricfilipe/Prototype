@@ -9,20 +9,23 @@ public abstract class UnitAction
     protected GameObject targetEnemy;
     protected NavMeshAgent agent;
     protected UnitStats unitStast;
+    protected GameManager gm;
 
-    public UnitAction(GameObject enemy,GameObject go)
+    public UnitAction(GameObject enemy,GameObject go,GameManager gm)
     {
         this.targetEnemy = enemy;
         this.agent = go.GetComponent<NavMeshAgent>();
         this.unitStast = go.GetComponent<UnitStats>();
+        this.gm = gm;
     }
 
-    public UnitAction(Vector3 targetPos, GameObject go)
+    public UnitAction(Vector3 targetPos, GameObject go, GameManager gm)
     {
         this.targetEnemy = null;
         this.targetPosition = targetPos;
         this.agent = go.GetComponent<NavMeshAgent>();
-        this.unitStast = go.GetComponent<UnitStats>(); 
+        this.unitStast = go.GetComponent<UnitStats>();
+        this.gm = gm;
     }
 
 

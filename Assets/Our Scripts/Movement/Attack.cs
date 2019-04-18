@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Attack : UnitAction
 {
-    public Attack(GameObject enemy, GameObject go) : base(enemy, go)
+    public Attack(GameObject enemy, GameObject go, GameManager gm) : base(enemy, go, gm)
     {
     }
 
-    public Attack(Vector3 targetPos, GameObject go) : base(targetPos, go)
+    public Attack(Vector3 targetPos, GameObject go,GameManager gm) : base(targetPos, go,gm)
     {
     }
 

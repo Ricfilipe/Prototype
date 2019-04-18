@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
     {
         Move,
         Normal,
-        Attack
+        Attack,
+        Stop
     }
 
     [SerializeField]
@@ -309,51 +310,79 @@ public class GameManager : MonoBehaviour
             case typeAction.Normal:
                 foreach (GameObject go in this.knightSelected)
                 {
-                    go.GetComponent<MovementManager>().currentAction = new Normal(target, go);
+                    go.GetComponent<MovementManager>().currentAction = new Normal(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
 
                 }
                 foreach (GameObject go in this.archerSelected)
                 {
-                    go.GetComponent<MovementManager>().currentAction = new Normal(target, go);
+                    go.GetComponent<MovementManager>().currentAction = new Normal(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
 
                 }
                 if (King != null)
                 {
-                    King.GetComponent<MovementManager>().currentAction = new Normal(target, King);
+                    King.GetComponent<MovementManager>().currentAction = new Normal(target, King, this);
+                    King.GetComponent<MovementManager>().currentAction.Start();
                 }
                 break;
 
             case typeAction.Attack:
                 foreach (GameObject go in this.knightSelected)
                 {
-                    go.GetComponent<MovementManager>().currentAction = new Attack(target, go);
+                    go.GetComponent<MovementManager>().currentAction = new Attack(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
 
                 }
                 foreach (GameObject go in this.archerSelected)
                 {
-                    go.GetComponent<MovementManager>().currentAction = new Attack(target, go);
+                    go.GetComponent<MovementManager>().currentAction = new Attack(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
 
                 }
                 if (King != null)
                 {
-                    King.GetComponent<MovementManager>().currentAction = new Attack(target, King);
+                    King.GetComponent<MovementManager>().currentAction = new Attack(target, King, this);
+                    King.GetComponent<MovementManager>().currentAction.Start();
                 }
                 break;
 
             case typeAction.Move:
                 foreach (GameObject go in this.knightSelected)
                 {
-                    go.GetComponent<MovementManager>().currentAction = new Move(target, go);
+                    go.GetComponent<MovementManager>().currentAction = new Move(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
 
                 }
                 foreach (GameObject go in this.archerSelected)
                 {
-                    go.GetComponent<MovementManager>().currentAction = new Move(target, go);
+                    go.GetComponent<MovementManager>().currentAction = new Move(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
 
                 }
                 if (King != null)
                 {
-                    King.GetComponent<MovementManager>().currentAction = new Move(target, King);
+                    King.GetComponent<MovementManager>().currentAction = new Move(target, King, this);
+                    King.GetComponent<MovementManager>().currentAction.Start();
+                }
+                break;
+            case typeAction.Stop:
+                foreach (GameObject go in this.knightSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Stop(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
+
+                }
+                foreach (GameObject go in this.archerSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Stop(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
+
+                }
+                if (King != null)
+                {
+                    King.GetComponent<MovementManager>().currentAction = new Stop(target, King, this);
+                    King.GetComponent<MovementManager>().currentAction.Start();
                 }
                 break;
 
@@ -361,63 +390,91 @@ public class GameManager : MonoBehaviour
     }
 
     public void makeAction(GameObject target, typeAction type)
+    {
+        switch (type)
         {
-            switch (type)
-            {
-                case typeAction.Normal:
-                    foreach (GameObject go in this.knightSelected)
-                    {
-                        go.GetComponent<MovementManager>().currentAction = new Normal(target, go);
+            case typeAction.Normal:
+                foreach (GameObject go in this.knightSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Normal(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
+                }
+                foreach (GameObject go in this.archerSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Normal(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
 
-                    }
-                    foreach (GameObject go in this.archerSelected)
-                    {
-                        go.GetComponent<MovementManager>().currentAction = new Normal(target, go);
+                }
+                if (King != null)
+                {
+                    King.GetComponent<MovementManager>().currentAction = new Normal(target, King, this);
+                    King.GetComponent<MovementManager>().currentAction.Start();
+                }
+                break;
 
-                    }
-                    if (King != null)
-                    {
-                        King.GetComponent<MovementManager>().currentAction = new Normal(target, King);
-                    }
-                    break;
+            case typeAction.Attack:
+                foreach (GameObject go in this.knightSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Attack(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
 
-                case typeAction.Attack:
-                    foreach (GameObject go in this.knightSelected)
-                    {
-                        go.GetComponent<MovementManager>().currentAction = new Attack(target, go);
+                }
+                foreach (GameObject go in this.archerSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Attack(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
 
-                    }
-                    foreach (GameObject go in this.archerSelected)
-                    {
-                        go.GetComponent<MovementManager>().currentAction = new Attack(target, go);
+                }
+                if (King != null)
+                {
+                    King.GetComponent<MovementManager>().currentAction = new Attack(target, King, this);
+                    King.GetComponent<MovementManager>().currentAction.Start();
+                }
+                break;
 
-                    }
-                    if (King != null)
-                    {
-                        King.GetComponent<MovementManager>().currentAction = new Attack(target, King);
-                    }
-                    break;
+            case typeAction.Move:
+                foreach (GameObject go in this.knightSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Move(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
 
-                case typeAction.Move:
-                    foreach (GameObject go in this.knightSelected)
-                    {
-                        go.GetComponent<MovementManager>().currentAction = new Move(target, go);
+                }
+                foreach (GameObject go in this.archerSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Move(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
 
-                    }
-                    foreach (GameObject go in this.archerSelected)
-                    {
-                        go.GetComponent<MovementManager>().currentAction = new Move(target, go);
+                }
+                if (King != null)
+                {
+                    King.GetComponent<MovementManager>().currentAction = new Move(target, King, this);
+                    King.GetComponent<MovementManager>().currentAction.Start();
+                }
+                break;
 
-                    }
-                    if (King != null)
-                    {
-                        King.GetComponent<MovementManager>().currentAction = new Move(target, King);
-                    }
-                    break;
+            case typeAction.Stop:
+                foreach (GameObject go in this.knightSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Stop(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
 
-            }
+                }
+                foreach (GameObject go in this.archerSelected)
+                {
+                    go.GetComponent<MovementManager>().currentAction = new Stop(target, go, this);
+                    go.GetComponent<MovementManager>().currentAction.Start();
 
-        } 
+                }
+                if (King != null)
+                {
+                    King.GetComponent<MovementManager>().currentAction = new Stop(target, King, this);
+                    King.GetComponent<MovementManager>().currentAction.Start();
+                }
+                break;
+
+        }
+
+    }
 
     public static bool shiftKeysDown()
     {
