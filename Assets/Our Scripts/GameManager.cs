@@ -191,13 +191,29 @@ public class GameManager : MonoBehaviour
     //TODO Alterar para adicionar ao sitio certo
     public void addToSelection( RaycastHit hit) {
         hit.collider.GetComponent<MovementManager>().selected = true;
-        archerSelected.Add(hit.collider.gameObject);
+        addToSelection(hit.collider.gameObject);
     }
 
     //TODO Alterar para adicionar ao sitio certo
     public void addToSelection(GameObject go)
     {
-        archerSelected.Add(go);
+
+        Troops type = go.GetComponent<UnitStats>().troop;
+        switch (type)
+        {
+            case Troops.Archer:
+                archerSelected.Add(go);
+                break;
+
+            case Troops.Infantry:
+                knightSelected.Add(go);
+                break;
+
+            case Troops.King:
+                King = go;
+                break;
+        }
+        
 
         go.GetComponent<MovementManager>().selected = true;
     }
@@ -231,21 +247,7 @@ public class GameManager : MonoBehaviour
 
         foreach (GameObject go in list)
         {
-            Troops type = go.GetComponent<UnitStats>().troop;
-            switch(type)          
-            {
-                case Troops.Archer:
-                archerSelected.Add(go);
-                    break;
-
-                case Troops.Infantry:
-                knightSelected.Add(go);
-                    break;
-
-                case Troops.King:
-                    King =go;
-                break;
-            }
+            addToSelection(go);
         }
     }
 

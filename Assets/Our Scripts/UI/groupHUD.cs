@@ -24,9 +24,15 @@ public class groupHUD : MonoBehaviour
     {
         for(int i = 0; i<gm.groups.Length; i++)
         {
-            if (gm.groups[i] != null || gm.groups[i].Count != 0)
+            if (gm.groups[i] != null )
             {
-                buttons[i].active = true;
+                if (gm.groups[i].Count != 0)
+                {
+                    buttons[i].active = true;
+                }
+                else {
+                    buttons[i].active = false;
+                }
 
             }
             else {
