@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         selectSquareImage.gameObject.SetActive(false);
+        Base.GetComponent<Outline>().enabled = false;
     }
 
     // Update is called once per frame
@@ -92,6 +93,15 @@ public class GameManager : MonoBehaviour
                     {
                         clearSelection();
                         addToSelection(hit);
+                        baseSelected = false;
+                        Base.GetComponent<Outline>().enabled = false;
+                    }
+                    else if (hit.collider.tag == "Base")
+                    {
+                       
+                        baseSelected = true;
+                        Base.GetComponent<Outline>().enabled = true;
+                        clearSelection();
                     }
                 }
 
@@ -107,6 +117,8 @@ public class GameManager : MonoBehaviour
                     {
                         if (count == 0) {
                             clearSelection();
+                            baseSelected = false;
+                            Base.GetComponent<Outline>().enabled = false;
                             count++;
                         }
                         addToSelection(go);
@@ -188,13 +200,12 @@ public class GameManager : MonoBehaviour
     }
 
 
-    //TODO Alterar para adicionar ao sitio certo
+
     public void addToSelection( RaycastHit hit) {
         hit.collider.GetComponent<MovementManager>().selected = true;
         addToSelection(hit.collider.gameObject);
     }
 
-    //TODO Alterar para adicionar ao sitio certo
     public void addToSelection(GameObject go)
     {
 
@@ -219,10 +230,24 @@ public class GameManager : MonoBehaviour
     }
 
 
-    //TODO Alterar remover do sitio certo
     public void removeFromSelection(GameObject go)
     {
-        archerSelected.Remove(go);
+
+        Troops type = go.GetComponent<UnitStats>().troop;
+        switch (type)
+        {
+            case Troops.Archer:
+                archerSelected.Remove(go);
+                break;
+
+            case Troops.Infantry:
+                knightSelected.Remove(go);
+                break;
+
+            case Troops.King:
+                King = null;
+                break;
+        }
         selectionMenu.GetComponent<generateSelection>().change = true;
         go.GetComponent<MovementManager>().selected = false;
     }

@@ -44,10 +44,10 @@ public class displayHud : MonoBehaviour
             if (gm.King != null) {
                 this.description.text = this.description.text + "King: 1\n";
             }
-            if(gm.archerSelected.Count > 1) {
+            if(gm.archerSelected.Count >= 1) {
                 this.description.text = this.description.text + "Archer: "+ gm.archerSelected.Count + "\n";
             }
-            if (gm.knightSelected.Count > 1)
+            if (gm.knightSelected.Count >= 1)
             {
                 this.description.text = this.description.text + "Men-At-Arms: " + gm.knightSelected.Count + "\n";
             }

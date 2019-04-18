@@ -64,7 +64,7 @@ public class ActionMenu : MonoBehaviour
                 {
                     actionButtons[0].interactable = true;
                     actionButtons[0].onClick.AddListener(buyKnight);
-                    
+
                 }
                 else
                 {
@@ -75,7 +75,7 @@ public class ActionMenu : MonoBehaviour
                 {
                     actionButtons[1].interactable = true;
                     actionButtons[1].onClick.AddListener(buyArcher);
-                    
+
                 }
                 else
                 {
@@ -91,6 +91,7 @@ public class ActionMenu : MonoBehaviour
         }
         else if (gm.archerSelected.Count > 0 || gm.knightSelected.Count > 0 || gm.King != null)
         {
+            upgradeMenu = false;
             actions[0].GetComponentInChildren<Text>().text = "Attack";
             actions[1].GetComponentInChildren<Text>().text = "Stop";
             actions[2].GetComponentInChildren<Text>().text = "Move";
@@ -103,7 +104,8 @@ public class ActionMenu : MonoBehaviour
 
 
 
-            if (gm.archerSelected.Count > 0) {
+            if (gm.archerSelected.Count > 0)
+            {
                 actions[3].GetComponentInChildren<Text>().text = "Make it Rain";
                 actionButtons[3].interactable = true;
                 actionButtons[3].onClick.AddListener(archerAbility);
@@ -111,7 +113,8 @@ public class ActionMenu : MonoBehaviour
 
 
 
-            if (gm.King != null) {
+            if (gm.King != null)
+            {
                 actions[5].GetComponentInChildren<Text>().text = "For the King";
                 actionButtons[5].interactable = true;
                 actionButtons[5].onClick.AddListener(archerAbility);
@@ -122,7 +125,13 @@ public class ActionMenu : MonoBehaviour
             actionButtons[7].interactable = true;
             actionButtons[7].onClick.AddListener(selectBase);
             actions[7].GetComponentInChildren<Text>().text = "BASE";
+            
 
+        }
+        else {
+            actionButtons[7].interactable = true;
+            actionButtons[7].onClick.AddListener(selectBase);
+            actions[7].GetComponentInChildren<Text>().text = "BASE";
         }
 
         
@@ -186,6 +195,7 @@ public class ActionMenu : MonoBehaviour
     public void selectBase()
     {
         gm.baseSelected = true;
+        gm.clearSelection();
     }
 
 

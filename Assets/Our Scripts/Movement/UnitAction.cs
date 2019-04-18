@@ -14,7 +14,7 @@ public abstract class UnitAction
     {
         this.targetEnemy = enemy;
         this.agent = go.GetComponent<NavMeshAgent>();
-        this.unitStast = null; //TODO
+        this.unitStast = go.GetComponent<UnitStats>();
     }
 
     public UnitAction(Vector3 targetPos, GameObject go)
@@ -22,7 +22,7 @@ public abstract class UnitAction
         this.targetEnemy = null;
         this.targetPosition = targetPos;
         this.agent = go.GetComponent<NavMeshAgent>();
-        this.unitStast = null; //TODO
+        this.unitStast = go.GetComponent<UnitStats>(); 
     }
 
 

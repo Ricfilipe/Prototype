@@ -21,7 +21,7 @@ public class Normal : UnitAction
         {
 
             agent.destination = targetEnemy.transform.position;
-            agent.stoppingDistance = 1.0f; //alterar isto para 
+            agent.stoppingDistance = unitStast.range;
         }
         else
         {
