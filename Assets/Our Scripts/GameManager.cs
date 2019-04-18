@@ -214,18 +214,14 @@ public class GameManager : MonoBehaviour
     public void addGroup(int index)
     {
         List<GameObject> list = new List<GameObject>();
-        foreach (GameObject go in archerSelected)
-        {
-            list.Add(go);
-        }
-        foreach (GameObject go in knightSelected)
-        {
-            list.Add(go);
-        }
+        list.AddRange(archerSelected);
+        list.AddRange(knightSelected);
+
         if (King != null)
         {
             list.Add(King);
         }
+
         groups[index]=list;
     }
 
@@ -235,17 +231,20 @@ public class GameManager : MonoBehaviour
 
         foreach (GameObject go in list)
         {
-            if (go.GetComponent<UnitStats>().troop == Troops.Archer)
+            Troops type = go.GetComponent<UnitStats>().troop;
+            switch(type)          
             {
+                case Troops.Archer:
                 archerSelected.Add(go);
-            }
-            else if (go.GetComponent<UnitStats>().troop == Troops.Infantry)
-            {
+                    break;
+
+                case Troops.Infantry:
                 knightSelected.Add(go);
-            } 
-            else if (go.GetComponent<UnitStats>().troop == Troops.King)
-            {
-                King=go;
+                    break;
+
+                case Troops.King:
+                    King =go;
+                break;
             }
         }
     }
