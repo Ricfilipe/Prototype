@@ -91,17 +91,34 @@ public class GameManager : MonoBehaviour
 
                     if (hit.collider.tag == "MyUnit")
                     {
-                        clearSelection();
-                        addToSelection(hit);
-                        baseSelected = false;
-                        Base.GetComponent<Outline>().enabled = false;
+                        if (shiftKeysDown())
+                        {
+                            addToSelection(hit);
+                            baseSelected = false;
+                            Base.GetComponent<Outline>().enabled = false;
+                        }
+                        else
+                        {
+                            clearSelection();
+                            addToSelection(hit);
+                            baseSelected = false;
+                            Base.GetComponent<Outline>().enabled = false;
+                        }
                     }
                     else if (hit.collider.tag == "Base")
                     {
-                       
-                        baseSelected = true;
-                        Base.GetComponent<Outline>().enabled = true;
-                        clearSelection();
+                        if (shiftKeysDown())
+                        {
+                            baseSelected = true;
+                            Base.GetComponent<Outline>().enabled = true;
+                            
+                        }
+                        else
+                        {
+                            clearSelection();
+                            baseSelected = true;
+                            Base.GetComponent<Outline>().enabled = true;
+                        }
                     }
                 }
 
@@ -116,10 +133,19 @@ public class GameManager : MonoBehaviour
                     if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.transform.position), true))
                     {
                         if (count == 0) {
-                            clearSelection();
-                            baseSelected = false;
-                            Base.GetComponent<Outline>().enabled = false;
-                            count++;
+                            if (shiftKeysDown())
+                            {
+                                baseSelected = false;
+                                Base.GetComponent<Outline>().enabled = false;
+                                count++;
+                            }
+                            else
+                            {
+                                clearSelection();
+                                baseSelected = false;
+                                Base.GetComponent<Outline>().enabled = false;
+                                count++;
+                            }
                         }
                         addToSelection(go);
                     }
@@ -392,6 +418,18 @@ public class GameManager : MonoBehaviour
             }
 
         } 
+
+    public static bool shiftKeysDown()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 
 }
