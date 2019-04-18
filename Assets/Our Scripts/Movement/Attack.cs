@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Attack : UnitAction
 {
@@ -12,14 +13,39 @@ public class Attack : UnitAction
     {
     }
 
+    
+
     public override void Start()
     {
-        throw new System.NotImplementedException();
+       
+        agent.GetComponent<NavMeshAgent>().isStopped = false;
+        agent.destination = targetPosition;
+        agent.stoppingDistance = 0f;
     }
 
     public override void Update()
     {
-        throw new System.NotImplementedException();
+        if (targetEnemy == null)
+        {
+            float min = agent.GetComponent<UnitStats>().range;
+            foreach (GameObject enemy in gm.enemyPool)
+            {
+                float tempMin = (enemy.transform.position - agent.transform.position).magnitude;
+                if (tempMin <= min)
+                {
+                    min = tempMin;
+                    targetEnemy = enemy;
+                }
+
+            }
+
+
+        }
+        if (targetEnemy != null)
+        {
+            agent.destination = targetEnemy.transform.position;
+            agent.stoppingDistance = unitStast.range;
+        }
     }
 
 }

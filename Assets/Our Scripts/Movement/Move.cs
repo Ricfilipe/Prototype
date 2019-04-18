@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Move : UnitAction
 {
@@ -14,12 +15,24 @@ public class Move : UnitAction
 
     public override void Start()
     {
-        throw new System.NotImplementedException();
+        agent.GetComponent<NavMeshAgent>().isStopped = false;
+        agent.GetComponent<MovementManager>().target = null;
     }
 
     public override void Update()
     {
-        throw new System.NotImplementedException();
+        if (targetEnemy != null)
+        {
+
+            agent.destination = targetEnemy.transform.position;
+            agent.stoppingDistance = 0f;
+        }
+        else
+        {
+
+            agent.destination = targetPosition;
+            agent.stoppingDistance = 0f;
+        }
     }
 
 }

@@ -11,14 +11,14 @@ public class Normal : UnitAction
 
     public override void Start()
     {
-        agent.GetComponent<NavMeshAgent>().isStopped = true;
+        agent.GetComponent<NavMeshAgent>().isStopped = false;
         agent.GetComponent<MovementManager>().target = targetEnemy;
         
     }
 
     public override void Update()
     {
-        agent.isStopped = false;
+        
         if (targetEnemy != null)
         {
           

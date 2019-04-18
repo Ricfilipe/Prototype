@@ -9,6 +9,7 @@ using static UnitStats;
 public class GameManager : MonoBehaviour
 {
     public List<GameObject> myCharacterPool = new List<GameObject>();
+    public List<GameObject> enemyPool = new List<GameObject>();
     [HideInInspector]
     public List<GameObject>[] groups = new List<GameObject>[10];
     public GameObject selectionMenu;
