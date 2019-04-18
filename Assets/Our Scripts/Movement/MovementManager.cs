@@ -9,6 +9,7 @@ public class MovementManager : MonoBehaviour
     [SerializeField]
     public Camera cam;
     private UnitStats myUnitStats;
+    [HideInInspector]
     public GameObject gm;
 
     [HideInInspector]
@@ -25,6 +26,7 @@ public class MovementManager : MonoBehaviour
 
     void Start()
     {
+        this.gm = GameObject.FindGameObjectsWithTag("GameManager")[0];
         gm.GetComponent<GameManager>().myCharacterPool.Add(gameObject); 
 
         this.myUnitStats = GetComponent<UnitStats>();
