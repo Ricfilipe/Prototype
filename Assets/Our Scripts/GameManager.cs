@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnitStats;
 
 public class GameManager : MonoBehaviour
 {
     public List<GameObject> myCharacterPool = new List<GameObject>();
+    [HideInInspector]
+    public List<GameObject>[] groups = new List<GameObject>[10];
     public GameObject selectionMenu;
     [HideInInspector]
     public List<GameObject> knightSelected, archerSelected;
@@ -206,6 +209,45 @@ public class GameManager : MonoBehaviour
         archerSelected.Remove(go);
         selectionMenu.GetComponent<generateSelection>().change = true;
         go.GetComponent<MovementManager>().selected = false;
+    }
+
+    public void addGroup(int index)
+    {
+        List<GameObject> list = new List<GameObject>();
+        foreach (GameObject go in archerSelected)
+        {
+            list.Add(go);
+        }
+        foreach (GameObject go in knightSelected)
+        {
+            list.Add(go);
+        }
+        if (King != null)
+        {
+            list.Add(King);
+        }
+        groups[index]=list;
+    }
+
+    public void selectGroup(int index)
+    {
+        List<GameObject> list = groups[index];
+
+        foreach (GameObject go in list)
+        {
+            if (go.GetComponent<UnitStats>().troop == Troops.Archer)
+            {
+                archerSelected.Add(go);
+            }
+            else if (go.GetComponent<UnitStats>().troop == Troops.Infantry)
+            {
+                knightSelected.Add(go);
+            } 
+            else if (go.GetComponent<UnitStats>().troop == Troops.King)
+            {
+                King=go;
+            }
+        }
     }
 
     public void makeAction(Vector3 target, typeAction type)
