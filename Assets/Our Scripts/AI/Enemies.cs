@@ -38,6 +38,8 @@ public abstract class Enemies : MonoBehaviour
     private float degreeAngle;
     protected int ch = -1;
 
+    [Header("Silver stats")]
+    int silverDropped = 0;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -176,6 +178,15 @@ public abstract class Enemies : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(center, detectUnitsRadius);
+    }
+
+    public void DropSilver()
+    {
+        if (silverDropped == 0)
+        {
+            gm.AddSilver(Random.Range(50, 100));
+            silverDropped = 1;
+        }
     }
 
     /*

@@ -89,10 +89,11 @@ public class MovementManager : MonoBehaviour
             if (target.gameObject.GetComponent<UnitStats>().HP <= 0)
             {
                 gm.GetComponent<GameManager>().enemyPool.Remove(target);
+                target.GetComponent<Enemies>().DropSilver();
                 Destroy(target.transform.parent.gameObject);
                 target = null;
                 attacking = false;
-                gm.GetComponent<GameManager>().AddSilver(50);
+                
             }
         }
     }
