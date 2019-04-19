@@ -25,11 +25,15 @@ public class Normal : UnitAction
             agent.destination = targetEnemy.transform.position;
             agent.stoppingDistance = unitStast.range;
         }
-        else
+        else if (targetPosition.y != -1000)
         {
 
             agent.destination = targetPosition;
             agent.stoppingDistance = 0f;
+        }
+        else
+        {
+            agent.isStopped = true;
         }
 
     }
