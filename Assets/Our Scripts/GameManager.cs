@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool baseSelected=false;
 
+    public GameObject banner;
+
     private GameObject lastClick;
     private float lastTime;
 
@@ -34,7 +36,8 @@ public class GameManager : MonoBehaviour
         Move,
         Normal,
         Attack,
-        Stop
+        Stop,
+        Banner
     }
 
     [SerializeField]
@@ -60,6 +63,8 @@ public class GameManager : MonoBehaviour
     {
         selectSquareImage.gameObject.SetActive(false);
         Base.GetComponent<Outline>().enabled = false;
+        banner.active = false;
+        silver = 1000;
     }
 
     // Update is called once per frame
@@ -94,6 +99,12 @@ public class GameManager : MonoBehaviour
                     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
                     {
 
+                        if(currentAction == typeAction.Banner)
+                        {
+                            banner.transform.position = new Vector3(hit.point.x, banner.transform.position.y, hit.point.z);
+                            changeToNormal();
+
+                        }
                         if (hit.collider.tag == "Enemy")
                         {
                             makeAction(hit.collider.gameObject, currentAction);
@@ -160,6 +171,8 @@ public class GameManager : MonoBehaviour
                                     addOrRemoveFromSelection(hit);
                                     baseSelected = false;
                                     Base.GetComponent<Outline>().enabled = false;
+                                    banner.active = false;
+
                                 }
                                 else
                                 {
@@ -167,6 +180,7 @@ public class GameManager : MonoBehaviour
                                     addToSelection(hit);
                                     baseSelected = false;
                                     Base.GetComponent<Outline>().enabled = false;
+                                    banner.active = false;
                                 }
                             }
                         }
@@ -176,6 +190,7 @@ public class GameManager : MonoBehaviour
                             {
                                 baseSelected = true;
                                 Base.GetComponent<Outline>().enabled = true;
+                                banner.active = true;
 
                             }
                             else
@@ -183,6 +198,7 @@ public class GameManager : MonoBehaviour
                                 clearSelection();
                                 baseSelected = true;
                                 Base.GetComponent<Outline>().enabled = true;
+                                banner.active = true;
                             }
                         }
                     }
@@ -205,6 +221,7 @@ public class GameManager : MonoBehaviour
                                 }
                                 baseSelected = false;
                                 Base.GetComponent<Outline>().enabled = false;
+                                banner.active = false;
                                 count++;
 
                             }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class ActionMenu : MonoBehaviour
@@ -14,6 +15,7 @@ public class ActionMenu : MonoBehaviour
     private bool upgradeMenu;
 
     public GameObject archer;
+    public GameObject knight;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +56,7 @@ public class ActionMenu : MonoBehaviour
                 actionButtons[6].interactable = true;
                 actionButtons[6].onClick.AddListener(backMenu);
                 actions[6].GetComponentInChildren<Text>().text = "<-";
+                upgradeShortcut();
             }
             else
             {
@@ -85,6 +88,11 @@ public class ActionMenu : MonoBehaviour
                 actionButtons[2].interactable = true;
                 actionButtons[2].onClick.AddListener(upgrade);
                 actions[2].GetComponentInChildren<Text>().text = "Upgrades";
+
+                actionButtons[7].interactable = true;
+                actionButtons[7].onClick.AddListener(moveWayPoint);
+                actions[7].GetComponentInChildren<Text>().text = "Waypoint";
+                baseMenuShorcut();
             }
 
 
@@ -125,13 +133,15 @@ public class ActionMenu : MonoBehaviour
             actionButtons[7].interactable = true;
             actionButtons[7].onClick.AddListener(selectBase);
             actions[7].GetComponentInChildren<Text>().text = "BASE";
-            
+            baseShortcut();
+
 
         }
         else {
             actionButtons[7].interactable = true;
             actionButtons[7].onClick.AddListener(selectBase);
             actions[7].GetComponentInChildren<Text>().text = "BASE";
+            baseShortcut();
         }
 
         
@@ -170,14 +180,23 @@ public class ActionMenu : MonoBehaviour
     }
 
     public void buyKnight() {
-        //TODO
+        if (gm.silver >= 150)
+        {
+            gm.silver = gm.silver - 150;
+            GameObject go = Instantiate(knight);
+            spawn(go);
+        }
     }
 
 
     public void buyArcher()
     {
-       GameObject go = Instantiate(archer);
-        go.GetComponent<MovementManager>().gm = this.gameManager;
+        if (gm.silver >= 200)
+        {
+            gm.silver = gm.silver - 200;
+            GameObject go = Instantiate(archer);
+            spawn(go);
+        }
     }
 
 
@@ -195,6 +214,8 @@ public class ActionMenu : MonoBehaviour
     public void selectBase()
     {
         gm.baseSelected = true;
+        gm.Base.GetComponent<Outline>().enabled = true;
+        gm.banner.active = true;
         gm.clearSelection();
     }
 
@@ -210,8 +231,87 @@ public class ActionMenu : MonoBehaviour
         }
     }
 
+    private void spawn(GameObject go)
+    {
+        go.transform.position=new Vector3(196.4982f, 0  , -2.590393f);
+        go.GetComponentInChildren<NavMeshAgent>().destination = gm.banner.transform.position;
+    }
+
+    private void moveWayPoint()
+    {
+        gm.currentAction = GameManager.typeAction.Banner;
+    }
+
+    private void baseShortcut()
+    {
+        if (Input.GetKey(KeyCode.B))
+        {
+            selectBase();
+        }
+
+    }
+
+    private void baseMenuShorcut()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            buyArcher();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            buyKnight();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            upgrade();
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            moveWayPoint();
+        }
+
+    }
 
 
+    private void upgradeShortcut()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            //TODO
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            //TODO
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            //TODO
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            //TODO
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            //TODO
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            //TODO
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            backMenu();
+        }
+
+
+    }
 
 
 }
