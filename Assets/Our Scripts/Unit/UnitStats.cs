@@ -9,7 +9,7 @@ public class UnitStats : MonoBehaviour
     [HideInInspector]
     public int MaxHP, HP,AD;
     [HideInInspector]
-    public static int InfantryMaxHP, InfantryAD, ArcherMaxHP, ArcherAD, InfantrySpeed, ArcherSpeed;
+    public static int InfantryMaxHP = 6, InfantryAD=3, ArcherMaxHP=4, ArcherAD=2, InfantrySpeed= 4, ArcherSpeed=3;
     [HideInInspector]
     public static int[] knightLevel = { 0, 0, 0 };
     [HideInInspector]
@@ -44,21 +44,15 @@ public class UnitStats : MonoBehaviour
     			switch(troop)
     			{
     				case Troops.Infantry:
-    					InfantrySpeed=4;
 	    				this.range=1.5f;
 	    				this.size=5;
-	    				InfantryMaxHP=6;
-	    				this.HP=6;
-	    				InfantryAD=3;
+	    				this.HP= InfantryMaxHP;
 	    				break;
 
 	    			case Troops.Archer:
-	    				ArcherSpeed=3;
 	    				this.range=10;
-	    				this.size=4;
-	    				ArcherMaxHP=4;
-	    				this.HP=4;
-	    				ArcherAD=2;
+	    				this.size=4;	    				
+	    				this.HP=ArcherMaxHP;
 	    				break;
 
 	    			case Troops.King:

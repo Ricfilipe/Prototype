@@ -17,6 +17,15 @@ public class ActionMenu : MonoBehaviour
     public GameObject archer;
     public GameObject knight;
 
+    //static upgrade Knight costs
+    private static int costKnightHPUpgrade = 150;
+    private static int costKnightADUpgrade = 250;
+    private static int costKnightSpeedUpgrade = 200;
+    //static upgrade Archer costs
+    private static int costArcherHPUpgrade = 200;
+    private static int costArcherADUpgrade = 150;
+    private static int costArcherSpeedUpgrade = 100;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,28 +44,49 @@ public class ActionMenu : MonoBehaviour
             if (upgradeMenu)
             {
                 //Menu para os Updgrades
-                actions[0].GetComponentInChildren<Text>().text = "Knight HP\n$"+(150+UnitStats.knightLevel[0]*100);
-                actions[1].GetComponentInChildren<Text>().text = "Knight Attack\n$"+(250+UnitStats.knightLevel[1]*100);
-                actions[2].GetComponentInChildren<Text>().text = "Knight Speed\n$"+(200+UnitStats.knightLevel[2]*100);
+                actions[0].GetComponentInChildren<Text>().text = "Knight HP\n$"+(costKnightHPUpgrade + UnitStats.knightLevel[0]*100);
+                actions[1].GetComponentInChildren<Text>().text = "Knight Attack\n$"+(costKnightADUpgrade + UnitStats.knightLevel[1]*100);
+                actions[2].GetComponentInChildren<Text>().text = "Knight Speed\n$"+(costKnightSpeedUpgrade + UnitStats.knightLevel[2]*100);
 
-                actions[3].GetComponentInChildren<Text>().text = "Archer HP\n$"+(200+UnitStats.archerLevel[0]*100);
-                actions[4].GetComponentInChildren<Text>().text = "Archer Attack\n$"+(150+UnitStats.archerLevel[1]*100);
-                actions[5].GetComponentInChildren<Text>().text = "Archer Speed\n$"+(100+UnitStats.archerLevel[2]*100);
+                actions[3].GetComponentInChildren<Text>().text = "Archer HP\n$"+(costArcherHPUpgrade + UnitStats.archerLevel[0]*100);
+                actions[4].GetComponentInChildren<Text>().text = "Archer Attack\n$"+(costArcherADUpgrade + UnitStats.archerLevel[1]*100);
+                actions[5].GetComponentInChildren<Text>().text = "Archer Speed\n$"+(costArcherSpeedUpgrade + UnitStats.archerLevel[2]*100);
+
+                if(gm.silver>= costKnightHPUpgrade + UnitStats.knightLevel[0] * 100)
+                {
+                    actionButtons[0].interactable = true;
+                    actionButtons[0].onClick.AddListener(knightUpgradeHP);
+                }
+
+                if(gm.silver >= costKnightADUpgrade + UnitStats.knightLevel[0] * 100)
+                {
+                    actionButtons[1].interactable = true;
+                    actionButtons[1].onClick.AddListener(knightUpgradeAttack);       
+                }
+
+                if (gm.silver >= costKnightSpeedUpgrade + UnitStats.knightLevel[2] * 100)
+                {
+                    actionButtons[2].interactable = true;
+                    actionButtons[2].onClick.AddListener(knightUpgradeSpeed);
+                }
 
 
-                //TODO add Listeners
-                actionButtons[0].interactable = true;
-                actionButtons[0].onClick.AddListener(knightUpgradeHP);
-                actionButtons[1].interactable = true;
-                actionButtons[1].onClick.AddListener(knightUpgradeAttack);
-                actionButtons[2].interactable = true;
-                actionButtons[2].onClick.AddListener(knightUpgradeSpeed);
-                actionButtons[3].interactable = true;
-                actionButtons[3].onClick.AddListener(archerUpgradeHP);
-                actionButtons[4].interactable = true;
-                actionButtons[4].onClick.AddListener(archerUpgradeAttack);
-                actionButtons[5].interactable = true;
-                actionButtons[5].onClick.AddListener(archerUpgradeSpeed);
+                if(gm.silver >= costArcherHPUpgrade + UnitStats.knightLevel[0] * 100)
+                {
+                    actionButtons[3].interactable = true;
+                    actionButtons[3].onClick.AddListener(archerUpgradeHP);
+                }
+
+                if(gm.silver >= costArcherADUpgrade + UnitStats.knightLevel[0] * 100)
+                {
+                    actionButtons[4].interactable = true;
+                    actionButtons[4].onClick.AddListener(archerUpgradeAttack);
+                }
+                if (gm.silver >= costArcherSpeedUpgrade + UnitStats.knightLevel[0] * 100)
+                {
+                    actionButtons[5].interactable = true;
+                    actionButtons[5].onClick.AddListener(archerUpgradeSpeed);
+                }
 
 
                 actionButtons[6].interactable = true;
@@ -189,7 +219,7 @@ public class ActionMenu : MonoBehaviour
     public void knightUpgradeAttack()
     {
         
-        if(UnitStats.knightLevel[0]!=3 && gm.silver>= 150 + 100* UnitStats.knightLevel[0])
+        if(UnitStats.knightLevel[0]!=3 && gm.silver>= costKnightADUpgrade + 100* UnitStats.knightLevel[0])
         {
             UnitStats.InfantryAD = UnitStats.InfantryAD + 1;
             UnitStats.knightLevel[0]++;
@@ -199,12 +229,14 @@ public class ActionMenu : MonoBehaviour
 
     public void knightUpgradeHP()
     {
-        if (UnitStats.knightLevel[0] != 3 && gm.silver >= 150 + 100 * UnitStats.knightLevel[0])
+        if (UnitStats.knightLevel[1] != 3 && gm.silver >= costKnightHPUpgrade + 100 * UnitStats.knightLevel[1])
         {
-            UnitStats.InfantryAD = UnitStats.InfantryMaxHP + 2;
+            UnitStats.InfantryMaxHP = UnitStats.InfantryMaxHP + 2;
             foreach(GameObject go in gm.myCharacterPool)
             {
-
+                UnitStats stat = go.GetComponent<UnitStats>();
+                if (stat.troop == UnitStats.Troops.Infantry)
+                    go.GetComponent<UnitStats>().HP = go.GetComponent<UnitStats>().HP + 2;
             }
             UnitStats.knightLevel[1]++;
         }
@@ -212,22 +244,44 @@ public class ActionMenu : MonoBehaviour
 
     public void knightUpgradeSpeed()
     {
-        //TODO
+        if (UnitStats.knightLevel[2] != 3 && gm.silver >= costKnightSpeedUpgrade + 100 * UnitStats.knightLevel[2])
+        {
+            UnitStats.InfantrySpeed = UnitStats.InfantrySpeed + 2;
+            UnitStats.knightLevel[2]++;
+        }
     }
 
     public void archerUpgradeAttack()
     {
-        //TODO
+        if (UnitStats.archerLevel[0] != 3 && gm.silver >= costArcherADUpgrade + 100 * UnitStats.archerLevel[0])
+        {
+            UnitStats.ArcherAD = UnitStats.ArcherAD + 1;
+            UnitStats.archerLevel[2]++;
+        }
     }
 
     public void archerUpgradeHP()
     {
-        //TODO
+        if (UnitStats.archerLevel[1] != 3 && gm.silver >= costArcherHPUpgrade + 100 * UnitStats.archerLevel[1])
+        {
+            UnitStats.ArcherMaxHP = UnitStats.ArcherMaxHP + 2;
+            foreach (GameObject go in gm.myCharacterPool)
+            {
+                UnitStats stat = go.GetComponent<UnitStats>();
+                if (stat.troop == UnitStats.Troops.Archer)
+                    go.GetComponent<UnitStats>().HP = go.GetComponent<UnitStats>().HP + 2;
+            }
+            UnitStats.archerLevel[1]++;
+        }
     }
 
     public void archerUpgradeSpeed()
     {
-        //TODO
+        if (UnitStats.archerLevel[2] != 3 && gm.silver >= costArcherSpeedUpgrade + 100 * UnitStats.archerLevel[2])
+        {
+            UnitStats.ArcherSpeed = UnitStats.ArcherSpeed + 2;
+            UnitStats.archerLevel[2]++;
+        }
     }
 
 
