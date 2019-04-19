@@ -276,24 +276,7 @@ public class GameManager : MonoBehaviour
             changeToMove();           
         }
 
-        /* if (ctrlKeysDown() == true && getNumberKey() != null)
-         {
-             int index = getNumberKey();
-
-             selectGroup(index);
-             Debug.Log("CARREGUEI NO CTRL");
-
-         }
-
-         if (shiftKeysDown() == true && getNumberKey() != null)
-         {
-             int index = getNumberKey();
-             Debug.Log("CARREGUEI NO SHIFT");
-
-             addGroup(index);
-
-         }
-         */
+        getNumberKey();
 
     }
 
@@ -658,62 +641,52 @@ public class GameManager : MonoBehaviour
 
 
 
-    /*public int getNumberKey()
+    public void getNumberKey()
     {
-        int index = 0;
+        
 
         if (Input.GetKey(KeyCode.Alpha1))
         {
-            index = 1;
+            selectGroupAction(0);
         }
         else if (Input.GetKey(KeyCode.Alpha2))
         {
-            index = 2;
-            Debug.Log("CARREGUEI NO 2");
+            selectGroupAction(1);
         }
         else if (Input.GetKey(KeyCode.Alpha3))
         {
-            index = 3;
+            selectGroupAction(2);
         }
         else if (Input.GetKey(KeyCode.Alpha4))
         {
-            index = 4;
+            selectGroupAction(3);
         }
         else if (Input.GetKey(KeyCode.Alpha5))
         {
-            index = 5;
+            selectGroupAction(4);
         }
         else if (Input.GetKey(KeyCode.Alpha6))
         {
-            index = 6;
+            selectGroupAction(5);
         }
         else if (Input.GetKey(KeyCode.Alpha7))
         {
-            index = 7;
+            selectGroupAction(6);
         }
         else if (Input.GetKey(KeyCode.Alpha8))
         {
-            index = 8;
+            selectGroupAction(7);
         }
         else if (Input.GetKey(KeyCode.Alpha9))
         {
-            index = 9;
+            selectGroupAction(8);
         }
         else if (Input.GetKey(KeyCode.Alpha0))
         {
-            index = 0;
-        }
-
-        if (ctrlKeysDown())
-        {
-            addGroup(index);
-        }
-        else if (shiftKeysDown())
-        {
-            //add to group?
+            selectGroupAction(9);
         }
        
-    }*/
+    }
 
     public void changeToAttack()
     {
@@ -733,6 +706,41 @@ public class GameManager : MonoBehaviour
         currentAction = typeAction.Move;
     }
 
+    public void selectGroupAction(int idx)
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            List<GameObject> currentGroup = groups[idx];
+
+            foreach(GameObject go in archerSelected)
+            {
+                if (!currentGroup.Contains(go))
+                    currentGroup.Add(go);
+            }
+
+            foreach (GameObject go in knightSelected)
+            {
+                if (!currentGroup.Contains(go))
+                    currentGroup.Add(go);
+            }
+
+            if(King != null)
+            {
+                if (!currentGroup.Contains(King))
+                    currentGroup.Add(King);
+            }
+
+        }
+        else if (Input.GetKey(KeyCode.LeftControl)) {
+            
+            addGroup(idx);
+        }
+        else {
+            clearSelection();
+            selectGroup(idx);
+        }
+
+    }
 
 }
 
