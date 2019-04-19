@@ -208,7 +208,12 @@ public class ActionMenu : MonoBehaviour
     public void archerAbility()
     {
         //TODO
+        /*foreach (GameObject gameObj in gm.archerSelected)
+        {
+            StartCoroutine(gameObj.GetComponent<MovementManager>().ArcherSpecialAbility());
+        }*/
     }
+
 
     public void kingAbility()
     {

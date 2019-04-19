@@ -1,6 +1,7 @@
 ﻿// MoveToClickPoint.cs
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class MovementManager : MonoBehaviour
 {
@@ -25,11 +26,15 @@ public class MovementManager : MonoBehaviour
 
     float attackTimer = 0;
     bool attacking;
+    float attackRatio;
 
+    //troops ability enhancement variables
+    public bool onCooldown;
 
 
     void Start()
     {
+        attackRatio = 1;
         this.gm = GameObject.FindGameObjectsWithTag("GameManager")[0];
         gm.GetComponent<GameManager>().myCharacterPool.Add(gameObject); 
 
@@ -81,10 +86,10 @@ public class MovementManager : MonoBehaviour
 
             if (attacking && attackTimer <= 0)
             {
-                target.gameObject.GetComponent<UnitStats>().HP -= myUnitStats.getAD();
-                attackTimer = 1.5f;
+                attackTimer = 1.5f * attackRatio;
                 //Debug.Log(this.name + "\n" + target.gameObject.GetComponent<UnitStats>().HP + "\n" + target.gameObject.GetComponent<UnitStats>().getMaxHP());
             }
+
 
             if (target.gameObject.GetComponent<UnitStats>().HP <= 0)
             {
@@ -96,5 +101,16 @@ public class MovementManager : MonoBehaviour
                 
             }
         }
+    }
+
+    public IEnumerator ArcherSpecialAbility()
+    {
+        if (!onCooldown)
+        {
+            attackRatio = 0.5f;
+            onCooldown = true;
+        }
+        yield return new WaitForSeconds(5f);
+
     }
 }
