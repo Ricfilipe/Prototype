@@ -247,8 +247,9 @@ public class GameManager : MonoBehaviour
     }
 
      public void addOrRemoveFromSelection( RaycastHit hit) {
-        hit.collider.GetComponent<MovementManager>().selected = true;
+       
         addOrRemoveFromSelection(hit.collider.gameObject);
+        selectionMenu.GetComponent<generateSelection>().change = true;
     }
 
 
@@ -309,15 +310,18 @@ public class GameManager : MonoBehaviour
             case Troops.Archer:
                 if(!archerSelected.Contains(go))
                 archerSelected.Add(go);
+                selectionMenu.GetComponent<generateSelection>().change = true;
                 break;
 
             case Troops.Infantry:
                 if (!knightSelected.Contains(go))
                     knightSelected.Add(go);
+                selectionMenu.GetComponent<generateSelection>().change = true;
                 break;
 
             case Troops.King:
                 King = go;
+                selectionMenu.GetComponent<generateSelection>().change = true;
                 break;
         }
         
