@@ -35,22 +35,28 @@ public class ActionMenu : MonoBehaviour
             if (upgradeMenu)
             {
                 //Menu para os Updgrades
-                actions[0].GetComponentInChildren<Text>().text = "Knight HP\n$150";
-                actions[1].GetComponentInChildren<Text>().text = "Knight Attack\n$250";
-                actions[2].GetComponentInChildren<Text>().text = "Knight Speed\n$200";
+                actions[0].GetComponentInChildren<Text>().text = "Knight HP\n$"+(150+UnitStats.knightLevel[0]*100);
+                actions[1].GetComponentInChildren<Text>().text = "Knight Attack\n$"+(250+UnitStats.knightLevel[1]*100);
+                actions[2].GetComponentInChildren<Text>().text = "Knight Speed\n$"+(200+UnitStats.knightLevel[2]*100);
 
-                actions[3].GetComponentInChildren<Text>().text = "Archer Arnmor\n$200";
-                actions[4].GetComponentInChildren<Text>().text = "Archer Attack\n$150";
-                actions[5].GetComponentInChildren<Text>().text = "Archer Speed\n$100";
+                actions[3].GetComponentInChildren<Text>().text = "Archer HP\n$"+(200+UnitStats.archerLevel[0]*100);
+                actions[4].GetComponentInChildren<Text>().text = "Archer Attack\n$"+(150+UnitStats.archerLevel[1]*100);
+                actions[5].GetComponentInChildren<Text>().text = "Archer Speed\n$"+(100+UnitStats.archerLevel[2]*100);
 
 
                 //TODO add Listeners
                 actionButtons[0].interactable = true;
+                actionButtons[0].onClick.AddListener(knightUpgradeHP);
                 actionButtons[1].interactable = true;
+                actionButtons[1].onClick.AddListener(knightUpgradeAttack);
                 actionButtons[2].interactable = true;
+                actionButtons[2].onClick.AddListener(knightUpgradeSpeed);
                 actionButtons[3].interactable = true;
+                actionButtons[3].onClick.AddListener(archerUpgradeHP);
                 actionButtons[4].interactable = true;
+                actionButtons[4].onClick.AddListener(archerUpgradeAttack);
                 actionButtons[5].interactable = true;
+                actionButtons[5].onClick.AddListener(archerUpgradeSpeed);
 
 
                 actionButtons[6].interactable = true;
@@ -179,6 +185,54 @@ public class ActionMenu : MonoBehaviour
         //TODO
     }
 
+
+    public void knightUpgradeAttack()
+    {
+        
+        if(UnitStats.knightLevel[0]!=3 && gm.silver>= 150 + 100* UnitStats.knightLevel[0])
+        {
+            UnitStats.InfantryAD = UnitStats.InfantryAD + 1;
+            UnitStats.knightLevel[0]++;
+        }
+        
+    }
+
+    public void knightUpgradeHP()
+    {
+        if (UnitStats.knightLevel[0] != 3 && gm.silver >= 150 + 100 * UnitStats.knightLevel[0])
+        {
+            UnitStats.InfantryAD = UnitStats.InfantryMaxHP + 2;
+            foreach(GameObject go in gm.myCharacterPool)
+            {
+
+            }
+            UnitStats.knightLevel[1]++;
+        }
+    }
+
+    public void knightUpgradeSpeed()
+    {
+        //TODO
+    }
+
+    public void archerUpgradeAttack()
+    {
+        //TODO
+    }
+
+    public void archerUpgradeHP()
+    {
+        //TODO
+    }
+
+    public void archerUpgradeSpeed()
+    {
+        //TODO
+    }
+
+
+
+
     public void buyKnight() {
         if (gm.silver >= 150)
         {
@@ -279,30 +333,30 @@ public class ActionMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            //TODO
+            knightUpgradeHP();
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            //TODO
+            knightUpgradeAttack();
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            //TODO
+            archerUpgradeSpeed();
         }
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            //TODO
+            archerUpgradeHP();
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            //TODO
+            archerUpgradeAttack();
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            //TODO
+            archerUpgradeSpeed();
         }
 
         if (Input.GetKeyDown(KeyCode.Z))

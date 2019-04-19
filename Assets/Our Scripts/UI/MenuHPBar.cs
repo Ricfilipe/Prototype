@@ -10,7 +10,7 @@ public class MenuHPBar:MonoBehaviour
     public void updateBar(GameObject unit)
     {
         UnitStats stats = unit.GetComponent<UnitStats>();
-        gameObject.GetComponent<RectTransform>().localScale = new Vector3(stats.HP / stats.getMaxHP(), 1, 1);
+        gameObject.GetComponent<RectTransform>().localScale = new Vector3(stats.HP / (stats.getMaxHP()+0f), 1, 1);
        
    
 

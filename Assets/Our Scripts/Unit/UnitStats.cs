@@ -8,8 +8,12 @@ public class UnitStats : MonoBehaviour
     public float speed,range,size;
     [HideInInspector]
     public int MaxHP, HP,AD;
-   	
-   	private static int InfantryMaxHP, InfantryAD, ArcherMaxHP, ArcherAD, InfantrySpeed, ArcherSpeed;
+    [HideInInspector]
+    public static int InfantryMaxHP, InfantryAD, ArcherMaxHP, ArcherAD, InfantrySpeed, ArcherSpeed;
+    [HideInInspector]
+    public static int[] knightLevel = { 0, 0, 0 };
+    [HideInInspector]
+    public static int[] archerLevel = { 0, 0, 0 };
 
     public enum Team
     {

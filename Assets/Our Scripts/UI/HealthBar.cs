@@ -15,7 +15,7 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.GetComponent<RectTransform>().localScale = new Vector3(this.myUnitStats.HP/this.myUnitStats.getMaxHP(),1,1);
+        gameObject.GetComponent<RectTransform>().localScale = new Vector3(this.myUnitStats.HP/(this.myUnitStats.getMaxHP()+0.0f),1,1);
         Vector3 pos = unit.transform.position;
          gameObject.transform.parent.parent.position= new Vector3(pos.x, pos.y + 3  , pos.z);
      
