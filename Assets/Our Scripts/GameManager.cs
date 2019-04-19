@@ -278,19 +278,20 @@ public class GameManager : MonoBehaviour
         }else if (Input.GetMouseButtonDown(1)){
             changeToNormal();
         }
+        if ((knightSelected.Count > 0 || archerSelected.Count > 0 || King != null)) {
+            if (Input.GetKey(KeyCode.A))
+            {
+                changeToAttack();
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                makeAction(null, typeAction.Stop);
+            }
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            changeToAttack();
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            makeAction(null, typeAction.Stop);
-        }
-
-        if (Input.GetKey(KeyCode.M))
-        {
-            changeToMove();           
+            if (Input.GetKey(KeyCode.M))
+            {
+                changeToMove();
+            }
         }
 
         getNumberKey();

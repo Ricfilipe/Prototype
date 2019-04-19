@@ -222,7 +222,7 @@ public class ActionMenu : MonoBehaviour
         if(UnitStats.knightLevel[0]!=3 && gm.silver>= costKnightADUpgrade + 100* UnitStats.knightLevel[0])
         {
             UnitStats.InfantryAD = UnitStats.InfantryAD + 1;
-            UnitStats.knightLevel[0]++;
+            UnitStats.knightLevel[1]++;
         }
         
     }
@@ -238,7 +238,7 @@ public class ActionMenu : MonoBehaviour
                 if (stat.troop == UnitStats.Troops.Infantry)
                     go.GetComponent<UnitStats>().HP = go.GetComponent<UnitStats>().HP + 2;
             }
-            UnitStats.knightLevel[1]++;
+            UnitStats.knightLevel[0]++;
         }
     }
 
@@ -256,7 +256,7 @@ public class ActionMenu : MonoBehaviour
         if (UnitStats.archerLevel[0] != 3 && gm.silver >= costArcherADUpgrade + 100 * UnitStats.archerLevel[0])
         {
             UnitStats.ArcherAD = UnitStats.ArcherAD + 1;
-            UnitStats.archerLevel[2]++;
+            UnitStats.archerLevel[1]++;
         }
     }
 
@@ -271,7 +271,7 @@ public class ActionMenu : MonoBehaviour
                 if (stat.troop == UnitStats.Troops.Archer)
                     go.GetComponent<UnitStats>().HP = go.GetComponent<UnitStats>().HP + 2;
             }
-            UnitStats.archerLevel[1]++;
+            UnitStats.archerLevel[0]++;
         }
     }
 
@@ -387,16 +387,16 @@ public class ActionMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            knightUpgradeHP();
+            knightUpgradeAttack();
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            knightUpgradeAttack();
+            knightUpgradeHP();
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            archerUpgradeSpeed();
+            knightUpgradeSpeed();
         }
 
         if (Input.GetKeyDown(KeyCode.A))
