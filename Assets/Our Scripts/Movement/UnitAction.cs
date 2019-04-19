@@ -14,6 +14,7 @@ public abstract class UnitAction
     public UnitAction(GameObject enemy,GameObject go,GameManager gm)
     {
         this.targetEnemy = enemy;
+        this.targetPosition = new Vector3(-1,-1000,-1);
         this.agent = go.GetComponent<NavMeshAgent>();
         this.unitStast = go.GetComponent<UnitStats>();
         this.gm = gm;
