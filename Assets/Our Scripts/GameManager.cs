@@ -10,6 +10,10 @@ public class GameManager : MonoBehaviour
 {
     public List<GameObject> myCharacterPool = new List<GameObject>();
     public List<GameObject> enemyPool = new List<GameObject>();
+    public int wave = 1;
+    public float waveTimer;
+    public int numberOfEnemies;
+
     [HideInInspector]
     public List<GameObject>[] groups = new List<GameObject>[10];
     public GameObject selectionMenu;
@@ -30,6 +34,12 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector]
     public typeAction currentAction = typeAction.Normal;
+
+    public GameObject[] enemies;
+    public GameObject enemySpawnPosition;
+
+    public Text objectivesText;
+
 
     public enum typeAction
     {
@@ -61,6 +71,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        numberOfEnemies = 2;
+        waveTimer = 10;
         selectSquareImage.gameObject.SetActive(false);
         Base.GetComponent<Outline>().enabled = false;
         banner.active = false;
@@ -295,6 +307,8 @@ public class GameManager : MonoBehaviour
         }
 
         getNumberKey();
+        Spawn();
+        objectivesText.text = "Objectives\n\n\n" + "Wave " + wave + "\n" + "Number Of enemies " + enemyPool.Count;
 
     }
 
@@ -380,6 +394,8 @@ public class GameManager : MonoBehaviour
 
      
     }
+
+
 
     public void addToSelection(GameObject go)
     {
@@ -541,6 +557,49 @@ public class GameManager : MonoBehaviour
                 }
                 break;
 
+        }
+    }
+
+
+    public void AddToEnemyPool(GameObject obj)
+    {
+        enemyPool.Add(obj);
+    }
+
+    public void Spawn()
+    {
+ 
+        if(enemyPool == null || enemyPool.Count == 0)
+        {
+            if (waveTimer > 0)
+            {
+                waveTimer -= Time.deltaTime;
+                return;
+            }
+            waveTimer = 10;
+            wave++;
+            if (wave <= 20)
+            {
+                numberOfEnemies += 3;
+            }
+            GameObject obj = enemies[0];
+            for(int i = 0; i < numberOfEnemies/2; i++)
+            {
+                float x = UnityEngine.Random.Range(-10,10);
+                float z = UnityEngine.Random.Range(-10, 10);
+                enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
+                GameObject instEnemy = Instantiate(obj,enemySpawnPosition.transform.position,Quaternion.identity);
+                AddToEnemyPool(instEnemy);
+            }
+            obj = enemies[1];
+            for (int i = 0; i < numberOfEnemies/2; i++)
+            {
+                float x = UnityEngine.Random.Range(-10, 10);
+                float z = UnityEngine.Random.Range(-10, 10);
+                enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
+                GameObject instEnemy = Instantiate(obj, enemySpawnPosition.transform.position, Quaternion.identity);
+                AddToEnemyPool(instEnemy);
+            }
         }
     }
 

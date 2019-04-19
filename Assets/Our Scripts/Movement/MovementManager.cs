@@ -83,12 +83,12 @@ public class MovementManager : MonoBehaviour
             {
                 target.gameObject.GetComponent<UnitStats>().HP -= myUnitStats.getAD();
                 attackTimer = 1.5f;
-                Debug.Log(this.name + "\n" + target.gameObject.GetComponent<UnitStats>().HP + "\n" + target.gameObject.GetComponent<UnitStats>().getMaxHP());
+                //Debug.Log(this.name + "\n" + target.gameObject.GetComponent<UnitStats>().HP + "\n" + target.gameObject.GetComponent<UnitStats>().getMaxHP());
             }
 
             if (target.gameObject.GetComponent<UnitStats>().HP <= 0)
             {
-                gm.GetComponent<GameManager>().enemyPool.Remove(target);
+               gm.GetComponent<GameManager>().enemyPool.Remove(target.transform.parent.gameObject);
                 target.GetComponent<Enemies>().DropSilver();
                 Destroy(target.transform.parent.gameObject);
                 target = null;
