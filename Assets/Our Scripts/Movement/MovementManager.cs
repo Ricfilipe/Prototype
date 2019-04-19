@@ -23,6 +23,10 @@ public class MovementManager : MonoBehaviour
     bool attack = false;
     int counter = 0;
 
+    float attackTimer = 0;
+    bool attacking;
+
+
 
     void Start()
     {
@@ -48,24 +52,48 @@ public class MovementManager : MonoBehaviour
             GetComponent<Outline>().enabled = false;
         }
 
-        if (currentAction != null) {
+        if (currentAction != null)
+        {
             currentAction.Update();
         }
 
+        Attack();
+        
+    }
 
-       
-
-        if (target!=null && (transform.position - target.transform.position).magnitude <= attackRange)
+    void Attack()
+    {
+        if (target != null)
         {
-            Debug.Log("Attacking");
-            if (attackCounter >= 60)
+            if (attackTimer > 0)
             {
-                Destroy(target);
-                target = null;
-                attackCounter = 0;
+                attackTimer -= Time.deltaTime;
             }
-            else { attackCounter++; }
-        }
 
+            if ((transform.position - target.transform.position).magnitude <= attackRange)
+            {
+                attacking = true;
+            }
+            else
+            {
+                attacking = false;
+            }
+
+            if (attacking && attackTimer <= 0)
+            {
+                target.gameObject.GetComponent<UnitStats>().HP -= myUnitStats.getAD();
+                attackTimer = 1.5f;
+                Debug.Log(this.name + "\n" + target.gameObject.GetComponent<UnitStats>().HP + "\n" + target.gameObject.GetComponent<UnitStats>().getMaxHP());
+            }
+
+            if (target.gameObject.GetComponent<UnitStats>().HP <= 0)
+            {
+                gm.GetComponent<GameManager>().enemyPool.Remove(target);
+                Destroy(target.transform.parent.gameObject);
+                target = null;
+                attacking = false;
+                gm.GetComponent<GameManager>().AddSilver(50);
+            }
+        }
     }
 }

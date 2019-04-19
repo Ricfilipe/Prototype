@@ -8,7 +8,6 @@ public class EnemySwordsman : Enemies
     protected override void Start()
     {
         base.Start();
-        Debug.Log(unitStats);
         TotalHealth = unitStats.MaxHP;
         currentHealth = TotalHealth;
         movementSpeedRatio = 2;

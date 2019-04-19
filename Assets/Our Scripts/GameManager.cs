@@ -760,5 +760,10 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void AddSilver(int amount)
+    {
+        silver += amount;
+    }
+
 }
 

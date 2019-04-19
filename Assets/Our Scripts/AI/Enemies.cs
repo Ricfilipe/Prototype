@@ -42,6 +42,7 @@ public abstract class Enemies : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         unitStats = GetComponent<UnitStats>();
         marching = true;
         playerTroops = new List<GameObject>();
@@ -60,7 +61,7 @@ public abstract class Enemies : MonoBehaviour
     //Enemies wander, march, move to or away from player's army
     protected virtual void EnemyMovement()
     {
-        if (marching)
+        if (marching || nearestUnit == null)
         {
             enemyInAction.SetDestination(_targetWaypoint);
             DetectTargetingUnits();
@@ -122,7 +123,7 @@ public abstract class Enemies : MonoBehaviour
         {
             nearestUnit.gameObject.GetComponent<UnitStats>().HP -= unitStats.AD;
             attackTimer = 1.5f;
-            Debug.Log(this.name + "\n" + nearestUnit.gameObject.GetComponent<UnitStats>().HP + "\n" + nearestUnit.gameObject.GetComponent<UnitStats>().MaxHP);
+            //Debug.Log(this.name + "\n" + nearestUnit.gameObject.GetComponent<UnitStats>().HP + "\n" + nearestUnit.gameObject.GetComponent<UnitStats>().MaxHP);
         }
 
         if (nearestUnit.gameObject.GetComponent<UnitStats>().HP <= 0)

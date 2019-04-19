@@ -21,7 +21,7 @@ public class Normal : UnitAction
         
         if (targetEnemy != null)
         {
-          
+
             agent.destination = targetEnemy.transform.position;
             agent.stoppingDistance = unitStast.range;
         }
@@ -31,6 +31,7 @@ public class Normal : UnitAction
             agent.destination = targetPosition;
             agent.stoppingDistance = 0f;
         }
+
     }
 
 }
