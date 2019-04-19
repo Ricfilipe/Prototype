@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool baseSelected=false;
 
+    private GameObject lastClick;
+    private float lastTime;
+
     public List<Texture2D> cursors;
 
     [HideInInspector]
@@ -91,11 +94,15 @@ public class GameManager : MonoBehaviour
                     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
                     {
 
-                        if (hit.collider.tag == "MyUnit")
+                        if (hit.collider.tag == "Enemy")
                         {
                             makeAction(hit.collider.gameObject, currentAction);
                             changeToNormal();
 
+                        }else if(hit.collider.tag == "MyUnit" && currentAction == typeAction.Move)
+                        {
+                            makeAction(hit.collider.gameObject, currentAction);
+                            changeToNormal();
                         }
                         else
                         {
@@ -127,19 +134,40 @@ public class GameManager : MonoBehaviour
 
                         if (hit.collider.tag == "MyUnit")
                         {
-                            if (shiftKeysDown())
+                            if (lastClick == hit.collider.gameObject && Time.time-lastTime <=0.5f)
                             {
+                                if (!shiftKeysDown())
+                                {
+                                    clearSelection();
+                                }
+                                Troops type = hit.collider.gameObject.GetComponent<UnitStats>().troop;
 
-                                addOrRemoveFromSelection(hit);
-                                baseSelected = false;
-                                Base.GetComponent<Outline>().enabled = false;
+                                foreach ( GameObject go in myCharacterPool)
+                                {  
+                                    if (go.GetComponent<UnitStats>().troop == type)
+                                    {
+                                        addToSelection(go);
+                                    }
+                                }                              
                             }
                             else
                             {
-                                clearSelection();
-                                addToSelection(hit);
-                                baseSelected = false;
-                                Base.GetComponent<Outline>().enabled = false;
+                                lastClick = hit.collider.gameObject;
+                                lastTime = Time.time;
+                                if (shiftKeysDown())
+                                {
+
+                                    addOrRemoveFromSelection(hit);
+                                    baseSelected = false;
+                                    Base.GetComponent<Outline>().enabled = false;
+                                }
+                                else
+                                {
+                                    clearSelection();
+                                    addToSelection(hit);
+                                    baseSelected = false;
+                                    Base.GetComponent<Outline>().enabled = false;
+                                }
                             }
                         }
                         else if (hit.collider.tag == "Base")
@@ -219,7 +247,7 @@ public class GameManager : MonoBehaviour
 
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
             {
-                if (hit.collider.tag == "Enemie")
+                if (hit.collider.tag == "Enemy")
                 {
                     makeAction(hit.collider.gameObject, typeAction.Normal);
                 }

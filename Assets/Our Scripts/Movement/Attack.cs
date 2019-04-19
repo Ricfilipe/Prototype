@@ -21,18 +21,20 @@ public class Attack : UnitAction
         agent.GetComponent<NavMeshAgent>().isStopped = false;
 
         float min = 10f;
-        Vector3 helper = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        foreach (GameObject enemy in gm.enemyPool)
+        if (targetEnemy == null)
         {
-            float tempMin = (enemy.transform.position - helper).magnitude;
-            if (tempMin <= min)
+            Vector3 helper = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            foreach (GameObject enemy in gm.enemyPool)
             {
-                min = tempMin;
-                targetEnemy = enemy;
+                float tempMin = (enemy.transform.position - helper).magnitude;
+                if (tempMin <= min)
+                {
+                    min = tempMin;
+                    targetEnemy = enemy;
+                }
+
             }
-
         }
-
         if (targetEnemy==null)
         agent.destination = targetPosition;
         agent.stoppingDistance = 0f;

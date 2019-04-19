@@ -8,6 +8,7 @@ TagManager:
   - MyUnit
   - Base
   - GameManager
+  - Enemy
   layers:
   - Default
   - TransparentFX
