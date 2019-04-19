@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour
                                 baseSelected = false;
                                 Base.GetComponent<Outline>().enabled = false;
                                 count++;
-                            
+                             
                         }
                         addToSelection(go);
                     }
@@ -197,10 +197,26 @@ public class GameManager : MonoBehaviour
             }
         }
 
+       /* if (ctrlKeysDown() == true && getNumberKey() != null)
+        {
+            int index = getNumberKey();
 
+            selectGroup(index);
+            Debug.Log("CARREGUEI NO CTRL");
 
+        }
 
-     }
+        if (shiftKeysDown() == true && getNumberKey() != null)
+        {
+            int index = getNumberKey();
+            Debug.Log("CARREGUEI NO SHIFT");
+
+            addGroup(index);
+
+        }
+        */
+
+    }
 
     public void clearSelection()
     {
@@ -334,6 +350,7 @@ public class GameManager : MonoBehaviour
 
     public void addGroup(int index)
     {
+
         List<GameObject> list = new List<GameObject>();
         list.AddRange(archerSelected);
         list.AddRange(knightSelected);
@@ -342,6 +359,7 @@ public class GameManager : MonoBehaviour
         {
             list.Add(King);
         }
+        
 
         groups[index]=list;
     }
@@ -540,6 +558,75 @@ public class GameManager : MonoBehaviour
             return false;
         }
     }
+    
+    public bool ctrlKeysDown()
+    {
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /*public int getNumberKey()
+    {
+        int index = 0;
+
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            index = 1;
+        }
+        else if (Input.GetKey(KeyCode.Alpha2))
+        {
+            index = 2;
+            Debug.Log("CARREGUEI NO 2");
+        }
+        else if (Input.GetKey(KeyCode.Alpha3))
+        {
+            index = 3;
+        }
+        else if (Input.GetKey(KeyCode.Alpha4))
+        {
+            index = 4;
+        }
+        else if (Input.GetKey(KeyCode.Alpha5))
+        {
+            index = 5;
+        }
+        else if (Input.GetKey(KeyCode.Alpha6))
+        {
+            index = 6;
+        }
+        else if (Input.GetKey(KeyCode.Alpha7))
+        {
+            index = 7;
+        }
+        else if (Input.GetKey(KeyCode.Alpha8))
+        {
+            index = 8;
+        }
+        else if (Input.GetKey(KeyCode.Alpha9))
+        {
+            index = 9;
+        }
+        else if (Input.GetKey(KeyCode.Alpha0))
+        {
+            index = 0;
+        }
+
+        if (ctrlKeysDown())
+        {
+            addGroup(index);
+        }
+        else if (shiftKeysDown())
+        {
+            //add to group?
+        }
+       
+    }*/
 
 
 }
