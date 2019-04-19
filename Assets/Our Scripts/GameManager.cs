@@ -21,6 +21,11 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool baseSelected=false;
 
+    public List<Texture2D> cursors;
+
+    [HideInInspector]
+    public typeAction currentAction = typeAction.Normal;
+
     public enum typeAction
     {
         Move,
@@ -61,97 +66,127 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+
             RaycastHit hit;
-           
+
             if (!EventSystem.current.IsPointerOverGameObject())
             {
                 UIclick = false;
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
+                if (currentAction == typeAction.Normal)
                 {
-                    
-                    activateSelectArea = true;
-                    startPos = hit.point;
-                   
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
+                    {
 
+
+                        activateSelectArea = true;
+                        startPos = hit.point;
+
+
+
+                    }
+                }
+                else
+                {
+
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
+                    {
+
+                        if (hit.collider.tag == "MyUnit")
+                        {
+                            makeAction(hit.collider.gameObject, currentAction);
+                            changeToNormal();
+
+                        }
+                        else
+                        {
+                            makeAction(hit.point, currentAction);
+                            changeToNormal();
+                        }
+                    }
                 }
             }
-            else {
+            else
+            {
                 UIclick = true;
             }
+
+            
         }
         else if (Input.GetMouseButtonUp(0) && !UIclick)
         {
             activateSelectArea = false;
-           
 
-            Vector3 squareStart = Camera.main.WorldToScreenPoint(startPos);
-            if (Math.Abs(endPos.x - squareStart.x) < 0.5 && Math.Abs(endPos.y - squareStart.y) < 0.5)
+            if (currentAction == typeAction.Normal)
             {
-                RaycastHit hit;
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
+                Vector3 squareStart = Camera.main.WorldToScreenPoint(startPos);
+                if (Math.Abs(endPos.x - squareStart.x) < 0.5 && Math.Abs(endPos.y - squareStart.y) < 0.5)
                 {
-
-                    if (hit.collider.tag == "MyUnit")
+                    RaycastHit hit;
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
                     {
-                        if (shiftKeysDown())
-                        {
 
-                            addOrRemoveFromSelection(hit);
-                            baseSelected = false;
-                            Base.GetComponent<Outline>().enabled = false;
-                        }
-                        else
+                        if (hit.collider.tag == "MyUnit")
                         {
-                            clearSelection();
-                            addToSelection(hit);
-                            baseSelected = false;
-                            Base.GetComponent<Outline>().enabled = false;
-                        }
-                    }
-                    else if (hit.collider.tag == "Base")
-                    {
-                        if (shiftKeysDown())
-                        {
-                            baseSelected = true;
-                            Base.GetComponent<Outline>().enabled = true;
-                            
-                        }
-                        else
-                        {
-                            clearSelection();
-                            baseSelected = true;
-                            Base.GetComponent<Outline>().enabled = true;
-                        }
-                    }
-                }
+                            if (shiftKeysDown())
+                            {
 
-            }
-            else
-            {
-
-                Rect selectRect = new Rect(squareStart.x, squareStart.y, endPos.x - squareStart.x, endPos.y - squareStart.y);
-                int count = 0;
-                foreach (GameObject go in myCharacterPool)
-                {
-                    if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.transform.position), true))
-                    {
-                        if (count == 0) {
-                            if (!shiftKeysDown())
+                                addOrRemoveFromSelection(hit);
+                                baseSelected = false;
+                                Base.GetComponent<Outline>().enabled = false;
+                            }
+                            else
                             {
                                 clearSelection();
+                                addToSelection(hit);
+                                baseSelected = false;
+                                Base.GetComponent<Outline>().enabled = false;
                             }
+                        }
+                        else if (hit.collider.tag == "Base")
+                        {
+                            if (shiftKeysDown())
+                            {
+                                baseSelected = true;
+                                Base.GetComponent<Outline>().enabled = true;
+
+                            }
+                            else
+                            {
+                                clearSelection();
+                                baseSelected = true;
+                                Base.GetComponent<Outline>().enabled = true;
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+
+                    Rect selectRect = new Rect(squareStart.x, squareStart.y, endPos.x - squareStart.x, endPos.y - squareStart.y);
+                    int count = 0;
+                    foreach (GameObject go in myCharacterPool)
+                    {
+                        if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.transform.position), true))
+                        {
+                            if (count == 0)
+                            {
+                                if (!shiftKeysDown())
+                                {
+                                    clearSelection();
+                                }
                                 baseSelected = false;
                                 Base.GetComponent<Outline>().enabled = false;
                                 count++;
-                             
+
+                            }
+                            addToSelection(go);
                         }
-                        addToSelection(go);
                     }
                 }
-            }
-            
-            selectSquareImage.gameObject.SetActive(false);
 
+                selectSquareImage.gameObject.SetActive(false);
+            }
         }
 
         else if (Input.GetMouseButton(0) && activateSelectArea)
@@ -177,7 +212,7 @@ public class GameManager : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButtonDown(1) && (knightSelected.Count > 0 || archerSelected.Count>0 || King!=null))
+        if (Input.GetMouseButtonDown(1) && (knightSelected.Count > 0 || archerSelected.Count>0 || King!=null) && currentAction == typeAction.Normal)
         {
 
             RaycastHit hit;
@@ -195,26 +230,42 @@ public class GameManager : MonoBehaviour
                 }
 
             }
+        }else if (Input.GetMouseButtonDown(1)){
+            changeToNormal();
         }
 
-       /* if (ctrlKeysDown() == true && getNumberKey() != null)
+        if (Input.GetKey(KeyCode.A))
         {
-            int index = getNumberKey();
-
-            selectGroup(index);
-            Debug.Log("CARREGUEI NO CTRL");
-
+            changeToAttack();
         }
-
-        if (shiftKeysDown() == true && getNumberKey() != null)
+        if (Input.GetKey(KeyCode.S))
         {
-            int index = getNumberKey();
-            Debug.Log("CARREGUEI NO SHIFT");
-
-            addGroup(index);
-
+            makeAction(null, typeAction.Stop);
         }
-        */
+
+        if (Input.GetKey(KeyCode.M))
+        {
+            changeToMove();           
+        }
+
+        /* if (ctrlKeysDown() == true && getNumberKey() != null)
+         {
+             int index = getNumberKey();
+
+             selectGroup(index);
+             Debug.Log("CARREGUEI NO CTRL");
+
+         }
+
+         if (shiftKeysDown() == true && getNumberKey() != null)
+         {
+             int index = getNumberKey();
+             Debug.Log("CARREGUEI NO SHIFT");
+
+             addGroup(index);
+
+         }
+         */
 
     }
 
@@ -575,6 +626,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+
+
+
     /*public int getNumberKey()
     {
         int index = 0;
@@ -631,6 +686,24 @@ public class GameManager : MonoBehaviour
         }
        
     }*/
+
+    public void changeToAttack()
+    {
+        Cursor.SetCursor(cursors[0], new Vector2(8f, 8f), CursorMode.Auto);
+        currentAction = typeAction.Attack;
+    }
+
+    public void changeToNormal()
+    {
+        Cursor.SetCursor(null, new Vector2(0, 0), CursorMode.Auto);
+        currentAction = typeAction.Normal;
+    }
+
+    public void changeToMove()
+    {
+        Cursor.SetCursor(cursors[1], new Vector2(8f, 8f), CursorMode.Auto);
+        currentAction = typeAction.Move;
+    }
 
 
 }

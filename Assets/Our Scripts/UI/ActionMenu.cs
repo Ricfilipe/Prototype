@@ -140,17 +140,17 @@ public class ActionMenu : MonoBehaviour
 
     public void attackMove()
     {
-        //TODO
+        gm.changeToAttack();
     }
 
     public void moveMove()
     {
-        //TODO
+        gm.changeToMove();
     }
 
     public void stopMove()
     {
-        //TODO
+       gm.makeAction(null, GameManager.typeAction.Stop);
     }
 
     public void knightAbility()
