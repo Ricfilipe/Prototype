@@ -62,6 +62,25 @@ public class MovementManager : MonoBehaviour
             currentAction.Update();
         }
 
+
+        if (gameObject.GetComponent<UnitStats>().HP <= 0)
+        {
+            if (GetComponent<UnitStats>().troop == UnitStats.Troops.Infantry && !GetComponent<UnitStats>().undead)
+            {
+                StartCoroutine(GetComponent<MovementManager>().abs[0].DoAbility()); ;
+            }
+
+            if (!GetComponent<UnitStats>().undead)
+            {
+                gm.GetComponent<GameManager>().myCharacterPool.Remove(gameObject);
+                gm.GetComponent<GameManager>().removeFromSelection(gameObject);
+                Destroy(transform.parent.gameObject);
+
+            }
+        }
+
+
+
         Attack();
         
     }

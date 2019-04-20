@@ -66,6 +66,8 @@ public abstract class Enemies : MonoBehaviour
     {
         if (marching || nearestUnit == null)
         {
+            attacking = false;
+            marching = true;
             enemyInAction.SetDestination(_targetWaypoint);
             DetectTargetingUnits();
         }
@@ -132,23 +134,6 @@ public abstract class Enemies : MonoBehaviour
             //Debug.Log(this.name + "\n" + nearestUnit.gameObject.GetComponent<UnitStats>().HP + "\n" + nearestUnit.gameObject.GetComponent<UnitStats>().MaxHP);
         }
 
-        if (nearestUnit.gameObject.GetComponent<UnitStats>().HP <= 0)
-        {
-            if(nearestUnit.GetComponent<UnitStats>().troop == UnitStats.Troops.Infantry && !nearestUnit.GetComponent<UnitStats>().undead)
-            {
-                StartCoroutine(nearestUnit.GetComponent<MovementManager>().abs[0].DoAbility()); ;
-            }
-
-            if (!nearestUnit.GetComponent<UnitStats>().undead)
-            {
-                gm.myCharacterPool.Remove(nearestUnit);
-                gm.removeFromSelection(nearestUnit);
-                Destroy(nearestUnit.transform.parent.gameObject);
-                nearestUnit = null;
-                attacking = false;
-                marching = true;
-            }
-        }
 
     }
 
