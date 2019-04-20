@@ -474,6 +474,7 @@ GameObject:
   - component: {fileID: 1715259371425069424}
   - component: {fileID: 1715259371425069327}
   - component: {fileID: 1715259371425069326}
+  - component: {fileID: 7279472513778196151}
   - component: {fileID: 1715259371425069325}
   - component: {fileID: 1715259371425069324}
   - component: {fileID: 1715259371425069323}
@@ -579,6 +580,24 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7279472513778196151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715259371425069322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.8396226, g: 0.21782663, b: 0.21782663, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!54 &1715259371425069325
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -631,3 +650,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gm: {fileID: 0}
+  hover: 0

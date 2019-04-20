@@ -31,6 +31,9 @@ public abstract class Enemies : MonoBehaviour
     private float attackTimer = 0;
 
 
+    [HideInInspector]
+    public bool hover;
+
     [Header("Troops wandering")]
     private float timer;
     //public float wanderTimer;
@@ -58,6 +61,16 @@ public abstract class Enemies : MonoBehaviour
     void Update()
     {
         EnemyMovement();
+
+        if ( hover)
+        {
+            GetComponent<Outline>().enabled = true;
+            hover = false;
+        }
+        else
+        {
+            GetComponent<Outline>().enabled = false;
+        }
     }
 
 

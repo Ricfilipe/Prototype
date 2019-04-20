@@ -17,7 +17,7 @@ public class MovementManager : MonoBehaviour
     [HideInInspector]
     public UnitAction currentAction;
     [HideInInspector]
-    public bool selected;
+    public bool selected,hover;
     [HideInInspector]
     public GameObject target;
     private int attackCounter = 0;
@@ -48,9 +48,10 @@ public class MovementManager : MonoBehaviour
     void Update()
     {
         GetComponent<NavMeshAgent>().speed = myUnitStats.getSpeed();
-        if (selected)
+        if (selected||hover)
         {
             GetComponent<Outline>().enabled = true;
+            hover = false;
         }
         else
         {
@@ -84,6 +85,7 @@ public class MovementManager : MonoBehaviour
         Attack();
         
     }
+
 
     void Attack()
     {

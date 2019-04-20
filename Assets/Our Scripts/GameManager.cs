@@ -85,6 +85,28 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        RaycastHit hitOut;
+        if (!activateSelectArea)
+        {
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitOut, 300))
+            {
+
+                if (hitOut.collider.tag == "Enemy")
+                {
+                    hitOut.collider.gameObject.GetComponent<Enemies>().hover = true;
+                }
+                else if (hitOut.collider.tag == "MyUnit")
+                {
+                    hitOut.collider.gameObject.GetComponent<MovementManager>().hover = true;
+                }
+
+
+
+            }
+        }
+
+
         silverText.GetComponent<Text>().text = "Silver: " + silver;
 
         if (Input.GetMouseButtonDown(0))
@@ -228,22 +250,13 @@ public class GameManager : MonoBehaviour
                             }
                         }
                         else if (hit.collider.tag == "Base")
-                        {
-                            if (shiftKeysDown())
-                            {
-                                baseSelected = true;
-                                Base.GetComponent<Outline>().enabled = true;
-                                banner.active = true;
-
-                            }
-                            else
                             {
                                 clearSelection();
                                 baseSelected = true;
                                 Base.GetComponent<Outline>().enabled = true;
                                 banner.active = true;
                             }
-                        }
+                        
                     }
 
                 }
@@ -299,6 +312,16 @@ public class GameManager : MonoBehaviour
             float sizey = Mathf.Abs(squareStart.y - endPos.y);
 
             selectSquareImage.sizeDelta = new Vector2(sizex, sizey);
+
+            Rect selectRect = new Rect(squareStart.x, squareStart.y, endPos.x - squareStart.x, endPos.y - squareStart.y);
+            foreach (GameObject go in myCharacterPool)
+            {
+                if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.transform.position), true))
+                {
+                    go.GetComponent<MovementManager>().hover = true;
+                }
+            }
+
         }
 
 
