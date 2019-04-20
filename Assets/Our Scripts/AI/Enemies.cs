@@ -45,6 +45,7 @@ public abstract class Enemies : MonoBehaviour
     protected virtual void Start()
     {
         gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        gm.enemyPool.Add(gameObject);
         unitStats = GetComponent<UnitStats>();
         marching = true;
         playerTroops = new List<GameObject>();

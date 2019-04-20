@@ -19,32 +19,24 @@ public class Attack : UnitAction
     {
        
         agent.GetComponent<NavMeshAgent>().isStopped = false;
-
-        float min = 10f;
         if (targetEnemy == null)
         {
-            Vector3 helper = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            foreach (GameObject enemy in gm.enemyPool)
-            {
-                float tempMin = (enemy.transform.position - helper).magnitude;
-                if (tempMin <= min)
-                {
-                    min = tempMin;
-                    targetEnemy = enemy;
-                }
-
-            }
+            agent.destination = targetPosition;
+            agent.stoppingDistance = 0f;
         }
-        if (targetEnemy==null)
-        agent.destination = targetPosition;
-        agent.stoppingDistance = 0f;
+        else
+        {
+            Debug.Log(targetEnemy);
+            agent.GetComponent<MovementManager>().target = targetEnemy;
+        }
     }
 
     public override void Update()
     {
+        Debug.Log(targetEnemy);
         if (targetEnemy == null)
         {
-            float min =10f;
+            float min= 60f;
             foreach (GameObject enemy in gm.enemyPool)
             {
                 float tempMin = (enemy.transform.position - agent.transform.position).magnitude;
@@ -52,6 +44,7 @@ public class Attack : UnitAction
                 {
                     min = tempMin;
                     targetEnemy = enemy;
+                    
                 }
 
             }
@@ -60,6 +53,7 @@ public class Attack : UnitAction
         }
         if (targetEnemy != null)
         {
+            agent.GetComponent<MovementManager>().target = targetEnemy;
             agent.destination = targetEnemy.transform.position;
             agent.stoppingDistance = unitStast.range;
         }

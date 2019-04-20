@@ -129,8 +129,36 @@ public class GameManager : MonoBehaviour
                         }
                         else
                         {
-                            makeAction(hit.point, currentAction);
-                            changeToNormal();
+                            if (currentAction == typeAction.Attack)
+                            {
+                                Vector3 helper = hit.point;
+                                float min = 60f;
+                                int idx = -1;
+                                for (int i = 0; i < enemyPool.Count; i++)
+                                {
+                                    float tempMin = (enemyPool[i].transform.position - helper).magnitude;
+                                    if (tempMin <= min)
+                                    {
+                                        min = tempMin;
+                                        idx = i;
+                                    }
+                                }
+                                if (idx != -1)
+                                {
+                                    makeAction(enemyPool[idx], currentAction);
+                                    changeToNormal();
+                                }
+                                else
+                                {
+                                    makeAction(hit.point, currentAction);
+                                    changeToNormal();
+                                }
+                            }
+                            else
+                            {
+                                makeAction(hit.point, currentAction);
+                                changeToNormal();
+                            }
                         }
                     }
                 }
@@ -561,10 +589,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void AddToEnemyPool(GameObject obj)
-    {
-        enemyPool.Add(obj);
-    }
 
     public void Spawn()
     {
@@ -589,7 +613,7 @@ public class GameManager : MonoBehaviour
                 float z = UnityEngine.Random.Range(-10, 10);
                 enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
                 GameObject instEnemy = Instantiate(obj,enemySpawnPosition.transform.position,Quaternion.identity);
-                AddToEnemyPool(instEnemy);
+               
             }
             obj = enemies[1];
             for (int i = 0; i < numberOfEnemies/2; i++)
@@ -598,7 +622,7 @@ public class GameManager : MonoBehaviour
                 float z = UnityEngine.Random.Range(-10, 10);
                 enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
                 GameObject instEnemy = Instantiate(obj, enemySpawnPosition.transform.position, Quaternion.identity);
-                AddToEnemyPool(instEnemy);
+               
             }
         }
     }

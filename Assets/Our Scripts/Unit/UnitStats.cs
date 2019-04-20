@@ -17,6 +17,8 @@ public class UnitStats : MonoBehaviour
     public static int[] archerLevel = { 0, 0, 0 };
     [HideInInspector]
     public float attackSpeed, adMultiplier=1f;
+    [HideInInspector]
+    public bool undead = false;
 
     public enum Team
     {
