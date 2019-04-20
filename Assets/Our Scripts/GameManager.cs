@@ -364,7 +364,9 @@ public class GameManager : MonoBehaviour
         archerSelected.Clear();
         knightSelected.Clear();
         selectionMenu.GetComponent<generateSelection>().change = true;
+        selectionMenu.GetComponent<generateSelection>().seq = 0;
     }
+
 
 
 

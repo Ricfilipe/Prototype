@@ -133,7 +133,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 702ba37594dee18489ba8adc1702dd86, type: 2}
+  - {fileID: 2100000, guid: dbd552701c08f0d42beb08ecb23ceb74, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -613,6 +613,9 @@ MonoBehaviour:
   MaxHP: 0
   HP: 4
   AD: 0
+  attackSpeed: 0
+  adMultiplier: 1
+  undead: 0
   team: 1
   troop: 0
 --- !u!114 &1715259371425069323

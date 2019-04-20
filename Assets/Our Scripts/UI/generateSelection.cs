@@ -95,7 +95,7 @@ public class generateSelection : MonoBehaviour
                 up.active = false;
             }
 
-            if (seq < selected.Count/10)
+            if (seq < (selected.Count-1)/10)
             {
                 down.active = true;
             }
@@ -104,9 +104,9 @@ public class generateSelection : MonoBehaviour
                 down.active = false;
             }
 
-            if (selected.Count / 10 > 0)
+            if ((selected.Count-1)/ 10 > 0)
             {
-                realText.text = (seq+1)+"/"+ (1+selected.Count / 10);
+                realText.text = (seq+1)+"/"+ (1+(selected.Count-1)/ 10);
             }
             else {
                 realText.text = "";
@@ -114,7 +114,7 @@ public class generateSelection : MonoBehaviour
 
         }
         updateHP();
-        for (int i=0; i<selected.Count;i++)
+        for (int i=0; i< selectionMenu.Count;i++)
         {
             selectionMenu[i].GetComponent<PanelInterface>().UpdateProgressionBar(selected[i].GetComponent<MovementManager>());
         }
@@ -145,7 +145,12 @@ public class generateSelection : MonoBehaviour
         int idx = this.selectionMenu.FindIndex(0, selectionMenu.Count, p => p == panel);
         GameObject go = selected[idx];
         if (Input.GetKey(KeyCode.LeftShift)){
+
             gameManager.GetComponent<GameManager>().removeFromSelection(go);
+            if (seq > (selected.Count - 2) / 10)
+            {
+                seq--;
+            }
         }
         else {
             gameManager.GetComponent<GameManager>().clearSelection();
