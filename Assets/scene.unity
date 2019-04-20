@@ -5543,7 +5543,7 @@ PrefabInstance:
     - target: {fileID: 8104828376057021157, guid: 5f9bfe95f46db2948a997eeb75dc50e6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 8104828376057021157, guid: 5f9bfe95f46db2948a997eeb75dc50e6,
         type: 3}
@@ -13909,7 +13909,7 @@ Transform:
   - {fileID: 1147642785}
   - {fileID: 495067102}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: -19.411001, z: 0}
 --- !u!4 &907206217 stripped
 Transform:
@@ -14077,6 +14077,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 733356060842787165, guid: 1c8f396da953c5c45b0349e6b9cac0b4,
     type: 3}
   m_PrefabInstance: {fileID: 204675078}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &932061906 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2917647796373228592, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+    type: 3}
+  m_PrefabInstance: {fileID: 2766599763107440719}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &937084006
 PrefabInstance:
@@ -22518,10 +22524,25 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2917647796373228593, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917647796373228593, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -290
+      objectReference: {fileID: 0}
     - target: {fileID: 2917647796373228594, guid: 9ae0e6f8a88edea49afef308b47d92e1,
         type: 3}
       propertyPath: m_Text
       value: Objectives
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917647796373228594, guid: 9ae0e6f8a88edea49afef308b47d92e1,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ae0e6f8a88edea49afef308b47d92e1, type: 3}
@@ -22667,6 +22688,9 @@ MonoBehaviour:
   MaxHP: 0
   HP: 4
   AD: 0
+  attackSpeed: 0
+  adMultiplier: 1
+  undead: 0
   team: 0
   troop: 4
 --- !u!1001 &9079459042602708645
@@ -22768,6 +22792,11 @@ PrefabInstance:
       propertyPath: enemySpawnPosition
       value: 
       objectReference: {fileID: 2035353748}
+    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
+        type: 3}
+      propertyPath: objectivo
+      value: 
+      objectReference: {fileID: 932061906}
     - target: {fileID: 9079459042214660677, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23169,6 +23198,7 @@ GameObject:
   - component: {fileID: 9134354101517059514}
   - component: {fileID: 9134354101517059515}
   - component: {fileID: 9018372473019148047}
+  - component: {fileID: 9134354101517059520}
   - component: {fileID: 9134354101517059512}
   m_Layer: 0
   m_Name: King
@@ -23209,6 +23239,8 @@ MonoBehaviour:
   gm: {fileID: 954410206}
   selected: 0
   target: {fileID: 0}
+  abs:
+  - {fileID: 9134354101517059520}
 --- !u!65 &9134354101517059516
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23289,6 +23321,26 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &9134354101517059520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9134354101517059513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0659ddffc5773541818d120546cb5e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeTime: 0
+  cooldown: 0
+  name: 
+  hasActivation: 0
+  hasCd: 0
+  timeOnActivation: 0
+  timeOnCooldown: 0
+  state: 2
 --- !u!1 &9134354102275319872
 GameObject:
   m_ObjectHideFlags: 0
