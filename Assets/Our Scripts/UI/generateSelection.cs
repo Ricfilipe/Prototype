@@ -63,12 +63,18 @@ public class generateSelection : MonoBehaviour
                 {
                     case UnitStats.Troops.King:
                         ui.GetComponent<PanelInterface>().putImage(images[0]);
+                        ui.GetComponent<PanelInterface>().progressionActive.active = false;
+                        ui.GetComponent<PanelInterface>().progressionCD.active = true;
                         break;
                     case UnitStats.Troops.Archer:
                         ui.GetComponent<PanelInterface>().putImage(images[1]);
+                        ui.GetComponent<PanelInterface>().progressionActive.active = false;
+                        ui.GetComponent<PanelInterface>().progressionCD.active = true;
                         break;
                     case UnitStats.Troops.Infantry:
                         ui.GetComponent<PanelInterface>().putImage(images[2]);
+                        ui.GetComponent<PanelInterface>().progressionActive.active = false;
+                        ui.GetComponent<PanelInterface>().progressionCD.active = false;
                         break;
 
                 }
@@ -108,6 +114,10 @@ public class generateSelection : MonoBehaviour
 
         }
         updateHP();
+        for (int i=0; i<selected.Count;i++)
+        {
+            selectionMenu[i].GetComponent<PanelInterface>().UpdateProgressionBar(selected[i].GetComponent<MovementManager>());
+        }
     }
 
     private void updateHP()

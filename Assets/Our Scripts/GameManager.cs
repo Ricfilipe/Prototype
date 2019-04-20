@@ -308,7 +308,7 @@ public class GameManager : MonoBehaviour
 
         getNumberKey();
         Spawn();
-        objectivesText.text = "Objectives\n\n\n" + "Wave " + wave + "\n" + "Number Of enemies " + enemyPool.Count;
+        //objectivesText.text = "Objectives\n\n\n" + "Wave " + wave + "\n" + "Number Of enemies " + enemyPool.Count;
 
     }
 

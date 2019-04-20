@@ -311,6 +311,7 @@ GameObject:
   - component: {fileID: 3500854651241962051}
   - component: {fileID: 3500854651241962050}
   - component: {fileID: 3706893031626258678}
+  - component: {fileID: 7031628436869129615}
   - component: {fileID: 3500854651241962049}
   m_Layer: 0
   m_Name: Archer
@@ -446,6 +447,8 @@ MonoBehaviour:
   gm: {fileID: 0}
   selected: 0
   target: {fileID: 0}
+  abs:
+  - {fileID: 7031628436869129615}
 --- !u!114 &3706893031626258678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,8 +467,30 @@ MonoBehaviour:
   MaxHP: 0
   HP: 4
   AD: 0
+  attackSpeed: 0
+  adMultiplier: 1
   team: 0
   troop: 0
+--- !u!114 &7031628436869129615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3500854651241962048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dee91424365e72f4f84a5c8d79c9e6ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeTime: 5
+  cooldown: 20
+  name: Make It Rain
+  hasActivation: 1
+  hasCd: 1
+  timeOnActivation: 0
+  timeOnCooldown: 0
+  state: 2
 --- !u!114 &3500854651241962049
 MonoBehaviour:
   m_ObjectHideFlags: 0

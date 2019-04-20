@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MovementManager : MonoBehaviour
 {
@@ -28,8 +29,7 @@ public class MovementManager : MonoBehaviour
     bool attacking;
     float attackRatio;
 
-    //troops ability enhancement variables
-    public bool onCooldown;
+    public List<Ability> abs;
 
 
     void Start()
@@ -86,7 +86,8 @@ public class MovementManager : MonoBehaviour
 
             if (attacking && attackTimer <= 0)
             {
-                attackTimer = 1.5f * attackRatio;
+                target.gameObject.GetComponent<UnitStats>().HP -= myUnitStats.getAD();
+                attackTimer = myUnitStats.attackSpeed * attackRatio;
                 //Debug.Log(this.name + "\n" + target.gameObject.GetComponent<UnitStats>().HP + "\n" + target.gameObject.GetComponent<UnitStats>().getMaxHP());
             }
 
@@ -103,14 +104,4 @@ public class MovementManager : MonoBehaviour
         }
     }
 
-    public IEnumerator ArcherSpecialAbility()
-    {
-        if (!onCooldown)
-        {
-            attackRatio = 0.5f;
-            onCooldown = true;
-        }
-        yield return new WaitForSeconds(5f);
-
-    }
 }

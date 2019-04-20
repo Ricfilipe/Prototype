@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public class UnitStats : MonoBehaviour
     public static int[] knightLevel = { 0, 0, 0 };
     [HideInInspector]
     public static int[] archerLevel = { 0, 0, 0 };
+    [HideInInspector]
+    public float attackSpeed, adMultiplier=1f;
 
     public enum Team
     {
@@ -44,16 +47,18 @@ public class UnitStats : MonoBehaviour
     			switch(troop)
     			{
     				case Troops.Infantry:
-	    				this.range=1.5f;
+	    				this.range=2f;
 	    				this.size=5;
 	    				this.HP= InfantryMaxHP;
+                        this.attackSpeed = 1.5f;
 	    				break;
 
 	    			case Troops.Archer:
-	    				this.range=10;
+	    				this.range=20;
 	    				this.size=4;	    				
 	    				this.HP=ArcherMaxHP;
-	    				break;
+                        this.attackSpeed = 1.5f;
+                        break;
 
 	    			case Troops.King:
 	    				this.speed=6;
@@ -62,7 +67,8 @@ public class UnitStats : MonoBehaviour
 	    				this.MaxHP=13;
 	    				this.HP=13;
 	    				this.AD=3;
-	    				break;
+                        this.attackSpeed = 1.5f;
+                        break;
     			}
     			break;	   		
 
@@ -71,7 +77,7 @@ public class UnitStats : MonoBehaviour
     			{
     				case Troops.Archer:
 	    				this.speed=3;
-	    				this.range=9;
+	    				this.range=18;
 	    				this.size=4;
 	    				this.MaxHP=3;
 	    				this.HP=3;
@@ -80,7 +86,7 @@ public class UnitStats : MonoBehaviour
     				
     				case Troops.Infantry:
     					this.speed=4;
-	    				this.range=1.5f;
+	    				this.range=2f;
 	    				this.size=5;
 	    				this.MaxHP=5;
 	    				this.HP=5;
@@ -89,7 +95,7 @@ public class UnitStats : MonoBehaviour
 
 	    			case Troops.Cavalry:
 	    				this.speed=5;
-	    				this.range=2;
+	    				this.range=2f;
 	    				this.size=8;
 	    				this.MaxHP=5;
 	    				this.HP=5;
@@ -98,7 +104,7 @@ public class UnitStats : MonoBehaviour
 
 	    			case Troops.CrossBowMan:
 	    				this.speed=4;
-	    				this.range=7;
+	    				this.range=15;
 	    				this.size=4;
 	    				this.MaxHP=3;
 	    				this.HP=3;
@@ -144,19 +150,19 @@ public class UnitStats : MonoBehaviour
 		if (team==Team.England){
 			switch(troop){
 				case Troops.Archer:
-					return ArcherAD;
+					return Convert.ToInt32(ArcherAD * adMultiplier);
 
 				case Troops.Infantry:
-					return InfantryAD;
+					return Convert.ToInt32(InfantryAD*adMultiplier);
 
 				default:
-					return AD;
+					return Convert.ToInt32(AD * adMultiplier);
 
 			}
 
 		}
 		else{
-			return AD;
+			return Convert.ToInt32(AD * adMultiplier); 
 		}
 	}
 

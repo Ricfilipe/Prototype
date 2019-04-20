@@ -145,11 +145,12 @@ public class ActionMenu : MonoBehaviour
             actionButtons[1].onClick.AddListener(stopMove);
             actionButtons[2].interactable = true;
             actionButtons[2].onClick.AddListener(moveMove);
-
+            abilitiesShortcut();
 
 
             if (gm.archerSelected.Count > 0)
             {
+               
                 actions[3].GetComponentInChildren<Text>().text = "Make it Rain";
                 actionButtons[3].interactable = true;
                 actionButtons[3].onClick.AddListener(archerAbility);
@@ -161,7 +162,7 @@ public class ActionMenu : MonoBehaviour
             {
                 actions[5].GetComponentInChildren<Text>().text = "For the King";
                 actionButtons[5].interactable = true;
-                actionButtons[5].onClick.AddListener(archerAbility);
+                actionButtons[5].onClick.AddListener(kingAbility);
             }
 
 
@@ -207,11 +208,10 @@ public class ActionMenu : MonoBehaviour
 
     public void archerAbility()
     {
-        //TODO
-        /*foreach (GameObject gameObj in gm.archerSelected)
+        foreach (GameObject gameObj in gm.archerSelected)
         {
-            StartCoroutine(gameObj.GetComponent<MovementManager>().ArcherSpecialAbility());
-        }*/
+            StartCoroutine(gameObj.GetComponent<MovementManager>().abs[0].DoAbility());
+        }
     }
 
 
@@ -360,6 +360,20 @@ public class ActionMenu : MonoBehaviour
         if (Input.GetKey(KeyCode.B))
         {
             selectBase();
+        }
+
+    }
+
+    private void abilitiesShortcut()
+    {
+        if (Input.GetKey(KeyCode.Q))
+        {
+            archerAbility();
+        }
+
+        if (Input.GetKey(KeyCode.E))
+        {
+            kingAbility();
         }
 
     }
