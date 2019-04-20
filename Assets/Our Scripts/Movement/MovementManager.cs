@@ -36,8 +36,8 @@ public class MovementManager : MonoBehaviour
     {
         attackRatio = 1;
         this.gm = GameObject.FindGameObjectsWithTag("GameManager")[0];
-        gm.GetComponent<GameManager>().myCharacterPool.Add(gameObject); 
-
+        gm.GetComponent<GameManager>().myCharacterPool.Add(gameObject);
+        GetComponent<NavMeshAgent>().isStopped = true;
         this.myUnitStats = GetComponent<UnitStats>();
         attackRange = myUnitStats.range;
     }
@@ -61,6 +61,22 @@ public class MovementManager : MonoBehaviour
         if (currentAction != null)
         {
             currentAction.Update();
+        }
+
+        if (GetComponent<NavMeshAgent>().isStopped && target == null)
+        {
+            float min = myUnitStats.range;
+            foreach (GameObject enemy in gm.GetComponent<GameManager>().enemyPool)
+            {
+                float tempMin = (enemy.transform.position - transform.position).magnitude;
+                if (tempMin <= min)
+                {
+                    min = tempMin;
+                    target = enemy;
+
+                }
+
+            }
         }
 
 
@@ -91,6 +107,8 @@ public class MovementManager : MonoBehaviour
     {
         if (target != null)
         {
+            transform.rotation = Quaternion.LookRotation((target.transform.position - transform.position).normalized,Vector3.up);
+
             if (attackTimer > 0)
             {
                 attackTimer -= Time.deltaTime;

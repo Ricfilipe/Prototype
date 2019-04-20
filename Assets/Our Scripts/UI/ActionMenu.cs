@@ -225,6 +225,7 @@ public class ActionMenu : MonoBehaviour
         
         if(UnitStats.knightLevel[0]!=3 && gm.silver>= costKnightADUpgrade + 100* UnitStats.knightLevel[0])
         {
+            gm.silver -= costKnightADUpgrade + 100 * UnitStats.knightLevel[0];
             UnitStats.InfantryAD = UnitStats.InfantryAD + 1;
             UnitStats.knightLevel[1]++;
         }
@@ -235,6 +236,7 @@ public class ActionMenu : MonoBehaviour
     {
         if (UnitStats.knightLevel[1] != 3 && gm.silver >= costKnightHPUpgrade + 100 * UnitStats.knightLevel[1])
         {
+            gm.silver -= costKnightHPUpgrade + 100 * UnitStats.knightLevel[1];
             UnitStats.InfantryMaxHP = UnitStats.InfantryMaxHP + 2;
             foreach(GameObject go in gm.myCharacterPool)
             {
@@ -250,6 +252,7 @@ public class ActionMenu : MonoBehaviour
     {
         if (UnitStats.knightLevel[2] != 3 && gm.silver >= costKnightSpeedUpgrade + 100 * UnitStats.knightLevel[2])
         {
+            gm.silver -= costKnightSpeedUpgrade + 100 * UnitStats.knightLevel[2];
             UnitStats.InfantrySpeed = UnitStats.InfantrySpeed + 2;
             UnitStats.knightLevel[2]++;
         }
@@ -259,6 +262,7 @@ public class ActionMenu : MonoBehaviour
     {
         if (UnitStats.archerLevel[0] != 3 && gm.silver >= costArcherADUpgrade + 100 * UnitStats.archerLevel[0])
         {
+            gm.silver -= costArcherADUpgrade + 100 * UnitStats.archerLevel[0];
             UnitStats.ArcherAD = UnitStats.ArcherAD + 1;
             UnitStats.archerLevel[1]++;
         }
@@ -268,6 +272,7 @@ public class ActionMenu : MonoBehaviour
     {
         if (UnitStats.archerLevel[1] != 3 && gm.silver >= costArcherHPUpgrade + 100 * UnitStats.archerLevel[1])
         {
+            gm.silver -= costArcherHPUpgrade + 100 * UnitStats.archerLevel[1];
             UnitStats.ArcherMaxHP = UnitStats.ArcherMaxHP + 2;
             foreach (GameObject go in gm.myCharacterPool)
             {
@@ -283,6 +288,7 @@ public class ActionMenu : MonoBehaviour
     {
         if (UnitStats.archerLevel[2] != 3 && gm.silver >= costArcherSpeedUpgrade + 100 * UnitStats.archerLevel[2])
         {
+            gm.silver -= costArcherSpeedUpgrade + 100 * UnitStats.archerLevel[2];
             UnitStats.ArcherSpeed = UnitStats.ArcherSpeed + 2;
             UnitStats.archerLevel[2]++;
         }
