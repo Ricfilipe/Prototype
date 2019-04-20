@@ -26,7 +26,6 @@ public class Attack : UnitAction
         }
         else
         {
-            Debug.Log(targetEnemy);
             agent.GetComponent<MovementManager>().target = targetEnemy;
         }
     }

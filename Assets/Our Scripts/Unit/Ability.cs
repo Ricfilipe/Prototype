@@ -10,6 +10,12 @@ public abstract class Ability:MonoBehaviour
     public bool hasActivation,hasCd;
     [HideInInspector]
     public float timeOnActivation, timeOnCooldown;
+    protected UnitStats stats;
+
+    private void Start()
+    {
+        this.stats = GetComponent<UnitStats>();
+    }
 
     public enum State
     {

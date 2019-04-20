@@ -477,6 +477,7 @@ GameObject:
   - component: {fileID: 7034763804902137220}
   - component: {fileID: 48287524733738407}
   - component: {fileID: 8458940228157141232}
+  - component: {fileID: 3059414110158690818}
   - component: {fileID: 5525528799855273866}
   m_Layer: 0
   m_Name: Knight
@@ -632,8 +633,31 @@ MonoBehaviour:
   MaxHP: 0
   HP: 6
   AD: 0
+  attackSpeed: 0
+  adMultiplier: 1
+  undead: 0
   team: 0
   troop: 1
+--- !u!114 &3059414110158690818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7344821862174552530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b3a4edd7a753740a6eac30c93aaa1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeTime: 5
+  cooldown: 0
+  name: Last Stand
+  hasActivation: 1
+  hasCd: 1
+  timeOnActivation: 0
+  timeOnCooldown: 0
+  state: 2
 --- !u!114 &5525528799855273866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,3 +674,5 @@ MonoBehaviour:
   gm: {fileID: 0}
   selected: 0
   target: {fileID: 0}
+  abs:
+  - {fileID: 3059414110158690818}

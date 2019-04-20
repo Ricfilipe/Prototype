@@ -200,10 +200,6 @@ public class ActionMenu : MonoBehaviour
        gm.makeAction(null, GameManager.typeAction.Stop);
     }
 
-    public void knightAbility()
-    {
-        //TODO
-    }
 
 
     public void archerAbility()
