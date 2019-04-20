@@ -213,7 +213,10 @@ public class ActionMenu : MonoBehaviour
 
     public void kingAbility()
     {
-        //TODO
+        if(gm.King != null)
+        {
+            StartCoroutine(gm.King.GetComponent<MovementManager>().abs[0].DoAbility());
+        }
     }
 
 
