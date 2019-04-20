@@ -38,7 +38,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] enemies;
     public GameObject enemySpawnPosition;
 
-    public Text objectivesText;
+    public GameObject objectivo;
+    private Text objectivesText;
 
 
     public enum typeAction
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public int silver;
     public GameObject silverText;
+    private bool actionDone = false;
 
     private void Awake()
     {
@@ -72,6 +74,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         numberOfEnemies = 2;
+        this.objectivesText = this.objectivo.GetComponent<Text>();
         waveTimer = 10;
         selectSquareImage.gameObject.SetActive(false);
         Base.GetComponent<Outline>().enabled = false;
@@ -107,15 +110,15 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-
+                    actionDone = true;
                     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
                     {
-
-                        if(currentAction == typeAction.Banner)
+                        
+                        if (currentAction == typeAction.Banner)
                         {
                             banner.transform.position = new Vector3(hit.point.x, banner.transform.position.y, hit.point.z);
                             changeToNormal();
-
+                            
                         }
                         if (hit.collider.tag == "Enemy")
                         {
@@ -174,7 +177,7 @@ public class GameManager : MonoBehaviour
         {
             activateSelectArea = false;
 
-            if (currentAction == typeAction.Normal)
+            if (currentAction == typeAction.Normal && !actionDone)
             {
                 Vector3 squareStart = Camera.main.WorldToScreenPoint(startPos);
                 if (Math.Abs(endPos.x - squareStart.x) < 0.5 && Math.Abs(endPos.y - squareStart.y) < 0.5)
@@ -244,7 +247,7 @@ public class GameManager : MonoBehaviour
                     }
 
                 }
-                else
+                else if(!actionDone)
                 {
 
                     Rect selectRect = new Rect(squareStart.x, squareStart.y, endPos.x - squareStart.x, endPos.y - squareStart.y);
@@ -272,9 +275,11 @@ public class GameManager : MonoBehaviour
 
                 selectSquareImage.gameObject.SetActive(false);
             }
+            if (actionDone)
+                actionDone = false;
         }
 
-        else if (Input.GetMouseButton(0) && activateSelectArea)
+        else if (Input.GetMouseButton(0) && activateSelectArea )
         {
 
             if (!selectSquareImage.gameObject.activeInHierarchy)
@@ -336,7 +341,7 @@ public class GameManager : MonoBehaviour
 
         getNumberKey();
         Spawn();
-        //objectivesText.text = "Objectives\n\n\n" + "Wave " + wave + "\n" + "Number Of enemies " + enemyPool.Count;
+        objectivesText.text = "Objectives:\n" + "Wave: " + (wave-1) + "\n" + "Enemies: " + enemyPool.Count;
 
     }
 
