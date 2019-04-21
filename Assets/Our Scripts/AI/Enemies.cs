@@ -174,9 +174,16 @@ public abstract class Enemies : MonoBehaviour
 
         if (attacking && attackTimer <= 0)
         {
-            if (!nearestUnit.GetComponent<UnitStats>().undead)
+            if (GetComponent<UnitStats>().troop == UnitStats.Troops.Archer || GetComponent<UnitStats>().troop == UnitStats.Troops.CrossBowMan)
             {
-                nearestUnit.gameObject.GetComponent<UnitStats>().HP -= unitStats.AD;
+                GetComponentInChildren<shootArrow>().shoot(nearestUnit);
+            }
+            else
+            {
+                if (!nearestUnit.GetComponent<UnitStats>().undead)
+                {
+                    nearestUnit.gameObject.GetComponent<UnitStats>().HP -= unitStats.AD;
+                }
             }
                 attackTimer = 0.25f;
                 globalAttackTimer = (GetComponent<UnitStats>().attackSpeed) - attackTimer;

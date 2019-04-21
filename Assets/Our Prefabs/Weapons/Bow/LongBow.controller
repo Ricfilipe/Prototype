@@ -53,7 +53,7 @@ AnimatorState:
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
-  m_TimeParameter: 
+  m_TimeParameter: time
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0

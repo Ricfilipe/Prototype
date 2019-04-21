@@ -167,7 +167,14 @@ public class MovementManager : MonoBehaviour
 
             if (attacking && attackTimer <= 0)
             {
-                target.gameObject.GetComponent<UnitStats>().HP -= myUnitStats.getAD();
+                if (myUnitStats.troop == UnitStats.Troops.Archer)
+                {
+                    GetComponentInChildren<shootArrow>().shoot(target);
+                }
+                else {
+ target.gameObject.GetComponent<UnitStats>().HP -= myUnitStats.getAD();
+                }
+                
                 attackTimer = 0.25f;
                 if (enchanced)
                 {
