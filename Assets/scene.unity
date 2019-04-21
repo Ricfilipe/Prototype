@@ -24658,7 +24658,7 @@ PrefabInstance:
     - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
       propertyPath: cursors.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
@@ -24699,17 +24699,17 @@ PrefabInstance:
         type: 3}
       propertyPath: cursors.Array.data[2]
       value: 
-      objectReference: {fileID: 2800000, guid: 0a7e40752c94c1e41aa4c554be54aba1, type: 3}
+      objectReference: {fileID: 2800000, guid: 699a9d7f6cf3e4d488b0840c89b04015, type: 3}
     - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
       propertyPath: cursors.Array.data[0]
       value: 
-      objectReference: {fileID: 2800000, guid: 3386e38a8d521cd45852678a82096e8f, type: 3}
+      objectReference: {fileID: 2800000, guid: db296939d7711f242accd0a315097a7d, type: 3}
     - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
       propertyPath: cursors.Array.data[1]
       value: 
-      objectReference: {fileID: 2800000, guid: 9e23e14539725d34886540a8b6907f36, type: 3}
+      objectReference: {fileID: 2800000, guid: 0eb82c064b931bc4da1fbb09453c9187, type: 3}
     - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
       propertyPath: banner
@@ -24752,6 +24752,16 @@ PrefabInstance:
       propertyPath: animations.Array.data[2]
       value: 
       objectReference: {fileID: 111050, guid: 40db04b0a81c7c24d9ad93f78080cab8, type: 3}
+    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
+        type: 3}
+      propertyPath: cursors.Array.data[3]
+      value: 
+      objectReference: {fileID: 2800000, guid: 4cd653ba494817845898c299e60f8ad9, type: 3}
+    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
+        type: 3}
+      propertyPath: cursors.Array.data[4]
+      value: 
+      objectReference: {fileID: 2800000, guid: debb989b634380641b1990098739432c, type: 3}
     - target: {fileID: 9079459042214660677, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
       propertyPath: m_LocalPosition.x

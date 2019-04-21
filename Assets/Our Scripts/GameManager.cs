@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.SetCursor(cursors[2], new Vector2(0, 0), CursorMode.Auto);
         numberOfEnemies = 2;
         this.objectivesText = this.objectivo.GetComponent<Text>();
         waveTimer = 10;
@@ -97,14 +98,34 @@ public class GameManager : MonoBehaviour
                 if (hitOut.collider.tag == "Enemy")
                 {
                     hitOut.collider.gameObject.GetComponent<Enemies>().hover = true;
+                    Cursor.SetCursor(cursors[3], new Vector2(16, 16), CursorMode.Auto);
                 }
                 else if (hitOut.collider.tag == "MyUnit")
                 {
                     hitOut.collider.gameObject.GetComponent<MovementManager>().hover = true;
+                    Cursor.SetCursor(cursors[4], new Vector2(16, 16), CursorMode.Auto);
+                }
+                else {
+                    switch (currentAction) {
+                        case typeAction.Attack:
+                            Cursor.SetCursor(cursors[0], new Vector2(0, 0), CursorMode.Auto);
+                            break;
+                        case typeAction.Move:
+                            Cursor.SetCursor(cursors[1], new Vector2(0, 0), CursorMode.Auto);
+                            break;
+                        default:
+                        Cursor.SetCursor(cursors[2], new Vector2(0, 0), CursorMode.Auto);
+                            break;
+                }
+
+        
                 }
 
 
 
+            }
+            else {
+                Cursor.SetCursor(cursors[2], new Vector2(0, 0), CursorMode.Auto);
             }
         }
 
@@ -828,19 +849,19 @@ public class GameManager : MonoBehaviour
 
     public void changeToAttack()
     {
-        Cursor.SetCursor(cursors[0], new Vector2(8f, 8f), CursorMode.Auto);
+        Cursor.SetCursor(cursors[0], new Vector2(0f, 0f), CursorMode.Auto);
         currentAction = typeAction.Attack;
     }
 
     public void changeToNormal()
     {
-        Cursor.SetCursor(null, new Vector2(0, 0), CursorMode.Auto);
+        Cursor.SetCursor(cursors[2], new Vector2(0, 0), CursorMode.Auto);
         currentAction = typeAction.Normal;
     }
 
     public void changeToMove()
     {
-        Cursor.SetCursor(cursors[1], new Vector2(8f, 8f), CursorMode.Auto);
+        Cursor.SetCursor(cursors[1], new Vector2(0f, 0f), CursorMode.Auto);
         currentAction = typeAction.Move;
     }
 
