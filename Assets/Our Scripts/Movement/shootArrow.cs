@@ -5,12 +5,19 @@ using UnityEngine;
 public class shootArrow : MonoBehaviour
 {
     public GameObject arrow;
-    public void shoot(GameObject target)
+    public GameObject currentArrow;
+    public void shoot()
     {
         GameObject arrow = Instantiate(this.arrow,null);
-        arrow.transform.position = transform.position;
-        arrow.transform.rotation = transform.rotation;
-        arrow.GetComponent<arrowFollow>().markTarget(target);
+        arrow.transform.position = currentArrow.transform.position;
+        arrow.transform.rotation = currentArrow.transform.rotation;
+        if (GetComponentInParent<UnitStats>().team == UnitStats.Team.England) {
+            arrow.GetComponent<arrowFollow>().markTarget(GetComponentInParent<MovementManager>().target);
+        }
+        else
+        {
+            arrow.GetComponent<arrowFollow>().markTarget(GetComponentInParent<Enemies>().nearestUnit);
+        }
         arrow.GetComponent<arrowFollow>().damage = GetComponentInParent<UnitStats>().getAD();
     }
 }

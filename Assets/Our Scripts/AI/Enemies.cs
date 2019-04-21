@@ -25,7 +25,8 @@ public abstract class Enemies : MonoBehaviour
     protected Vector3 center;
     protected float detectUnitsRadius;
     protected float nearestDistance;
-    protected GameObject nearestUnit;
+    [HideInInspector]
+    public GameObject nearestUnit;
     private float distance;
     private float updateDistance; 
     private float attackTimer = 0.25f;
@@ -174,17 +175,6 @@ public abstract class Enemies : MonoBehaviour
 
         if (attacking && attackTimer <= 0)
         {
-            if (GetComponent<UnitStats>().troop == UnitStats.Troops.Archer || GetComponent<UnitStats>().troop == UnitStats.Troops.CrossBowMan)
-            {
-                GetComponentInChildren<shootArrow>().shoot(nearestUnit);
-            }
-            else
-            {
-                if (!nearestUnit.GetComponent<UnitStats>().undead)
-                {
-                    nearestUnit.gameObject.GetComponent<UnitStats>().HP -= unitStats.AD;
-                }
-            }
                 attackTimer = 0.25f;
                 globalAttackTimer = (GetComponent<UnitStats>().attackSpeed) - attackTimer;
                 //Debug.Log(this.name + "\n" + nearestUnit.gameObject.GetComponent<UnitStats>().HP + "\n" + nearestUnit.gameObject.GetComponent<UnitStats>().MaxHP);
