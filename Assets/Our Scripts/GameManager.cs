@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject banner;
 
+    public GameObject[] animations = new GameObject[3];
+
     private GameObject lastClick;
     private float lastTime;
 
@@ -157,6 +159,8 @@ public class GameManager : MonoBehaviour
                             if (currentAction == typeAction.Attack)
                             {
                                 Vector3 helper = hit.point;
+                                GameObject anim = Instantiate(animations[1]);
+                                anim.transform.position = new Vector3(helper.x, 0.25f, helper.z);
                                 float min = 60f;
                                 int idx = -1;
                                 for (int i = 0; i < enemyPool.Count; i++)
@@ -183,6 +187,8 @@ public class GameManager : MonoBehaviour
                             {
                                 makeAction(hit.point, currentAction);
                                 changeToNormal();
+                                GameObject anim = Instantiate(animations[2]);
+                                anim.transform.position = new Vector3(hit.point.x, 0.25f, hit.point.z);
                             }
                         }
                     }
@@ -339,7 +345,8 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     makeAction(hit.point, typeAction.Normal);
-
+                    GameObject anim = Instantiate(animations[0]);
+                    anim.transform.position = new Vector3(hit.point.x, 0.25f, hit.point.z);
                 }
 
             }
