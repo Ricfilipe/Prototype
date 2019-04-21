@@ -32,8 +32,8 @@ public class Attack : UnitAction
 
     public override void Update()
     {
-        Debug.Log(targetEnemy);
-        if (targetEnemy == null)
+       
+        if (targetEnemy == null || targetEnemy.GetComponent<UnitStats>().dead)
         {
             float min= 60f;
             foreach (GameObject enemy in gm.enemyPool)

@@ -60,16 +60,31 @@ public abstract class Enemies : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        EnemyMovement();
-
-        if ( hover)
+        if (gameObject.GetComponent<UnitStats>().HP <= 0)
         {
-            GetComponent<Outline>().enabled = true;
-            hover = false;
+                gm.GetComponent<GameManager>().enemyPool.Remove(gameObject);                
+                StartCoroutine(GetComponent<Dying>().Dead());
         }
-        else
-        {
-            GetComponent<Outline>().enabled = false;
+
+            if (GetComponent<Dying>().state == Dying.State.Alive) {
+            if (nearestUnit != null)
+            {
+                if (nearestUnit.GetComponent<UnitStats>().dead)
+                {
+                    nearestUnit = null;
+                }
+            }
+            EnemyMovement();
+
+            if (hover)
+            {
+                GetComponent<Outline>().enabled = true;
+                hover = false;
+            }
+            else
+            {
+                GetComponent<Outline>().enabled = false;
+            }
         }
     }
 
@@ -122,6 +137,8 @@ public abstract class Enemies : MonoBehaviour
     // attacks the units with cooldowns for each blow
     protected virtual void Attack()
     {
+        
+        transform.rotation = Quaternion.LookRotation((nearestUnit.transform.position - transform.position).normalized, Vector3.up);
         if (attackTimer > 0)
         {
             attackTimer -= Time.deltaTime;

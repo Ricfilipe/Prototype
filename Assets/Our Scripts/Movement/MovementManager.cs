@@ -14,6 +14,8 @@ public class MovementManager : MonoBehaviour
     [HideInInspector]
     public GameObject gm;
 
+    public GameObject bow;
+
     [HideInInspector]
     public UnitAction currentAction;
     [HideInInspector]
@@ -47,6 +49,20 @@ public class MovementManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKey(KeyCode.C) && selected){
+            gm.GetComponent<GameManager>().myCharacterPool.Remove(gameObject);
+            gm.GetComponent<GameManager>().removeFromSelection(gameObject);
+            StartCoroutine(GetComponent<Dying>().Dead());
+        }
+
+        if (target != null)
+        {
+            if (target.GetComponent<UnitStats>().dead)
+            {
+                target = null;
+            }
+        }
+
         GetComponent<NavMeshAgent>().speed = myUnitStats.getSpeed();
         if (selected||hover)
         {
@@ -58,48 +74,52 @@ public class MovementManager : MonoBehaviour
             GetComponent<Outline>().enabled = false;
         }
 
-        if (currentAction != null)
-        {
-            currentAction.Update();
-        }
 
-        if (GetComponent<NavMeshAgent>().isStopped && target == null)
+        if (GetComponent<Dying>().state == Dying.State.Alive)
         {
-            float min = myUnitStats.range;
-            foreach (GameObject enemy in gm.GetComponent<GameManager>().enemyPool)
+
+            if (currentAction != null)
             {
-                float tempMin = (enemy.transform.position - transform.position).magnitude;
-                if (tempMin <= min)
+                currentAction.Update();
+            }
+
+            if (GetComponent<NavMeshAgent>().isStopped && (target == null))
+            {
+                float min = myUnitStats.range;
+                foreach (GameObject enemy in gm.GetComponent<GameManager>().enemyPool)
                 {
-                    min = tempMin;
-                    target = enemy;
+                    float tempMin = (enemy.transform.position - transform.position).magnitude;
+                    if (tempMin <= min)
+                    {
+                        min = tempMin;
+                        target = enemy;
+
+                    }
 
                 }
-
             }
-        }
 
 
-        if (gameObject.GetComponent<UnitStats>().HP <= 0)
-        {
-            if (GetComponent<UnitStats>().troop == UnitStats.Troops.Infantry && !GetComponent<UnitStats>().undead)
+            if (gameObject.GetComponent<UnitStats>().HP <= 0)
             {
-                StartCoroutine(GetComponent<MovementManager>().abs[0].DoAbility()); ;
+                if (GetComponent<UnitStats>().troop == UnitStats.Troops.Infantry && !GetComponent<UnitStats>().undead)
+                {
+                    StartCoroutine(GetComponent<MovementManager>().abs[0].DoAbility());
+                }
+
+                if (!GetComponent<UnitStats>().undead)
+                {
+                    gm.GetComponent<GameManager>().myCharacterPool.Remove(gameObject);
+                    gm.GetComponent<GameManager>().removeFromSelection(gameObject);
+                    StartCoroutine(GetComponent<Dying>().Dead());
+
+                }
             }
 
-            if (!GetComponent<UnitStats>().undead)
-            {
-                gm.GetComponent<GameManager>().myCharacterPool.Remove(gameObject);
-                gm.GetComponent<GameManager>().removeFromSelection(gameObject);
-                Destroy(transform.parent.gameObject);
 
-            }
+
+            Attack();
         }
-
-
-
-        Attack();
-        
     }
 
 
@@ -117,10 +137,14 @@ public class MovementManager : MonoBehaviour
             if ((transform.position - target.transform.position).magnitude <= attackRange)
             {
                 attacking = true;
+                if(myUnitStats.troop == UnitStats.Troops.Archer)
+                    bow.GetComponent<Animator>().Play("anim_normal");
             }
             else
             {
                 attacking = false;
+                if (myUnitStats.troop == UnitStats.Troops.Archer)
+                    bow.GetComponent<Animator>().Play("IdleBow");
             }
 
             if (attacking && attackTimer <= 0)
@@ -135,7 +159,6 @@ public class MovementManager : MonoBehaviour
             {
                gm.GetComponent<GameManager>().enemyPool.Remove(target);
                 target.GetComponent<Enemies>().DropSilver();
-                Destroy(target.transform.parent.gameObject);
                 target = null;
                 attacking = false;
                 

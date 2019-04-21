@@ -21,17 +21,22 @@ public class Move : UnitAction
 
     public override void Update()
     {
-        if (targetEnemy != null)
+        if (targetEnemy != null || !targetEnemy.GetComponent<UnitStats>().dead)
         {
 
             agent.destination = targetEnemy.transform.position;
+         
             agent.stoppingDistance = 0f;
         }
-        else
+        else if (targetPosition.y != -1000)
         {
 
             agent.destination = targetPosition;
             agent.stoppingDistance = 0f;
+        }
+        else
+        {
+            agent.isStopped = true;
         }
     }
 

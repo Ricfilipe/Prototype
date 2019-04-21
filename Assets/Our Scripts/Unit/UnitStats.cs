@@ -37,8 +37,10 @@ public class UnitStats : MonoBehaviour
 
  	public Team team;
     public Troops troop;
+    [HideInInspector]
+    public bool dead;
 
-    
+
 
     // Start is called before the first frame update
     void Start()

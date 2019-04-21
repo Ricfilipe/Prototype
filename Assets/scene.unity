@@ -749,6 +749,16 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
+    - target: {fileID: 3994079305044878273, guid: e6d017ef2c139dd4580d9de095a3a33c,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994079305044878273, guid: e6d017ef2c139dd4580d9de095a3a33c,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6d017ef2c139dd4580d9de095a3a33c, type: 3}
 --- !u!1 &66410609
@@ -23614,6 +23624,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -50.983
       objectReference: {fileID: 0}
+    - target: {fileID: 3994079305044878273, guid: e6d017ef2c139dd4580d9de095a3a33c,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6d017ef2c139dd4580d9de095a3a33c, type: 3}
 --- !u!1 &2035353748
@@ -25525,6 +25540,7 @@ MonoBehaviour:
   cam: {fileID: 5548020722153965198, guid: 3a1f8a72e8a22514f94efcb58d71a532, type: 3}
   gm: {fileID: 954410206}
   selected: 0
+  hover: 0
   target: {fileID: 0}
   abs:
   - {fileID: 9134354101517059520}

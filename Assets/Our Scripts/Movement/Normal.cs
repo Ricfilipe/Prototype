@@ -19,7 +19,7 @@ public class Normal : UnitAction
     public override void Update()
     {
         
-        if (targetEnemy != null)
+        if (targetEnemy != null || !targetEnemy.GetComponent<UnitStats>().dead)
         {
 
             agent.destination = targetEnemy.transform.position;
