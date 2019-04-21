@@ -14,7 +14,7 @@ public class MovementManager : MonoBehaviour
     [HideInInspector]
     public GameObject gm;
 
-    public GameObject bow;
+    public GameObject weapon;
 
     [HideInInspector]
     public UnitAction currentAction;
@@ -27,7 +27,8 @@ public class MovementManager : MonoBehaviour
     bool attack = false;
     int counter = 0;
 
-    float attackTimer = 0;
+    float globalAttackTimer = 0;
+    float attackTimer = 0.25f;
     bool attacking;
     float attackRatio;
 
@@ -49,18 +50,23 @@ public class MovementManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.C) && selected){
-            gm.GetComponent<GameManager>().myCharacterPool.Remove(gameObject);
-            gm.GetComponent<GameManager>().removeFromSelection(gameObject);
-            StartCoroutine(GetComponent<Dying>().Dead());
+
+        if (globalAttackTimer > 0)
+        {
+            globalAttackTimer -= Time.deltaTime;
         }
 
         if (target != null)
         {
             if (target.GetComponent<UnitStats>().dead)
             {
+                weapon.GetComponent<Animator>().Play("Idle");
                 target = null;
             }
+        }
+        else
+        {
+            weapon.GetComponent<Animator>().Play("Idle");
         }
 
         GetComponent<NavMeshAgent>().speed = myUnitStats.getSpeed();
@@ -109,6 +115,7 @@ public class MovementManager : MonoBehaviour
 
                 if (!GetComponent<UnitStats>().undead)
                 {
+                    weapon.GetComponent<Animator>().Play("Idle");
                     gm.GetComponent<GameManager>().myCharacterPool.Remove(gameObject);
                     gm.GetComponent<GameManager>().removeFromSelection(gameObject);
                     StartCoroutine(GetComponent<Dying>().Dead());
@@ -129,28 +136,33 @@ public class MovementManager : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation((target.transform.position - transform.position).normalized,Vector3.up);
 
-            if (attackTimer > 0)
-            {
-                attackTimer -= Time.deltaTime;
-            }
 
             if ((transform.position - target.transform.position).magnitude <= attackRange)
             {
                 attacking = true;
-                if(myUnitStats.troop == UnitStats.Troops.Archer)
-                    bow.GetComponent<Animator>().Play("anim_normal");
+                if (globalAttackTimer <= 0)
+                {
+
+                    if (attackTimer > 0)
+                    {
+                        attackTimer -= Time.deltaTime;
+                    }
+                    weapon.GetComponent<Animator>().Play("attack");
+                }
             }
             else
             {
                 attacking = false;
-                if (myUnitStats.troop == UnitStats.Troops.Archer)
-                    bow.GetComponent<Animator>().Play("IdleBow");
+               
+                    weapon.GetComponent<Animator>().Play("Idle");
             }
 
             if (attacking && attackTimer <= 0)
             {
                 target.gameObject.GetComponent<UnitStats>().HP -= myUnitStats.getAD();
-                attackTimer = myUnitStats.attackSpeed * attackRatio;
+                attackTimer = 0.25f;
+                globalAttackTimer = (myUnitStats.attackSpeed * attackRatio)-attackTimer;
+                
                 //Debug.Log(this.name + "\n" + target.gameObject.GetComponent<UnitStats>().HP + "\n" + target.gameObject.GetComponent<UnitStats>().getMaxHP());
             }
 

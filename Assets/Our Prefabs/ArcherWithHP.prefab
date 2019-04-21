@@ -460,6 +460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 3500854651732047801}
   HP: {fileID: 3500854650760873901}
+  state: 0
 --- !u!195 &3500854651241962052
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -512,7 +513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 5548020722153965198, guid: 3a1f8a72e8a22514f94efcb58d71a532, type: 3}
   gm: {fileID: 0}
-  bow: {fileID: 1767428125732399172}
+  weapon: {fileID: 1767428125732399172}
   selected: 0
   hover: 0
   target: {fileID: 0}
@@ -541,6 +542,7 @@ MonoBehaviour:
   undead: 0
   team: 0
   troop: 0
+  dead: 0
 --- !u!114 &7031628436869129615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -765,12 +767,12 @@ PrefabInstance:
     - target: {fileID: 5040880920175670608, guid: 6e03b803edcfe944a93c61089a8554d8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.064
+      value: 0.169
       objectReference: {fileID: 0}
     - target: {fileID: 5040880920175670608, guid: 6e03b803edcfe944a93c61089a8554d8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.629
+      value: 0.805
       objectReference: {fileID: 0}
     - target: {fileID: 5040880920175670608, guid: 6e03b803edcfe944a93c61089a8554d8,
         type: 3}
@@ -811,11 +813,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -3.9770002
-      objectReference: {fileID: 0}
-    - target: {fileID: 5040880920175670608, guid: 6e03b803edcfe944a93c61089a8554d8,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e03b803edcfe944a93c61089a8554d8, type: 3}

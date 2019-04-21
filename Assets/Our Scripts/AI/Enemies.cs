@@ -28,8 +28,9 @@ public abstract class Enemies : MonoBehaviour
     protected GameObject nearestUnit;
     private float distance;
     private float updateDistance; 
-    private float attackTimer = 0;
-
+    private float attackTimer = 0.25f;
+    private float globalAttackTimer = 0;
+    public GameObject weapon;
 
     [HideInInspector]
     public bool hover;
@@ -60,13 +61,21 @@ public abstract class Enemies : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (globalAttackTimer > 0)
+        {
+            globalAttackTimer -= Time.deltaTime;
+        }
+
+
         if (gameObject.GetComponent<UnitStats>().HP <= 0)
         {
-                gm.GetComponent<GameManager>().enemyPool.Remove(gameObject);                
+
+            weapon.GetComponent<Animator>().Play("Idle");
+            gm.GetComponent<GameManager>().enemyPool.Remove(gameObject);                
                 StartCoroutine(GetComponent<Dying>().Dead());
         }
 
-            if (GetComponent<Dying>().state == Dying.State.Alive) {
+       if (GetComponent<Dying>().state == Dying.State.Alive) {
             if (nearestUnit != null)
             {
                 if (nearestUnit.GetComponent<UnitStats>().dead)
@@ -94,6 +103,8 @@ public abstract class Enemies : MonoBehaviour
     {
         if (marching || nearestUnit == null)
         {
+
+            weapon.GetComponent<Animator>().Play("Idle");
             attacking = false;
             marching = true;
             enemyInAction.SetDestination(_targetWaypoint);
@@ -139,19 +150,26 @@ public abstract class Enemies : MonoBehaviour
     {
         
         transform.rotation = Quaternion.LookRotation((nearestUnit.transform.position - transform.position).normalized, Vector3.up);
-        if (attackTimer > 0)
-        {
-            attackTimer -= Time.deltaTime;
-        }
         updateDistance = Vector3.Distance(transform.position, nearestUnit.transform.position);
 
         if (updateDistance <= unitStats.range)
         {
             attacking = true;
+            if (globalAttackTimer <= 0)
+            {
+
+                if (attackTimer > 0)
+                {
+                    attackTimer -= Time.deltaTime;
+                }
+                weapon.GetComponent<Animator>().Play("attack");
+            }
         }
         else
         {
             attacking = false;
+
+            weapon.GetComponent<Animator>().Play("Idle");
         }
 
         if (attacking && attackTimer <= 0)
@@ -160,10 +178,11 @@ public abstract class Enemies : MonoBehaviour
             {
                 nearestUnit.gameObject.GetComponent<UnitStats>().HP -= unitStats.AD;
             }
-            attackTimer = 1.5f;
-            //Debug.Log(this.name + "\n" + nearestUnit.gameObject.GetComponent<UnitStats>().HP + "\n" + nearestUnit.gameObject.GetComponent<UnitStats>().MaxHP);
+                attackTimer = 0.25f;
+                globalAttackTimer = (GetComponent<UnitStats>().attackSpeed) - attackTimer;
+                //Debug.Log(this.name + "\n" + nearestUnit.gameObject.GetComponent<UnitStats>().HP + "\n" + nearestUnit.gameObject.GetComponent<UnitStats>().MaxHP);
+            
         }
-
 
     }
 
