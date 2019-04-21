@@ -9,7 +9,8 @@ public class MakeItRain: AbilityTimer
 
     protected override void apply()
     {
-        GetComponent<UnitStats>().attackSpeed = GetComponent<UnitStats>().attackSpeed * attackRatio;      
+        GetComponent<UnitStats>().attackSpeed = GetComponent<UnitStats>().attackSpeed * attackRatio;
+        GetComponent<MovementManager>().enchanced = true;
     }
 
     protected override void whileAvailable()
@@ -21,6 +22,7 @@ public class MakeItRain: AbilityTimer
     protected override void whileOnCooldown()
     {
         GetComponent<UnitStats>().attackSpeed = GetComponent<UnitStats>().attackSpeed / attackRatio;
+        GetComponent<MovementManager>().enchanced = false;
     }
 
 

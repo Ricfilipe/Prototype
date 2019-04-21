@@ -19,7 +19,7 @@ public class MovementManager : MonoBehaviour
     [HideInInspector]
     public UnitAction currentAction;
     [HideInInspector]
-    public bool selected,hover;
+    public bool selected, hover;
     [HideInInspector]
     public GameObject target;
     private int attackCounter = 0;
@@ -33,7 +33,8 @@ public class MovementManager : MonoBehaviour
     float attackRatio;
 
     public List<Ability> abs;
-
+    [HideInInspector]
+    public bool enchanced;
 
     void Start()
     {
@@ -147,7 +148,14 @@ public class MovementManager : MonoBehaviour
                     {
                         attackTimer -= Time.deltaTime;
                     }
-                    weapon.GetComponent<Animator>().Play("attack");
+                    if (!enchanced)
+                    {
+                        weapon.GetComponent<Animator>().Play("attack");
+                    }
+                    else
+                    {
+                        weapon.GetComponent<Animator>().Play("attack_en");
+                    }
                 }
             }
             else
@@ -161,7 +169,11 @@ public class MovementManager : MonoBehaviour
             {
                 target.gameObject.GetComponent<UnitStats>().HP -= myUnitStats.getAD();
                 attackTimer = 0.25f;
-                globalAttackTimer = (myUnitStats.attackSpeed * attackRatio)-attackTimer;
+                if (enchanced)
+                {
+                    attackTimer = 0.125f; 
+                }
+                globalAttackTimer = (myUnitStats.attackSpeed )-attackTimer;
                 
                 //Debug.Log(this.name + "\n" + target.gameObject.GetComponent<UnitStats>().HP + "\n" + target.gameObject.GetComponent<UnitStats>().getMaxHP());
             }
