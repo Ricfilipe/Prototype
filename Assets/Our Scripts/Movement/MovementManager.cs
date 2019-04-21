@@ -43,7 +43,7 @@ public class MovementManager : MonoBehaviour
         gm.GetComponent<GameManager>().myCharacterPool.Add(gameObject);
         GetComponent<NavMeshAgent>().isStopped = true;
         this.myUnitStats = GetComponent<UnitStats>();
-        attackRange = myUnitStats.range;
+        
     }
 
 
@@ -54,7 +54,7 @@ public class MovementManager : MonoBehaviour
 
         if (globalAttackTimer > 0)
         {
-            globalAttackTimer -= Time.deltaTime;
+            globalAttackTimer -= Time.fixedDeltaTime;
         }
 
         if (target != null)
@@ -138,7 +138,7 @@ public class MovementManager : MonoBehaviour
             transform.rotation = Quaternion.LookRotation((target.transform.position - transform.position).normalized,Vector3.up);
 
 
-            if ((transform.position - target.transform.position).magnitude <= attackRange)
+            if ((transform.position - target.transform.position).magnitude <= myUnitStats.range)
             {
                 attacking = true;
                 if (globalAttackTimer <= 0)
@@ -146,7 +146,7 @@ public class MovementManager : MonoBehaviour
 
                     if (attackTimer > 0)
                     {
-                        attackTimer -= Time.deltaTime;
+                        attackTimer -= Time.fixedDeltaTime;
                     }
                     if (!enchanced)
                     {
