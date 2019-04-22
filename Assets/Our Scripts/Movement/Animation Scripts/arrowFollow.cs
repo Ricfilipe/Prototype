@@ -13,6 +13,7 @@ public class arrowFollow : MonoBehaviour
     private Vector3 initialPos;
     private Vector3 targetPos = new Vector3(0, 0, 0);
     public int damage;
+    public AudioSource[] hit;
 
     // Update is called once per frame
     void Update()
@@ -24,6 +25,8 @@ public class arrowFollow : MonoBehaviour
 
             if (frame == 15)
             {
+                
+                hit[Random.Range(0,hit.Length)].Play();
                 frame = 0;
                 if (target != null)
                 {

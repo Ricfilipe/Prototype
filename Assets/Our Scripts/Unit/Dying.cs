@@ -16,6 +16,7 @@ public class Dying : MonoBehaviour
     public GameObject HP;
     [HideInInspector]
     public State state = State.Alive;
+    public AudioSource SoundOfDying;
 
     public  IEnumerator Dead()
     {
@@ -33,6 +34,7 @@ public class Dying : MonoBehaviour
             GetComponentInParent<Collider>().enabled = false ;
             GetComponent<NavMeshAgent>().enabled = false;
             GetComponent<UnitStats>().dead = true;
+            SoundOfDying.Play();
             
             HP.active = false;
             Icon.active = false;

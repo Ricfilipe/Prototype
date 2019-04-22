@@ -26,6 +26,7 @@ public class ActionMenu : MonoBehaviour
     private static int costArcherADUpgrade = 150;
     private static int costArcherSpeedUpgrade = 100;
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -204,9 +205,19 @@ public class ActionMenu : MonoBehaviour
 
     public void archerAbility()
     {
+        AudioSource sound = null;
         foreach (GameObject gameObj in gm.archerSelected)
         {
-            StartCoroutine(gameObj.GetComponent<MovementManager>().abs[0].DoAbility());
+            MakeItRain mir = (MakeItRain) gameObj.GetComponent<MovementManager>().abs[0];
+            if (mir.state == Ability.State.Available)
+            {
+                if(sound==null)
+                {
+                    sound = mir.archerSound[Random.Range(0, mir.archerSound.Length)];
+                }
+                sound.Play();
+            }
+            StartCoroutine(mir.DoAbility());
         }
     }
 

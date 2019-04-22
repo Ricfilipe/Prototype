@@ -6,8 +6,10 @@ public class shootArrow : MonoBehaviour
 {
     public GameObject arrow;
     public GameObject currentArrow;
+    public AudioSource[] ShootArrow;
     public void shoot()
     {
+        ShootArrow[Random.Range(0, ShootArrow.Length)].Play();
         GameObject arrow = Instantiate(this.arrow,null);
         arrow.transform.position = currentArrow.transform.position;
         arrow.transform.rotation = currentArrow.transform.rotation;

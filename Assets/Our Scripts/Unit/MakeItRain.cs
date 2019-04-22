@@ -5,8 +5,8 @@ using UnityEngine;
 public class MakeItRain: AbilityTimer
 {
 
-     private static float attackRatio = 0.5f;
-
+    private static float attackRatio = 0.5f;
+    public AudioSource[] archerSound;
     protected override void apply()
     {
         GetComponent<UnitStats>().attackSpeed = GetComponent<UnitStats>().attackSpeed * attackRatio;

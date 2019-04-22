@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Swing : MonoBehaviour
 {
+    public AudioSource[] SwingSword;
+    
     public void swing()
     {
+        SwingSword[Random.Range(0, SwingSword.Length)].Play();
         int damage = GetComponentInParent<UnitStats>().getAD();
         UnitStats enemyStats = null;
         if (GetComponentInParent<UnitStats>().team == UnitStats.Team.England) {
