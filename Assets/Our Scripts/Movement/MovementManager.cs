@@ -8,6 +8,13 @@ public class MovementManager : MonoBehaviour
 {
 
 
+
+    public AudioSource[] movingSpecific;
+    public AudioSource[] attackSpecific;
+    public AudioSource[] movingGeneric;
+    public AudioSource[] attackingGeneric;
+
+
     [SerializeField]
     public Camera cam;
     private UnitStats myUnitStats;
@@ -190,5 +197,7 @@ public class MovementManager : MonoBehaviour
             }
         }
     }
+
+
 
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static UnitStats;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class GameManager : MonoBehaviour
     public int wave = 1;
     public float waveTimer;
     public int numberOfEnemies;
+
+    public float timerForSound = 0f;
+
 
     [HideInInspector]
     public List<GameObject>[] groups = new List<GameObject>[10];
@@ -88,6 +92,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (timerForSound > 0)
+        {
+            timerForSound -= Time.fixedDeltaTime;
+        }
 
         RaycastHit hitOut;
         if (!activateSelectArea)
@@ -103,7 +111,10 @@ public class GameManager : MonoBehaviour
                 else if (hitOut.collider.tag == "MyUnit")
                 {
                     hitOut.collider.gameObject.GetComponent<MovementManager>().hover = true;
-                    Cursor.SetCursor(cursors[4], new Vector2(16, 16), CursorMode.ForceSoftware);
+                    if (currentAction == typeAction.Normal)
+                    {
+                        Cursor.SetCursor(cursors[4], new Vector2(16, 16), CursorMode.ForceSoftware);
+                    }
                 }
                 else {
                     switch (currentAction) {
@@ -170,8 +181,21 @@ public class GameManager : MonoBehaviour
                             makeAction(hit.collider.gameObject, currentAction);
                             changeToNormal();
 
+
+                            if (currentAction == typeAction.Move)
+                            {
+                                playMoveSound();
+                            }
+                            else {
+
+                                playAttackSound();
+
+                            }
+
+
                         }else if(hit.collider.tag == "MyUnit" && currentAction == typeAction.Move)
                         {
+                            playMoveSound();
                             makeAction(hit.collider.gameObject, currentAction);
                             changeToNormal();
                         }
@@ -179,6 +203,9 @@ public class GameManager : MonoBehaviour
                         {
                             if (currentAction == typeAction.Attack)
                             {
+
+                                playAttackSound();
+
                                 Vector3 helper = hit.point;
                                 StartCoroutine(animations[1].click(helper));
                                 
@@ -206,6 +233,7 @@ public class GameManager : MonoBehaviour
                             }
                             else
                             {
+                                playAttackSound();
                                 makeAction(hit.point, currentAction);
                                 changeToNormal();
                                 StartCoroutine(animations[2].click(hit.point));
@@ -361,12 +389,13 @@ public class GameManager : MonoBehaviour
                 if (hit.collider.tag == "Enemy")
                 {
                     makeAction(hit.collider.gameObject, typeAction.Normal);
+                    playAttackSound();
                 }
                 else
                 {
                     makeAction(hit.point, typeAction.Normal);
                     StartCoroutine(animations[0].click(hit.point));
-                    
+                    playMoveSound();
                 }
 
             }
@@ -905,5 +934,91 @@ public class GameManager : MonoBehaviour
         silver += amount;
     }
 
+
+    private void playSpecificMoveSound(GameObject go)
+    {
+        AudioSource[] sound = go.GetComponent<MovementManager>().movingSpecific;
+        sound[Random.Range(0, sound.Length)].Play();
+    }
+
+    private void playGenericMoveSound(GameObject go)
+    {
+        AudioSource[] sound = go.GetComponent<MovementManager>().movingGeneric;
+        sound[Random.Range(0, sound.Length)].Play();
+    }
+
+    private void playSpecificAttackSound(GameObject go)
+    {
+        AudioSource[] sound = go.GetComponent<MovementManager>().attackSpecific;
+        sound[UnityEngine.Random.Range(0, sound.Length)].Play();
+
+    }
+
+    private void playGenericAttackSound(GameObject go)
+    {
+        AudioSource[] sound = go.GetComponent<MovementManager>().attackingGeneric;
+        sound[UnityEngine.Random.Range(0, sound.Length)].Play();
+    }
+
+    private void playAttackSound() {
+        if (timerForSound <= 0)
+        {
+            timerForSound = 3f;
+            if (King == null && archerSelected.Count == 0)
+            {
+                playSpecificAttackSound(knightSelected[0]);
+            }
+            else if (King == null && knightSelected.Count == 0)
+            {
+                playSpecificAttackSound(archerSelected[0]);
+            }
+            else if (knightSelected.Count == 0 && archerSelected.Count == 0)
+            {
+                playSpecificAttackSound(King);
+            }
+            else
+            {
+                if (archerSelected.Count == 0)
+                {
+                    playGenericAttackSound(knightSelected[0]);
+                }
+                else
+                {
+                    playGenericAttackSound(archerSelected[0]);
+                }
+            }
+        }
+    }
+
+    private void playMoveSound()
+    {
+        if (timerForSound <= 0)
+        {
+            timerForSound = 3f;
+            if (King == null && archerSelected.Count == 0)
+            {
+                playSpecificMoveSound(knightSelected[0]);
+            }
+            else if (King == null && knightSelected.Count == 0)
+            {
+                playSpecificMoveSound(archerSelected[0]);
+            }
+            else if (knightSelected.Count == 0 && archerSelected.Count == 0)
+            {
+                playSpecificMoveSound(King);
+            }
+            else
+            {
+                if (archerSelected.Count == 0)
+                {
+                    playGenericMoveSound(knightSelected[0]);
+                }
+                else
+                {
+                    playGenericMoveSound(archerSelected[0]);
+                }
+            }
+        }
+    }
 }
 
