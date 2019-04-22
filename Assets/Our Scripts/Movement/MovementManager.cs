@@ -15,6 +15,7 @@ public class MovementManager : MonoBehaviour
     public AudioSource[] attackingGeneric;
 
 
+
     [SerializeField]
     public Camera cam;
     private UnitStats myUnitStats;
@@ -34,6 +35,8 @@ public class MovementManager : MonoBehaviour
     bool attack = false;
     int counter = 0;
 
+    bool footRight = true;
+
     float globalAttackTimer = 0;
     float attackTimer = 0.25f;
     bool attacking;
@@ -42,6 +45,7 @@ public class MovementManager : MonoBehaviour
     public List<Ability> abs;
     [HideInInspector]
     public bool enchanced;
+    private float timerStep;
 
     void Start()
     {
@@ -58,6 +62,7 @@ public class MovementManager : MonoBehaviour
 
     void Update()
     {
+
 
         if (globalAttackTimer > 0)
         {
