@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class LastStand : AbilityOneTime
 {
+
+    public AudioSource[] sounds;
+
     protected override void afterUse()
     {
         stats.undead = false;
