@@ -364,6 +364,7 @@ public class ActionMenu : MonoBehaviour
     {
         go.transform.position=new Vector3(196.4982f, 0  , -2.590393f);
         go.GetComponentInChildren<NavMeshAgent>().destination = gm.banner.transform.position;
+        go.GetComponentInChildren<MovementManager>().spaningSound[Random.Range(0, go.GetComponentInChildren<MovementManager>().spaningSound.Length)].Play();
     }
 
     private void moveWayPoint()

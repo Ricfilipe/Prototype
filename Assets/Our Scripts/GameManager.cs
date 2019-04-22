@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     public float timerForSound = 0f;
 
+   
 
     [HideInInspector]
     public List<GameObject>[] groups = new List<GameObject>[10];

@@ -14,7 +14,7 @@ public class MovementManager : MonoBehaviour
     public AudioSource[] movingGeneric;
     public AudioSource[] attackingGeneric;
 
-
+    public AudioSource[] spaningSound;
 
     [SerializeField]
     public Camera cam;
