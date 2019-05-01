@@ -712,6 +712,15 @@ public class GameManager : MonoBehaviour
                 GameObject instEnemy = Instantiate(obj, enemySpawnPosition.transform.position, Quaternion.identity);
                
             }
+            obj = enemies[2];
+            for (int i = 0; i < numberOfEnemies / 2; i++)
+            {
+                float x = UnityEngine.Random.Range(-10, 10);
+                float z = UnityEngine.Random.Range(-10, 10);
+                enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
+                GameObject instEnemy = Instantiate(obj, enemySpawnPosition.transform.position, Quaternion.identity);
+
+            }
         }
     }
 
