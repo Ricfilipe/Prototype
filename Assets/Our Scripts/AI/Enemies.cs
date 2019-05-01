@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using MalbersAnimations.HAP;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -73,13 +74,13 @@ public abstract class Enemies : MonoBehaviour
 
             weapon.GetComponent<Animator>().Play("Idle");
             gm.GetComponent<GameManager>().enemyPool.Remove(gameObject);                
-                StartCoroutine(GetComponent<Dying>().Dead());
+            StartCoroutine(GetComponent<Dying>().Dead());
         }
 
        if (GetComponent<Dying>().state == Dying.State.Alive) {
             if (nearestUnit != null)
             {
-                if (nearestUnit.GetComponent<UnitStats>().dead)
+                if (nearestUnit.GetComponentInParent<UnitStats>().dead)
                 {
                     nearestUnit = null;
                 }
@@ -102,7 +103,7 @@ public abstract class Enemies : MonoBehaviour
     //Enemies wander, march, move to or away from player's army
     protected virtual void EnemyMovement()
     {
-        if (marching || nearestUnit == null)
+        if (marching || nearestUnit == null )
         {
 
             weapon.GetComponent<Animator>().Play("Idle");
@@ -113,7 +114,8 @@ public abstract class Enemies : MonoBehaviour
         }
         else
         {
-            enemyInAction.SetDestination(nearestUnit.transform.position);
+            enemyInAction.destination =(nearestUnit.gameObject.GetComponentInParent<UnitStats>().GetComponentInChildren<NavMeshAgent>().transform.position);
+            
             enemyInAction.stoppingDistance = unitStats.range;
             Attack();
         }
@@ -149,9 +151,11 @@ public abstract class Enemies : MonoBehaviour
     // attacks the units with cooldowns for each blow
     protected virtual void Attack()
     {
-        
-        transform.rotation = Quaternion.LookRotation((nearestUnit.transform.position - transform.position).normalized, Vector3.up);
-        updateDistance = Vector3.Distance(transform.position, nearestUnit.transform.position);
+        Vector3 helper = nearestUnit.gameObject.GetComponentInParent<UnitStats>().GetComponentInChildren<NavMeshAgent>().transform.position;
+        helper = new Vector3(helper.x, 0, helper.z);
+        Vector3 helper2 = new Vector3(transform.position.x, 0, transform.position.z);
+        transform.rotation = Quaternion.LookRotation((helper- helper2).normalized, Vector3.up);
+        updateDistance = Vector3.Distance(helper2,helper);
 
         if (updateDistance <= unitStats.range)
         {
@@ -190,14 +194,20 @@ public abstract class Enemies : MonoBehaviour
         List<Collider> unitsCollided = new List<Collider>();
         List<Collider> currentUnitsInRange = new List<Collider>();
         unitsCollided.AddRange(Physics.OverlapSphere(center, detectUnitsRadius));
+        Vector3 helper2 = new Vector3(transform.position.x, 0, transform.position.z);
         foreach (Collider c in unitsCollided.FindAll(x => x.CompareTag("MyUnit")))
         {
-            currentUnitsInRange.Add(c);
-            distance = Vector3.Distance(center, c.transform.position);
-            if (distance < nearestDistance)
-            {
+            if (!c.GetComponentInParent<UnitStats>().dead) { 
+                currentUnitsInRange.Add(c);
+                Vector3 helper = c.gameObject.GetComponentInParent<UnitStats>().GetComponentInChildren<NavMeshAgent>().transform.position;
+                helper = new Vector3(helper.x, 0, helper.z);
+
+                distance = Vector3.Distance(helper2, helper);
+                if (distance < nearestDistance)
+                {
                 nearestDistance = distance;
                 nearestUnit = c.gameObject;
+                }
             }
         }
 

@@ -12,11 +12,11 @@ public class Swing : MonoBehaviour
         int damage = GetComponentInParent<UnitStats>().getAD();
         UnitStats enemyStats = null;
         if (GetComponentInParent<UnitStats>().team == UnitStats.Team.England) {
-             enemyStats = GetComponentInParent<MovementManager>().target.GetComponent<UnitStats>();
+             enemyStats = GetComponentInParent<MovementManager>().target.GetComponentInParent<UnitStats>();
         }
         else
         {
-             enemyStats = GetComponentInParent<Enemies>().nearestUnit.GetComponent<UnitStats>();
+             enemyStats = GetComponentInParent<Enemies>().nearestUnit.GetComponentInParent<UnitStats>();
         }
         if (!enemyStats.undead)
             enemyStats.HP-=damage;

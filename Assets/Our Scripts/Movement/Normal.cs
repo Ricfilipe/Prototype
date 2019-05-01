@@ -11,8 +11,8 @@ public class Normal : UnitAction
 
     public override void Start()
     {
-        agent.GetComponent<NavMeshAgent>().isStopped = false;
-        agent.GetComponent<MovementManager>().target = targetEnemy;
+        agent.isStopped = false;
+        agent.GetComponentInParent<MovementManager>().target = targetEnemy;
         
     }
 

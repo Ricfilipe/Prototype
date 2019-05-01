@@ -28,7 +28,7 @@ public class displayHud : MonoBehaviour
         if (gm.King != null && gm.archerSelected.Count == 0 && gm.knightSelected.Count == 0)
         {
             this.name.text = "King Henry V";
-            writeDescriptionSing(gm.King.GetComponent<UnitStats>());
+            writeDescriptionSing(gm.King.GetComponentInParent<UnitStats>());
         }
         else if (gm.King == null && gm.archerSelected.Count == 1 && gm.knightSelected.Count == 0)
         {

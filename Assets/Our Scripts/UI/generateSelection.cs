@@ -59,7 +59,7 @@ public class generateSelection : MonoBehaviour
                ui.GetComponent<RectTransform>().anchoredPosition = new Vector2(59 + 83 * (j % 5), -52 - 84 * (j / 5));
                 ui.GetComponent<PanelInterface>().selection = this.gameObject;
 
-                switch (selected[i].GetComponent<UnitStats>().troop)
+                switch (selected[i].GetComponentInParent<UnitStats>().troop)
                 {
                     case UnitStats.Troops.King:
                         ui.GetComponent<PanelInterface>().putImage(images[0]);
@@ -116,7 +116,7 @@ public class generateSelection : MonoBehaviour
         updateHP();
         for (int i=0; i< selectionMenu.Count;i++)
         {
-            selectionMenu[i].GetComponent<PanelInterface>().UpdateProgressionBar(selected[i].GetComponent<MovementManager>());
+            selectionMenu[i].GetComponent<PanelInterface>().UpdateProgressionBar(selected[i].GetComponentInParent<MovementManager>());
         }
     }
 

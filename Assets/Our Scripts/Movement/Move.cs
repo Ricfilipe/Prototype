@@ -15,8 +15,8 @@ public class Move : UnitAction
 
     public override void Start()
     {
-        agent.GetComponent<NavMeshAgent>().isStopped = false;
-        agent.GetComponent<MovementManager>().target = null;
+        agent.GetComponentInChildren<NavMeshAgent>().isStopped = false;
+        agent.GetComponentInParent<MovementManager>().target = null;
     }
 
     public override void Update()
@@ -24,10 +24,10 @@ public class Move : UnitAction
         if (targetEnemy != null )
         {
 
-            if (!targetEnemy.GetComponent<UnitStats>().dead)
+            if (!targetEnemy.GetComponentInParent<UnitStats>().dead)
             {
                 agent.destination = targetEnemy.transform.position;
-
+                Debug.Log(targetEnemy.name);
                 agent.stoppingDistance = 0f;
             }
         }

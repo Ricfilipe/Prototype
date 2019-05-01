@@ -15,7 +15,7 @@ public abstract class UnitAction
     {
         this.targetEnemy = enemy;
         this.targetPosition = new Vector3(-1,-1000,-1);
-        this.agent = go.GetComponent<NavMeshAgent>();
+        this.agent = go.GetComponentInChildren<NavMeshAgent>();
         this.unitStast = go.GetComponent<UnitStats>();
         this.gm = gm;
     }
@@ -24,7 +24,7 @@ public abstract class UnitAction
     {
         this.targetEnemy = null;
         this.targetPosition = targetPos;
-        this.agent = go.GetComponent<NavMeshAgent>();
+        this.agent = go.GetComponentInChildren<NavMeshAgent>();
         this.unitStast = go.GetComponent<UnitStats>();
         this.gm = gm;
     }

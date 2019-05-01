@@ -18,7 +18,7 @@ public class MovementManager : MonoBehaviour
 
     [SerializeField]
     public Camera cam;
-    private UnitStats myUnitStats;
+    protected UnitStats myUnitStats;
     [HideInInspector]
     public GameObject gm;
 
@@ -30,22 +30,22 @@ public class MovementManager : MonoBehaviour
     public bool selected, hover;
     [HideInInspector]
     public GameObject target;
-    private int attackCounter = 0;
-    float attackRange;
-    bool attack = false;
-    int counter = 0;
+    protected int attackCounter = 0;
+    protected float attackRange;
+    protected bool attack = false;
+    protected int counter = 0;
 
-    bool footRight = true;
+    protected bool footRight = true;
 
-    float globalAttackTimer = 0;
-    float attackTimer = 0.25f;
-    bool attacking;
-    float attackRatio;
+    protected float globalAttackTimer = 0;
+    protected float attackTimer = 0.25f;
+    protected bool attacking;
+    protected float attackRatio;
 
     public List<Ability> abs;
     [HideInInspector]
     public bool enchanced;
-    private float timerStep;
+    protected float timerStep;
 
     void Start()
     {
@@ -147,7 +147,10 @@ public class MovementManager : MonoBehaviour
     {
         if (target != null)
         {
-            transform.rotation = Quaternion.LookRotation((target.transform.position - transform.position).normalized,Vector3.up);
+            Vector3 helper = target.gameObject.GetComponentInParent<UnitStats>().transform.position;
+            helper = new Vector3(helper.x, 0, helper.z);
+            Vector3 helper2 = new Vector3(transform.position.x, 0, transform.position.z);
+            transform.rotation = Quaternion.LookRotation((helper - helper2).normalized, Vector3.up);
 
 
             if ((transform.position - target.transform.position).magnitude <= myUnitStats.range)
@@ -188,7 +191,7 @@ public class MovementManager : MonoBehaviour
                 }
                 globalAttackTimer = (myUnitStats.attackSpeed )-attackTimer;
                 
-                //Debug.Log(this.name + "\n" + target.gameObject.GetComponent<UnitStats>().HP + "\n" + target.gameObject.GetComponent<UnitStats>().getMaxHP());
+               
             }
 
 

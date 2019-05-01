@@ -15,8 +15,8 @@ public class Stop : UnitAction
 
     public override void Start()
     {
-        agent.GetComponent<MovementManager>().target = null;
-        agent.GetComponent<NavMeshAgent>().isStopped = true;
+        agent.GetComponentInParent<MovementManager>().target = null;
+        agent.GetComponentInChildren<NavMeshAgent>().isStopped = true;
     }
 
     public override void Update()

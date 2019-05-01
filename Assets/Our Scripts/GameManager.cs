@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (hitOut.collider.tag == "MyUnit")
                 {
-                    hitOut.collider.gameObject.GetComponent<MovementManager>().hover = true;
+                    hitOut.collider.gameObject.GetComponentInParent<MovementManager>().hover = true;
                     if (currentAction == typeAction.Normal)
                     {
                         Cursor.SetCursor(cursors[4], new Vector2(16, 16), CursorMode.ForceSoftware);
@@ -265,7 +265,7 @@ public class GameManager : MonoBehaviour
 
                         if (hit.collider.tag == "MyUnit")
                         {
-                            if (lastClick == hit.collider.gameObject && Time.time-lastTime <=0.5f)
+                            if (lastClick == hit.collider.gameObject.GetComponentInParent<UnitStats>().gameObject && Time.time-lastTime <=0.5f)
                             {
                                 if (!shiftKeysDown())
                                 {
@@ -283,14 +283,14 @@ public class GameManager : MonoBehaviour
                             }
                             else
                             {
-                                lastClick = hit.collider.gameObject;
+                                lastClick = hit.collider.gameObject.GetComponentInParent<UnitStats>().gameObject;
                                 lastTime = Time.time;
                                 if (shiftKeysDown())
                                 {
 
                                     addOrRemoveFromSelection(hit);
                                     baseSelected = false;
-                                    Base.GetComponent<Outline>().enabled = false;
+                                    Base.GetComponentInParent<Outline>().enabled = false;
                                     banner.active = false;
 
                                 }
@@ -299,7 +299,7 @@ public class GameManager : MonoBehaviour
                                     clearSelection();
                                     addToSelection(hit);
                                     baseSelected = false;
-                                    Base.GetComponent<Outline>().enabled = false;
+                                    Base.GetComponentInParent<Outline>().enabled = false;
                                     banner.active = false;
                                 }
                             }
@@ -308,7 +308,7 @@ public class GameManager : MonoBehaviour
                             {
                                 clearSelection();
                                 baseSelected = true;
-                                Base.GetComponent<Outline>().enabled = true;
+                                Base.GetComponentInParent<Outline>().enabled = true;
                                 banner.active = true;
                             }
                         
@@ -331,7 +331,7 @@ public class GameManager : MonoBehaviour
                                     clearSelection();
                                 }
                                 baseSelected = false;
-                                Base.GetComponent<Outline>().enabled = false;
+                                Base.GetComponentInParent<Outline>().enabled = false;
                                 banner.active = false;
                                 count++;
 
@@ -373,7 +373,7 @@ public class GameManager : MonoBehaviour
             {
                 if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.transform.position), true))
                 {
-                    go.GetComponent<MovementManager>().hover = true;
+                    go.GetComponentInParent<MovementManager>().hover = true;
                 }
             }
 
@@ -438,7 +438,7 @@ public class GameManager : MonoBehaviour
         }
         if (King != null)
         {
-            King.GetComponent<MovementManager>().selected = false;
+            King.GetComponentInParent<MovementManager>().selected = false;
             King = null;
         }
         archerSelected.Clear();
@@ -451,13 +451,13 @@ public class GameManager : MonoBehaviour
 
 
     public void addToSelection( RaycastHit hit) {
-        hit.collider.GetComponent<MovementManager>().selected = true;
-        addToSelection(hit.collider.gameObject);
+        hit.collider.GetComponentInParent<MovementManager>().selected = true;
+        addToSelection(hit.collider.gameObject.GetComponentInParent<UnitStats>().gameObject);
     }
 
      public void addOrRemoveFromSelection( RaycastHit hit) {
        
-        addOrRemoveFromSelection(hit.collider.gameObject);
+        addOrRemoveFromSelection(hit.collider.gameObject.GetComponentInParent<UnitStats>().gameObject);
         selectionMenu.GetComponent<generateSelection>().change = true;
     }
 
@@ -484,11 +484,11 @@ public class GameManager : MonoBehaviour
                 if (!knightSelected.Remove(go))
                 {
                     knightSelected.Add(go);
-                    go.GetComponent<MovementManager>().selected = true;
+                    go.GetComponentInParent<MovementManager>().selected = true;
                 }
                 else
                 {
-                    go.GetComponent<MovementManager>().selected = false;
+                    go.GetComponentInParent<MovementManager>().selected = false;
                 }
                 break;
 
@@ -496,12 +496,12 @@ public class GameManager : MonoBehaviour
                 if (King != null)
                 {
                     King = null;
-                    go.GetComponent<MovementManager>().selected = false;
+                    go.GetComponentInParent<MovementManager>().selected = false;
                 }
                 else
                 {
                     King = go;
-                    go.GetComponent<MovementManager>().selected = true;
+                    go.GetComponentInParent<MovementManager>().selected = true;
                 }
                 break;
         }
@@ -515,7 +515,7 @@ public class GameManager : MonoBehaviour
     public void addToSelection(GameObject go)
     {
 
-        Troops type = go.GetComponent<UnitStats>().troop;
+        Troops type = go.GetComponentInParent<UnitStats>().troop;
         switch (type)
         {
             case Troops.Archer:
@@ -537,7 +537,7 @@ public class GameManager : MonoBehaviour
         }
         
 
-        go.GetComponent<MovementManager>().selected = true;
+        go.GetComponentInParent<MovementManager>().selected = true;
     }
 
 
@@ -608,8 +608,8 @@ public class GameManager : MonoBehaviour
                 }
                 if (King != null)
                 {
-                    King.GetComponent<MovementManager>().currentAction = new Normal(target, King, this);
-                    King.GetComponent<MovementManager>().currentAction.Start();
+                    King.GetComponentInParent<MovementManager>().currentAction = new Normal(target, King, this);
+                    King.GetComponentInParent<MovementManager>().currentAction.Start();
                 }
                 break;
 

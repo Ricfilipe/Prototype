@@ -30,8 +30,8 @@ public class arrowFollow : MonoBehaviour
                 frame = 0;
                 if (target != null)
                 {
-                    if(!target.GetComponent<UnitStats>().undead)
-                    target.GetComponent<UnitStats>().HP -= damage;
+                    if(!target.GetComponentInParent<UnitStats>().undead)
+                    target.GetComponentInParent<UnitStats>().HP -= damage;
                 }
                 Destroy(gameObject);
             }

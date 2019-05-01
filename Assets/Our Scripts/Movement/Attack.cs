@@ -26,7 +26,7 @@ public class Attack : UnitAction
         }
         else
         {
-            agent.GetComponent<MovementManager>().target = targetEnemy;
+            agent.GetComponentInParent<MovementManager>().target = targetEnemy;
         }
     }
 
@@ -52,7 +52,7 @@ public class Attack : UnitAction
         }
         if (targetEnemy != null)
         {
-            agent.GetComponent<MovementManager>().target = targetEnemy;
+            agent.GetComponentInParent<MovementManager>().target = targetEnemy;
             agent.destination = targetEnemy.transform.position;
             agent.stoppingDistance = unitStast.range;
         }

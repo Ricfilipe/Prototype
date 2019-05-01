@@ -9,7 +9,7 @@ public class HealthBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.myUnitStats = unit.GetComponent<UnitStats>();
+        this.myUnitStats = unit.GetComponentInParent<UnitStats>();
     }
 
     // Update is called once per frame
