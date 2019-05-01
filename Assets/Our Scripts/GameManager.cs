@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static UnitStats;
@@ -322,7 +323,7 @@ public class GameManager : MonoBehaviour
                     int count = 0;
                     foreach (GameObject go in myCharacterPool)
                     {
-                        if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.transform.position), true))
+                        if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.GetComponentInChildren<NavMeshAgent>().transform.position), true))
                         {
                             if (count == 0)
                             {
@@ -371,7 +372,7 @@ public class GameManager : MonoBehaviour
             Rect selectRect = new Rect(squareStart.x, squareStart.y, endPos.x - squareStart.x, endPos.y - squareStart.y);
             foreach (GameObject go in myCharacterPool)
             {
-                if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.transform.position), true))
+                if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.GetComponentInChildren<NavMeshAgent>().transform.position), true))
                 {
                     go.GetComponentInParent<MovementManager>().hover = true;
                 }
