@@ -47,12 +47,17 @@ public class MovementManager : MonoBehaviour
     public bool enchanced;
     protected float timerStep;
 
+    private void Awake()
+    {
+        GetComponent<NavMeshAgent>().isStopped = true;
+    }
+
     void Start()
     {
         attackRatio = 1;
         this.gm = GameObject.FindGameObjectsWithTag("GameManager")[0];
         gm.GetComponent<GameManager>().myCharacterPool.Add(gameObject);
-        GetComponent<NavMeshAgent>().isStopped = true;
+        
         this.myUnitStats = GetComponent<UnitStats>();
         
     }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9079459042214660677}
   - component: {fileID: 9079459042214660730}
+  - component: {fileID: 8469766499058599740}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -44,12 +45,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myCharacterPool: []
+  enemyPool: []
+  wave: 1
+  waveTimer: 0
+  numberOfEnemies: 0
+  timerForSound: 0
   selectionMenu: {fileID: 0}
   knightSelected: []
   archerSelected: []
   King: {fileID: 0}
   Base: {fileID: 0}
   baseSelected: 0
+  banner: {fileID: 0}
+  animations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  cursors: []
+  currentAction: 1
+  enemies: []
+  enemySpawnPosition: {fileID: 0}
+  objectivo: {fileID: 0}
   selectSquareImage: {fileID: 0}
   silver: 0
   silverText: {fileID: 0}
+--- !u!114 &8469766499058599740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9079459042214660731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea18a897c3d7ae840aeaae64d0046d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: {fileID: 0}
+  Image: {fileID: 0}
+  Panel: {fileID: 0}

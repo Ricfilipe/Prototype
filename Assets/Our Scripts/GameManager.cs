@@ -15,10 +15,10 @@ public class GameManager : MonoBehaviour
     public int wave = 1;
     public float waveTimer;
     public int numberOfEnemies;
-
-    public float timerForSound = 0f;
-
    
+    public float timerForSound = 0f;
+    [HideInInspector]
+    public VoiceManager messenger;
 
     [HideInInspector]
     public List<GameObject>[] groups = new List<GameObject>[10];
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
     {
         knightSelected = new List<GameObject>();
         archerSelected = new List<GameObject>();
-
+        messenger= GetComponent<VoiceManager>();
         
     }
 
@@ -89,6 +89,11 @@ public class GameManager : MonoBehaviour
         Base.GetComponent<Outline>().enabled = false;
         banner.active = false;
         silver = 1000;
+
+        MessageSequence seq = new MessageSequence();
+        seq.list.Add(new SingleMessage("Soldier","My King, the french are advancing", ""));
+        seq.list.Add(new SingleMessage("King","Prepare for Battle", ""));
+        messenger.addToQueue(seq);
     }
 
     // Update is called once per frame
