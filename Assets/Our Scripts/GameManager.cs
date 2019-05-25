@@ -15,6 +15,11 @@ public class GameManager : MonoBehaviour
     public int wave = 1;
     public float waveTimer;
     public int numberOfEnemies;
+    public int[] wave_numbers = new int[20];
+    public int indice = 0;
+    public float wave_lenght = 0;
+
+    public Metrics metrics;
    
     public float timerForSound = 0f;
     [HideInInspector]
@@ -89,11 +94,13 @@ public class GameManager : MonoBehaviour
         Base.GetComponent<Outline>().enabled = false;
         banner.active = false;
         silver = 1000;
-
+        int[] a = { 1,0,0, 0,1,0, 0,0,1, 2,0,0, 1,1,1 };
+        wave_numbers = a;
         MessageSequence seq = new MessageSequence();
         seq.list.Add(new SingleMessage("Soldier","My King, the french are advancing", ""));
         seq.list.Add(new SingleMessage("King","Prepare for Battle", ""));
         messenger.addToQueue(seq);
+        metrics = new Metrics();
     }
 
     // Update is called once per frame
@@ -112,7 +119,7 @@ public class GameManager : MonoBehaviour
 
                 if (hitOut.collider.tag == "Enemy")
                 {
-                    hitOut.collider.gameObject.GetComponentInParent<Enemies>().hover = true;
+                    hitOut.collider.gameObject.GetComponent<Enemies>().hover = true;
                     Cursor.SetCursor(cursors[3], new Vector2(16, 16), CursorMode.ForceSoftware);
                 }
                 else if (hitOut.collider.tag == "MyUnit")
@@ -688,6 +695,11 @@ public class GameManager : MonoBehaviour
  
         if(enemyPool == null || enemyPool.Count == 0)
         {
+            if (wave_lenght != 0 && indice!=0)
+            {
+                metrics.addWaveTimer(wave_lenght, indice / 3);
+                wave_lenght = 0;
+            }
             if (waveTimer > 0)
             {
                 waveTimer -= Time.deltaTime;
@@ -699,33 +711,58 @@ public class GameManager : MonoBehaviour
             {
                 numberOfEnemies += 3;
             }
-            GameObject obj = enemies[0];
-            for(int i = 0; i < numberOfEnemies/2; i++)
+            if (indice < 15)
             {
-                float x = UnityEngine.Random.Range(-10,10);
-                float z = UnityEngine.Random.Range(-10, 10);
-                enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
-                GameObject instEnemy = Instantiate(obj,enemySpawnPosition.transform.position,Quaternion.identity);
-               
-            }
-            obj = enemies[1];
-            for (int i = 0; i < numberOfEnemies/2; i++)
-            {
-                float x = UnityEngine.Random.Range(-10, 10);
-                float z = UnityEngine.Random.Range(-10, 10);
-                enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
-                GameObject instEnemy = Instantiate(obj, enemySpawnPosition.transform.position, Quaternion.identity);
-               
-            }
-            obj = enemies[2];
-            for (int i = 0; i < numberOfEnemies / 2; i++)
-            {
-                float x = UnityEngine.Random.Range(-10, 10);
-                float z = UnityEngine.Random.Range(-10, 10);
-                enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
-                GameObject instEnemy = Instantiate(obj, enemySpawnPosition.transform.position, Quaternion.identity);
+                GameObject obj = enemies[0];
+                for (int i = 0; i < wave_numbers[indice]; i++)
+                {
+                    float x = UnityEngine.Random.Range(-10, 10);
+                    float z = UnityEngine.Random.Range(-10, 10);
+                    enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
+                    GameObject instEnemy = Instantiate(obj, enemySpawnPosition.transform.position, Quaternion.identity);
 
+                }
+                indice++;
+                obj = enemies[1];
+                for (int i = 0; i < wave_numbers[indice]; i++)
+                {
+                    float x = UnityEngine.Random.Range(-10, 10);
+                    float z = UnityEngine.Random.Range(-10, 10);
+                    enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
+                    GameObject instEnemy = Instantiate(obj, enemySpawnPosition.transform.position, Quaternion.identity);
+
+                }
+                indice++;
+                obj = enemies[2];
+                for (int i = 0; i < wave_numbers[indice]; i++)
+                {
+                    float x = UnityEngine.Random.Range(-10, 10);
+                    float z = UnityEngine.Random.Range(-10, 10);
+                    enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
+                    GameObject instEnemy = Instantiate(obj, enemySpawnPosition.transform.position, Quaternion.identity);
+
+                }
+                indice++;
+                /*obj = enemies[3];
+                for (int i = 0; i < wave_numbers[indice]; i++)
+                {
+                    float x = UnityEngine.Random.Range(-10, 10);
+                    float z = UnityEngine.Random.Range(-10, 10);
+                    enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
+                    GameObject instEnemy = Instantiate(obj, enemySpawnPosition.transform.position, Quaternion.identity);
+
+                }
+                indice++;
+                */
             }
+            else
+            {
+                metrics.toFile();
+            }
+        }
+        else
+        {
+            wave_lenght += Time.deltaTime;
         }
     }
 
