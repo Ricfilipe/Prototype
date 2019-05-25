@@ -9,6 +9,9 @@ namespace movement
 
         private int colDef = 5;
 
+        public InfataryFormation(GameObject go) : base(go)
+        {
+        }
 
         protected override void doDefensiveFormation(List<GameObject> army, GameObject leader)
         {

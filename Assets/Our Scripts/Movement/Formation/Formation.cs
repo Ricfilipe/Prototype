@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Formation 
-{   
+{
+    private GameObject go;
+
+    public Formation(GameObject go)
+    {
+        this.go = go;
+    }
+
     public bool ofensive;
     public void doFormation(List<GameObject> army, GameObject leader)
     {

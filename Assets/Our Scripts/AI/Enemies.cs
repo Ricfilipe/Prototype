@@ -14,7 +14,8 @@ public abstract class Enemies : MonoBehaviour
 
     [Header("Troops movement inputs")]
     protected int movementSpeedRatio;
-    protected bool attacking;
+    [HideInInspector]
+    public bool attacking;
     protected bool marching;
     protected Vector3 _targetWaypoint;
 
@@ -36,6 +37,8 @@ public abstract class Enemies : MonoBehaviour
 
     [HideInInspector]
     public bool hover;
+    [HideInInspector]
+    public Vector2 offset;
 
     [Header("Troops wandering")]
     private float timer;
@@ -47,7 +50,11 @@ public abstract class Enemies : MonoBehaviour
     [Header("Silver stats")]
     int silverDropped = 0;
 
-    
+    [HideInInspector]
+    public bool following;
+    [HideInInspector]
+    public GameObject leader;
+
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -98,50 +105,60 @@ public abstract class Enemies : MonoBehaviour
     //Enemies wander, march, move to or away from player's army
     protected virtual void EnemyMovement()
     {
-        if (marching || nearestUnit == null )
+
+        if (!following)
         {
+            enemyInAction.speed = unitStats.speed;
+            if (marching || nearestUnit == null)
+            {
 
                 weapon.GetComponent<Animator>().Play("Idle");
-            
-            attacking = false;
-            marching = true;
-            enemyInAction.SetDestination(_targetWaypoint);
-            DetectTargetingUnits();
-        }
-        else
-        {
-            enemyInAction.destination =(nearestUnit.gameObject.GetComponentInParent<UnitStats>().GetComponentInChildren<NavMeshAgent>().transform.position);
-            
-            enemyInAction.stoppingDistance = unitStats.range;
-            Attack();
-        }
 
-       /* 
-        if (playerTroops.Count <= 0)
-        {
-            playerTroops = gm.myCharacterPool;
-            ch = Random.Range(0, gm.myCharacterPool.Count);
-            Debug.Log(playerTroops.Count);
-            return;
-        }
-        else
-        {
-            if (!attacking)
-            {
-                 timer += Time.deltaTime;
-                 if (timer >= wanderTimer)
-                 {
-                     deg = Random.Range(0, 16);
-                     CalculateTargetPosition();
-                     timer = 0;
-                 }
-
-                GameObject target = gm.myCharacterPool[ch];
-                _targetWaypoint = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z);
+                attacking = false;
+                marching = true;
                 enemyInAction.SetDestination(_targetWaypoint);
+                DetectTargetingUnits();
             }
+            else
+            {
+                enemyInAction.destination = (nearestUnit.gameObject.GetComponentInParent<UnitStats>().GetComponentInChildren<NavMeshAgent>().transform.position);
+
+                enemyInAction.stoppingDistance = unitStats.range;
+                Attack();
+            }
+        }else
+        {
+            enemyInAction.speed = unitStats.speed+2;
+            var leaderPos = leader.GetComponentInChildren<NavMeshAgent>().transform.position;
+            enemyInAction.destination = new Vector3(leaderPos.x - leader.transform.forward.x * (0.3f + offset.x) + leader.transform.right.x * (offset.y), 0f, leaderPos.z - leader.transform.forward.z * (0.3f + offset.x) + leader.transform.right.z * (offset.y));
+
         }
-        */
+        /* 
+         if (playerTroops.Count <= 0)
+         {
+             playerTroops = gm.myCharacterPool;
+             ch = Random.Range(0, gm.myCharacterPool.Count);
+             Debug.Log(playerTroops.Count);
+             return;
+         }
+         else
+         {
+             if (!attacking)
+             {
+                  timer += Time.deltaTime;
+                  if (timer >= wanderTimer)
+                  {
+                      deg = Random.Range(0, 16);
+                      CalculateTargetPosition();
+                      timer = 0;
+                  }
+
+                 GameObject target = gm.myCharacterPool[ch];
+                 _targetWaypoint = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z);
+                 enemyInAction.SetDestination(_targetWaypoint);
+             }
+         }
+         */
     }
 
     // attacks the units with cooldowns for each blow

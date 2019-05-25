@@ -12,6 +12,7 @@ namespace movement
         public TypeSoldier type;
         private Formation form;
         public GameObject CreateObject;
+        private GameObject realLeader;
 
         public enum TypeSoldier
         {
@@ -28,74 +29,81 @@ namespace movement
             switch (type)
             {
                 case TypeSoldier.swordsman:
-                    form = new InfataryFormation();
+                    form = new InfataryFormation(gameObject);
+                    break;
+                case TypeSoldier.horse:
+                    form = new CavalryFormation(gameObject);
                     break;
             }
-
+            realLeader = leader.GetComponentInChildren<NavMeshAgent>().gameObject;
+            Enemies leaderEnemies = leader.GetComponentInChildren<Enemies>();
             foreach (GameObject go in army)
             {
-               // go.GetComponent<AgentFollow>().agent.GetComponent<NavMeshAgent>().enabled = true;
+                if (leaderEnemies.attacking)
+                {
+                    go.GetComponentInChildren<Enemies>().following = false;
+                }
+                else
+                {
+                    go.GetComponentInChildren<Enemies>().following = true;
+                }
+                go.GetComponentInChildren<Enemies>().leader = leader;
             }
-
             Reset();
+           
         }
 
         // Update is called once per frame
         void Update()
         {
-
-            if (Input.GetKeyDown(KeyCode.L))
+            if (transform.GetChildCount() == 0)
             {
-                if (form.ofensive)
+                Destroy(gameObject);
+            }
+
+            army.RemoveAll(item => item.GetComponentInChildren<Dying>().state != Dying.State.Alive);
+            if (leader != null)
+            {
+                if (leader.GetComponentInChildren<Dying>().state != Dying.State.Alive && army.Count > 0)
                 {
-                    form.ofensive = false;
+                    leader = army[0];
+                    leader.GetComponentInChildren<Enemies>().following = false;
+                    army.RemoveAt(0);
                 }
-                else
+                if (leader.GetComponentInChildren<Dying>().state == Dying.State.Alive)
                 {
-                    form.ofensive = true;
+                    realLeader = leader.GetComponentInChildren<NavMeshAgent>().gameObject;
                 }
-            }
 
 
-            foreach (GameObject go in army)
-            {
-                //go.GetComponent<AgentFollow>().agent.GetComponent<NavMeshAgent>().enabled = true;
-            }
-
-            if (Input.GetKeyDown(KeyCode.J))
-            {
-                while (army.Count < 5)
+                Enemies leaderEnemies = leader.GetComponentInChildren<Enemies>();
+                foreach (GameObject go in army)
                 {
-                    GameObject go = Instantiate(CreateObject);
+                    if (leaderEnemies.attacking)
+                    {
+                        go.GetComponentInChildren<Enemies>().following = false;
+                    }
+                    else
+                    {
+                        go.GetComponentInChildren<Enemies>().following = true;
+                    }
 
-
-                    army.Add(go);
                 }
-                Reset();
+                form.doFormation(army, realLeader);
             }
-
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-
-                var n = Random.Range(0, army.Count);
-                Destroy(army[n]);
-                army.RemoveAt(n);
-            }
-
-            form.doFormation(army, leader);
         }
 
         private void Reset()
         {
             form.doFormation(army, leader);
 
-            Vector3 leaderPos = leader.transform.position;
+            Vector3 leaderPos = leader.GetComponentInChildren<NavMeshAgent>().transform.position;
 
-
+            form.doFormation(army, realLeader);
             foreach (GameObject guard in army)
             {
-                //Vector3 offset = guard.GetComponent<AgentFollow>().offset;
-                //guard.transform.position = new Vector3(leaderPos.x - leader.transform.forward.x * (0.3f + offset.x) + leader.transform.right.x * (offset.y), 5.809459f, leaderPos.z - leader.transform.forward.z * (0.3f + offset.x) + leader.transform.right.z * (offset.y));
+                Vector3 offset = guard.GetComponentInChildren<Enemies>().offset;
+                guard.transform.position = new Vector3(leaderPos.x - realLeader.transform.forward.x * (0.3f + offset.x) + realLeader.transform.right.x * (offset.y), 0f, leaderPos.z - realLeader.transform.forward.z * (0.3f + offset.x) + realLeader.transform.right.z * (offset.y));
 
             }
         }
