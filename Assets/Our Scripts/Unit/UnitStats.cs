@@ -101,7 +101,7 @@ public class UnitStats : MonoBehaviour
 
 	    			case Troops.Cavalry:
 	    				this.speed=5;
-	    				this.range=2.5f;
+	    				this.range=5f;
 	    				this.size=8;
 	    				this.MaxHP=5;
 	    				this.HP=5;

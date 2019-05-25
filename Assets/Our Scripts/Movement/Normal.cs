@@ -21,7 +21,7 @@ public class Normal : UnitAction
         
         if (targetEnemy != null)
         {
-            if (!targetEnemy.GetComponent<UnitStats>().dead)
+            if (!targetEnemy.GetComponentInParent<UnitStats>().dead)
             {
 
                 agent.destination = targetEnemy.transform.position;

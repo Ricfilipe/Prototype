@@ -106,7 +106,8 @@ public class HorseMovement : MovementManager
                 float min = myUnitStats.range;
                 foreach (GameObject enemy in gm.GetComponent<GameManager>().enemyPool)
                 {
-                    float tempMin = (enemy.transform.position - GetComponentInChildren<NavMeshAgent>().transform.position).magnitude;
+                    float tempMin = (enemy.GetComponentInChildren<NavMeshAgent>().transform.position - GetComponentInChildren<NavMeshAgent>().transform.position).magnitude;
+                   
                     if (tempMin <= min)
                     {
                         min = tempMin;
@@ -117,7 +118,7 @@ public class HorseMovement : MovementManager
                 }
             }
 
-            if (gameObject.GetComponent<UnitStats>().HP <= 0)
+            if (gameObject.GetComponentInParent<UnitStats>().HP <= 0)
             {
       
                     gm.GetComponent<GameManager>().myCharacterPool.Remove(gameObject);
@@ -170,7 +171,7 @@ public class HorseMovement : MovementManager
             if (target.gameObject.GetComponent<UnitStats>().HP <= 0)
             {
                 gm.GetComponent<GameManager>().enemyPool.Remove(target);
-                target.GetComponent<Enemies>().DropSilver();
+                target.GetComponentInParent<Enemies>().DropSilver();
                 target = null;
                 attacking = false;
 

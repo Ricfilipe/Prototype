@@ -16,10 +16,10 @@ public abstract class Enemies : MonoBehaviour
     protected int movementSpeedRatio;
     protected bool attacking;
     protected bool marching;
-    Vector3 _targetWaypoint;
+    protected Vector3 _targetWaypoint;
 
     [Header("Troops attack inputs and stats")]
-    protected float attackRange;
+    protected float attackRange;    
     protected float TotalHealth;
     protected float currentHealth;
     List<GameObject> playerTroops;
@@ -47,6 +47,8 @@ public abstract class Enemies : MonoBehaviour
     [Header("Silver stats")]
     int silverDropped = 0;
 
+    
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -55,7 +57,7 @@ public abstract class Enemies : MonoBehaviour
         unitStats = GetComponent<UnitStats>();
         marching = true;
         playerTroops = new List<GameObject>();
-        enemyInAction = this.GetComponent<NavMeshAgent>();
+        enemyInAction = this.GetComponentInChildren<NavMeshAgent>();
         _targetWaypoint = new Vector3(180, 0, -10f);
 
     }
@@ -68,16 +70,9 @@ public abstract class Enemies : MonoBehaviour
             globalAttackTimer -= Time.deltaTime;
         }
 
+        prepareToDie();
 
-        if (gameObject.GetComponent<UnitStats>().HP <= 0)
-        {
-
-            weapon.GetComponent<Animator>().Play("Idle");
-            gm.GetComponent<GameManager>().enemyPool.Remove(gameObject);                
-            StartCoroutine(GetComponent<Dying>().Dead());
-        }
-
-       if (GetComponent<Dying>().state == Dying.State.Alive) {
+       if (checkAlive()) {
             if (nearestUnit != null)
             {
                 if (nearestUnit.GetComponentInParent<UnitStats>().dead)
@@ -106,7 +101,8 @@ public abstract class Enemies : MonoBehaviour
         if (marching || nearestUnit == null )
         {
 
-            weapon.GetComponent<Animator>().Play("Idle");
+                weapon.GetComponent<Animator>().Play("Idle");
+            
             attacking = false;
             marching = true;
             enemyInAction.SetDestination(_targetWaypoint);
@@ -239,6 +235,23 @@ public abstract class Enemies : MonoBehaviour
         {
             gm.AddSilver(Random.Range(50, 100));
             silverDropped = 1;
+        }
+    }
+
+    public virtual bool checkAlive()
+    {
+        return GetComponent<Dying>().state == Dying.State.Alive;
+    }
+
+    public virtual void prepareToDie()
+    {
+
+        if (gameObject.GetComponent<UnitStats>().HP <= 0)
+        {
+
+            weapon.GetComponent<Animator>().Play("Idle");
+            gm.GetComponent<GameManager>().enemyPool.Remove(gameObject);
+            StartCoroutine(GetComponent<Dying>().Dead());
         }
     }
 

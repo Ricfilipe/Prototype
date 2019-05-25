@@ -49,7 +49,7 @@ public class MovementManager : MonoBehaviour
 
     private void Awake()
     {
-        GetComponent<NavMeshAgent>().isStopped = true;
+        GetComponentInChildren<NavMeshAgent>().isStopped = true;
     }
 
     void Start()
@@ -76,7 +76,7 @@ public class MovementManager : MonoBehaviour
 
         if (target != null)
         {
-            if (target.GetComponent<UnitStats>().dead)
+            if (target.GetComponentInParent<UnitStats>().dead)
             {
                 weapon.GetComponent<Animator>().Play("Idle");
                 target = null;
@@ -112,9 +112,11 @@ public class MovementManager : MonoBehaviour
                 float min = myUnitStats.range;
                 foreach (GameObject enemy in gm.GetComponent<GameManager>().enemyPool)
                 {
-                    float tempMin = (enemy.transform.position - transform.position).magnitude;
+                    float tempMin = (enemy.GetComponentInChildren<NavMeshAgent>().transform.position - transform.position).magnitude;
+                    Debug.Log(tempMin);
                     if (tempMin <= min)
                     {
+                        
                         min = tempMin;
                         target = enemy;
 
@@ -200,7 +202,7 @@ public class MovementManager : MonoBehaviour
             }
 
 
-            if (target.gameObject.GetComponent<UnitStats>().HP <= 0)
+            if (target.gameObject.GetComponentInParent<UnitStats>().HP <= 0)
             {
                gm.GetComponent<GameManager>().enemyPool.Remove(target);
                 target.GetComponent<Enemies>().DropSilver();

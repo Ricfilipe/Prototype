@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
 
                 if (hitOut.collider.tag == "Enemy")
                 {
-                    hitOut.collider.gameObject.GetComponent<Enemies>().hover = true;
+                    hitOut.collider.gameObject.GetComponentInParent<Enemies>().hover = true;
                     Cursor.SetCursor(cursors[3], new Vector2(16, 16), CursorMode.ForceSoftware);
                 }
                 else if (hitOut.collider.tag == "MyUnit")
