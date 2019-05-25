@@ -113,7 +113,7 @@ public class MovementManager : MonoBehaviour
                 foreach (GameObject enemy in gm.GetComponent<GameManager>().enemyPool)
                 {
                     float tempMin = (enemy.GetComponentInChildren<NavMeshAgent>().transform.position - transform.position).magnitude;
-                    Debug.Log(tempMin);
+                    
                     if (tempMin <= min)
                     {
                         
