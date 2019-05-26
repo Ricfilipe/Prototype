@@ -140,6 +140,10 @@ public class MovementManager : MonoBehaviour
                 if (!GetComponent<UnitStats>().undead)
                 {
                     weapon.GetComponent<Animator>().Play("Idle");
+
+                        gm.GetComponent<GameManager>().Defeat();
+                    
+                   
                     gm.GetComponent<GameManager>().myCharacterPool.Remove(gameObject);
                     gm.GetComponent<GameManager>().removeFromSelection(gameObject);
                     StartCoroutine(GetComponent<Dying>().Dead());

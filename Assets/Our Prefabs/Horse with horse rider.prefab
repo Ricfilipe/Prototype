@@ -822,7 +822,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8d4a10d132018bb4fafa0917d7d0cf93, type: 2}
+  - {fileID: 2100000, guid: 1b3d278764a381a40a703df9bbc2a839, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1275,7 +1275,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2f5378c9ca7aed54fbeedd7fb697c54c, type: 2}
+  - {fileID: 2100000, guid: 577c0a5052813ac418bf59a4b15b5172, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16549,7 +16549,6 @@ GameObject:
   - component: {fileID: 739565473644182599}
   - component: {fileID: 739536427828337223}
   - component: {fileID: 738953072285638373}
-  - component: {fileID: 6529052671972051925}
   - component: {fileID: 2322654202585538650}
   m_Layer: 20
   m_Name: Horse 3
@@ -16565,7 +16564,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853046490164096845}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -2.49, z: -1.55}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children:
@@ -16578,7 +16577,7 @@ Transform:
   - {fileID: 2870464669742166826}
   m_Father: {fileID: 2870464670589284463}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!95 &853046490171187547
 Animator:
   serializedVersion: 3
@@ -16783,7 +16782,18 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   OnDeathE:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: Defeat
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   OnAction:
@@ -17158,7 +17168,7 @@ MonoBehaviour:
     - {fileID: 2100000, guid: 480d974d0f164444398df59ba4de668b, type: 2}
     Linked: 0
     Master: 0
-    current: 3
+    current: 0
     HasLODs: 0
     LODs: []
     indexM: 0
@@ -17175,7 +17185,7 @@ MonoBehaviour:
     - {fileID: 2100000, guid: 1b3d278764a381a40a703df9bbc2a839, type: 2}
     Linked: 0
     Master: 0
-    current: 1
+    current: 2
     HasLODs: 0
     LODs: []
     indexM: 0
@@ -17434,22 +17444,6 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: MalbersAnimations.Events.BoolEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
---- !u!114 &6529052671972051925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853046490164096845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37b371a2bfc47f3409041e060166bad1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Icon: {fileID: 0}
-  HP: {fileID: 0}
-  state: 0
-  SoundOfDying: {fileID: 0}
 --- !u!82 &2322654202585538650
 AudioSource:
   m_ObjectHideFlags: 0
@@ -17573,7 +17567,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141819034803027460}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 60, z: -0.587}
+  m_LocalPosition: {x: -0, y: 41.66, z: -0.59}
   m_LocalScale: {x: 2, y: 2, z: 0.40000045}
   m_Children: []
   m_Father: {fileID: 2870464669742166826}
@@ -18839,7 +18833,7 @@ MonoBehaviour:
     m_TypeName: MalbersAnimations.Events.BoolEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   Editor_RiderCallAnimal: 1
-  Editor_Events: 1
+  Editor_Events: 0
   Editor_Inputs: 1
   OnStartMounting:
     m_PersistentCalls:
@@ -19498,7 +19492,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4ea6bc86f53c1294080771839cd4b50f, type: 2}
   - {fileID: 11400000, guid: ea37dd62d30edd94dbe330a6cb5ece87, type: 2}
   - {fileID: 11400000, guid: 19c0a7bc5ece4214091978abdb8a6d1c, type: 2}
-  debug: 1
+  debug: 0
   ActiveAbility: {fileID: 0}
   AimDot: {fileID: 0}
   Target: {fileID: 0}
@@ -19541,7 +19535,18 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   OnAttack:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7099601854844221827}
+        m_MethodName: doDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: MalbersAnimations.Weapons.WeaponEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   OnAimSide:

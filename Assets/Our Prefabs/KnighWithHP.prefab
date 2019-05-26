@@ -733,7 +733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b3a4edd7a753740a6eac30c93aaa1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeTime: 5
+  activeTime: 1
   cooldown: 0
   name: Last Stand
   hasActivation: 1
@@ -2095,11 +2095,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6397162115115199878, guid: ecb110d893fad5440a271239e1d41ac9,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8119441328304715375, guid: ecb110d893fad5440a271239e1d41ac9,
         type: 3}
       propertyPath: m_PlayOnAwake
@@ -2109,6 +2104,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Volume
       value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 6397162115115199878, guid: ecb110d893fad5440a271239e1d41ac9,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecb110d893fad5440a271239e1d41ac9, type: 3}

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnitStats;
 using Random = UnityEngine.Random;
@@ -50,10 +51,12 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public typeAction currentAction = typeAction.Normal;
 
- 
+
 
     [Header("HUD")]
-    
+    public GameObject endingPanel;
+    public GameObject endingText;
+    private Text ending;
     public GameObject selectionMenu;
     [SerializeField]
     private RectTransform selectSquareImage;
@@ -113,6 +116,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ending = endingText.GetComponent<Text>();
         Cursor.SetCursor(cursors[2], new Vector2(0, 0), CursorMode.Auto);
         numberOfEnemies = 2;
         this.objectivesText = this.objectivo.GetComponent<Text>();
@@ -133,6 +137,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+      
+
         if (timerForSound > 0)
         {
             timerForSound -= Time.fixedDeltaTime;
@@ -806,7 +812,7 @@ public class GameManager : MonoBehaviour
             wave++;
             if (wave-1 >= 9)
             {
-                //WIN
+                Victory();
                 metrics.setWin();
                 metrics.addWaveTimer(wave_lenght, waves.Length-1);
                 metrics.toFile();
@@ -822,7 +828,7 @@ public class GameManager : MonoBehaviour
                 }
                
                 if (wave > 1) {
-                    metrics.addWaveTimer(wave_lenght,wave-2);
+                    metrics.addWaveTimer(wave_lenght,wave-1);
                 }
                 wave_lenght = 0;
             }
@@ -1161,6 +1167,30 @@ public class GameManager : MonoBehaviour
         }
         go.GetComponentInChildren<MovementManager>().currentAction.Start();
     }
+
+    private void Victory()
+    {
+        ending.text = "Victory";
+        endingPanel.active = true;
+        Time.timeScale = 0f;
+    }
+
+    public void Defeat()
+    {
+        
+        metrics.addWaveTimer(wave_lenght, wave );
+        ending.text = "Defeat";
+        endingPanel.active = true;
+        Time.timeScale = 0f;
+        metrics.toFile();
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene("scene");
+    }
+
+
 
 }
 
