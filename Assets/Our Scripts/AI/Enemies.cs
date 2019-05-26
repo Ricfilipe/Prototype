@@ -70,7 +70,7 @@ public abstract class Enemies : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+     void Update()
     {
         if (globalAttackTimer > 0)
         {
@@ -128,10 +128,13 @@ public abstract class Enemies : MonoBehaviour
             }
         }else
         {
-            enemyInAction.speed = unitStats.speed+2;
-            var leaderPos = leader.GetComponentInChildren<NavMeshAgent>().transform.position;
-            enemyInAction.destination = new Vector3(leaderPos.x - leader.transform.forward.x * (0.3f + offset.x) + leader.transform.right.x * (offset.y), 0f, leaderPos.z - leader.transform.forward.z * (0.3f + offset.x) + leader.transform.right.z * (offset.y));
+            enemyInAction.speed = unitStats.speed*1.2f;
+            if (leader != null)
+            {
+                var leaderPos = leader.GetComponentInChildren<NavMeshAgent>().transform.position;
 
+                enemyInAction.destination = new Vector3(leaderPos.x - leader.transform.forward.x * (0.3f + offset.x) + leader.transform.right.x * (offset.y), 0f, leaderPos.z - leader.transform.forward.z * (0.3f + offset.x) + leader.transform.right.z * (offset.y));
+            }
         }
         /* 
          if (playerTroops.Count <= 0)

@@ -388,12 +388,12 @@ GameObject:
   - component: {fileID: 7557640902199336404}
   - component: {fileID: 1234349182741411057}
   - component: {fileID: 1234349182741411062}
+  - component: {fileID: 3063787289544246515}
   - component: {fileID: 4299342861793803493}
   - component: {fileID: 1234349182741411063}
-  - component: {fileID: 1234349182741411060}
   - component: {fileID: 7425521490549773362}
   m_Layer: 0
-  m_Name: Swordsman
+  m_Name: Cavalry
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -527,6 +527,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3063787289544246515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234349182741411061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b8772a4af26db64ba23024c5f12435f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gm: {fileID: 0}
+  attacking: 0
+  nearestUnit: {fileID: 0}
+  weapon: {fileID: 1491067600505473682}
+  hover: 0
+  offset: {x: 0, y: 0}
+  following: 0
+  leader: {fileID: 0}
+  firstMove: {x: 0, y: 0, z: 0}
+  waitTimeBeforeAttack: 0
 --- !u!114 &4299342861793803493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,25 +591,6 @@ MonoBehaviour:
   team: 1
   troop: 2
   dead: 0
---- !u!114 &1234349182741411060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1234349182741411061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f56dc3fff8f8219459a7799b13c05fe8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gm: {fileID: 0}
-  nearestUnit: {fileID: 0}
-  weapon: {fileID: 1491067600505473682}
-  hover: 0
-  offset: {x: 0, y: 0}
-  following: 0
-  leader: {fileID: 0}
 --- !u!82 &7425521490549773362
 AudioSource:
   m_ObjectHideFlags: 0

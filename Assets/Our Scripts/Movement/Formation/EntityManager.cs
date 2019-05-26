@@ -11,7 +11,6 @@ namespace movement
         public List<GameObject> army;
         public TypeSoldier type;
         private Formation form;
-        public GameObject CreateObject;
         private GameObject realLeader;
 
         public enum TypeSoldier
@@ -34,9 +33,16 @@ namespace movement
                 case TypeSoldier.horse:
                     form = new CavalryFormation(gameObject);
                     break;
+                case TypeSoldier.crossbow:
+                    form = new CrossbowFormation(gameObject);
+                    break;
+                case TypeSoldier.archer:
+                    form = new ArcherFormation(gameObject);
+                    break;
             }
             realLeader = leader.GetComponentInChildren<NavMeshAgent>().gameObject;
             Enemies leaderEnemies = leader.GetComponentInChildren<Enemies>();
+           
             foreach (GameObject go in army)
             {
                 if (leaderEnemies.attacking)
@@ -87,10 +93,12 @@ namespace movement
                     {
                         go.GetComponentInChildren<Enemies>().following = true;
                     }
-
+                    go.GetComponentInChildren<Enemies>().leader = leader;
                 }
                 form.doFormation(army, realLeader);
             }
+            
+           
         }
 
         private void Reset()
@@ -100,9 +108,10 @@ namespace movement
             Vector3 leaderPos = leader.GetComponentInChildren<NavMeshAgent>().transform.position;
 
             form.doFormation(army, realLeader);
-            foreach (GameObject guard in army)
+            foreach (GameObject guard in army)  
             {
                 Vector3 offset = guard.GetComponentInChildren<Enemies>().offset;
+                
                 guard.transform.position = new Vector3(leaderPos.x - realLeader.transform.forward.x * (0.3f + offset.x) + realLeader.transform.right.x * (offset.y), 0f, leaderPos.z - realLeader.transform.forward.z * (0.3f + offset.x) + realLeader.transform.right.z * (offset.y));
 
             }

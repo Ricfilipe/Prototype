@@ -17,7 +17,7 @@ public class ForTheKing : AbilityTimer
         unitsCollided.AddRange(Physics.OverlapSphere(gameObject.transform.position, detectUnitsRadius));
         foreach (Collider c in unitsCollided.FindAll(x => x.CompareTag("MyUnit")))
         {
-            UnitStats stat = c.gameObject.GetComponent<UnitStats>();
+            UnitStats stat = c.gameObject.GetComponentInParent<UnitStats>();
             unitsChanged.Add(stat);
             stat.adMultiplier=1.5f;
         }

@@ -16,11 +16,11 @@ public class CavalryFormation : Formation
 
     protected override void doOffensiveFormation(List<GameObject> army, GameObject leader)
     {
-        Vector2 localOffset = new Vector2(0f, 3f);
+        Vector2 localOffset = new Vector2(1f, 3f);
         if (army.Count % 2 == 0)
         {
-            localOffset = new Vector2(0, localOffset.y / 2f);
-            for (int i = 0; i < army.Count && i < 5; i++)
+            localOffset = new Vector2(1.5f, localOffset.y / 2f);
+            for (int i = 0; i < army.Count; i++)
             {
                 army[i].GetComponentInChildren<NavMeshAgent>().enabled = true;
                 Enemies follow = army[i].GetComponentInChildren<Enemies>();
