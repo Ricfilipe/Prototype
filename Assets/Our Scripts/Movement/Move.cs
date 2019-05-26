@@ -36,6 +36,20 @@ public class Move : UnitAction
 
             agent.destination = targetPosition;
             agent.stoppingDistance = 0f;
+            var pos = agent.transform.position;
+            pos.y = agent.destination.y;
+            if (Vector3.Distance(agent.destination, pos) <= agent.stoppingDistance)
+            {
+
+                if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+                {
+
+                    agent.isStopped = true;
+
+                }
+
+
+            }
         }
         else
         {

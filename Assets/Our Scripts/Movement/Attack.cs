@@ -48,6 +48,25 @@ public class Attack : UnitAction
 
             }
 
+            if(targetEnemy == null)
+            {
+                agent.destination = targetPosition;
+                agent.stoppingDistance = 0f;
+                var pos = agent.transform.position;
+                pos.y = agent.destination.y;
+                if (Vector3.Distance(agent.destination, pos) <= agent.stoppingDistance)
+                {
+
+                    if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+                    {
+                        
+                        agent.isStopped = true;
+
+                    }
+
+
+                }
+            }
 
         }
         if (targetEnemy != null)
@@ -55,6 +74,7 @@ public class Attack : UnitAction
             agent.GetComponentInParent<MovementManager>().target = targetEnemy;
             agent.destination = targetEnemy.transform.position;
             agent.stoppingDistance = unitStast.range;
+            targetPosition = agent.transform.position;
         }
     }
 
