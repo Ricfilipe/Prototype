@@ -10,16 +10,21 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Objects")]
     public List<GameObject> myCharacterPool = new List<GameObject>();
     public List<GameObject> enemyPool = new List<GameObject>();
-    public int wave = 1;
+    public GameObject enemySpawnPosition;
+    public GameObject Base;
+
+    [Header("State")]
+    public int wave = 0;
     public float waveTimer;
     public int numberOfEnemies;
-    public int[] wave_numbers = new int[20];
+    public int[] wave_numbers = new int[9];
     public int indice = 0;
     public float wave_lenght = 0;
 
-    public Metrics metrics;
+   
    
     public float timerForSound = 0f;
     [HideInInspector]
@@ -27,32 +32,54 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector]
     public List<GameObject>[] groups = new List<GameObject>[10];
-    public GameObject selectionMenu;
+
     [HideInInspector]
     public List<GameObject> knightSelected, archerSelected;
     [HideInInspector]
     public GameObject King;
-    public GameObject Base;
     [HideInInspector]
     public bool baseSelected=false;
 
-    public GameObject banner;
 
-    public ParticleClick[] animations = new ParticleClick[3];
+
 
     private GameObject lastClick;
     private float lastTime;
 
-    public List<Texture2D> cursors;
 
     [HideInInspector]
     public typeAction currentAction = typeAction.Normal;
 
-    public GameObject[] enemies;
-    public GameObject enemySpawnPosition;
+ 
 
+    [Header("HUD")]
+    
+    public GameObject selectionMenu;
+    [SerializeField]
+    private RectTransform selectSquareImage;
     public GameObject objectivo;
+    public GameObject silverText;
+    public List<Texture2D> cursors;
+    public ParticleClick[] animations = new ParticleClick[3];
+    public GameObject banner;
     private Text objectivesText;
+
+
+    [Header("Waves")]
+    public GameObject[] wave1;
+    public GameObject[] wave2;
+    public GameObject[] wave3;
+    public GameObject[] wave4;
+    public GameObject[] wave5;
+    public GameObject[] wave6;
+    public GameObject[] wave7;
+    public GameObject[] wave8;
+    public GameObject[] wave9;
+
+    private GameObject[][] waves;
+
+    [Header("Metrics")]
+    public Metrics metrics;
 
 
     public enum typeAction
@@ -64,15 +91,14 @@ public class GameManager : MonoBehaviour
         Banner
     }
 
-    [SerializeField]
-    private RectTransform selectSquareImage;
+
 
     bool activateSelectArea = false;
     bool UIclick = false;
     Vector3 startPos, endPos;
     [HideInInspector]
     public int silver;
-    public GameObject silverText;
+  
     private bool actionDone = false;
 
     private void Awake()
@@ -80,6 +106,7 @@ public class GameManager : MonoBehaviour
         knightSelected = new List<GameObject>();
         archerSelected = new List<GameObject>();
         messenger= GetComponent<VoiceManager>();
+        waves = new GameObject[][] {wave1,wave2,wave3,wave4,wave5,wave6,wave7,wave8,wave9 };
         
     }
 
@@ -434,7 +461,7 @@ public class GameManager : MonoBehaviour
 
         getNumberKey();
         Spawn();
-        objectivesText.text = "Objectives:\n" + "Wave: " + (wave-1) + "\n" + "Enemies: " + enemyPool.Count;
+        objectivesText.text = "Objectives:\n" + "Wave: " + (wave) + "\n" + "Enemies: " + enemyPool.Count;
 
     }
 
@@ -777,57 +804,21 @@ public class GameManager : MonoBehaviour
             }
             waveTimer = 10;
             wave++;
-            if (wave <= 20)
+            if (wave-1 >= 9)
             {
-                numberOfEnemies += 3;
-            }
-            if (indice < 15)
-            {
-                GameObject obj = enemies[0];
-                for (int i = 0; i < wave_numbers[indice]; i++)
-                {
-                    float x = UnityEngine.Random.Range(-10, 10);
-                    float z = UnityEngine.Random.Range(-10, 10);
-                    enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
-                    GameObject instEnemy = Instantiate(obj, enemySpawnPosition.transform.position, Quaternion.identity);
-
-                }
-                indice++;
-                obj = enemies[1];
-                for (int i = 0; i < wave_numbers[indice]; i++)
-                {
-                    float x = UnityEngine.Random.Range(-10, 10);
-                    float z = UnityEngine.Random.Range(-10, 10);
-                    enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
-                    GameObject instEnemy = Instantiate(obj, enemySpawnPosition.transform.position, Quaternion.identity);
-
-                }
-                indice++;
-                obj = enemies[2];
-                for (int i = 0; i < wave_numbers[indice]; i++)
-                {
-                    float x = UnityEngine.Random.Range(-10, 10);
-                    float z = UnityEngine.Random.Range(-10, 10);
-                    enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
-                    GameObject instEnemy = Instantiate(obj, enemySpawnPosition.transform.position, Quaternion.identity);
-
-                }
-                indice++;
-                /*obj = enemies[3];
-                for (int i = 0; i < wave_numbers[indice]; i++)
-                {
-                    float x = UnityEngine.Random.Range(-10, 10);
-                    float z = UnityEngine.Random.Range(-10, 10);
-                    enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
-                    GameObject instEnemy = Instantiate(obj, enemySpawnPosition.transform.position, Quaternion.identity);
-
-                }
-                indice++;
-                */
+                //WIN
+                //metrics.toFile();
             }
             else
             {
-                metrics.toFile();
+                foreach( GameObject w in waves[wave-1])
+                {
+                    float x = UnityEngine.Random.Range(-10, 10);
+                    float z = UnityEngine.Random.Range(-10, 10);
+                    enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
+                    GameObject.Instantiate(w, enemySpawnPosition.transform.position, Quaternion.identity);
+                }
+                //metrics.toFile();
             }
         }
         else

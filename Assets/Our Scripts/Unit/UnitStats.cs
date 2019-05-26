@@ -90,7 +90,7 @@ public class UnitStats : MonoBehaviour
                         break;
     				
     				case Troops.Infantry:
-    					this.speed= 3;
+    					this.speed= 4;
 	    				this.range=3f;
 	    				this.size=5;
 	    				this.MaxHP=5;
