@@ -10,6 +10,7 @@ public class MakeItRain: AbilityTimer
     protected override void apply()
     {
         GetComponent<UnitStats>().attackSpeed = GetComponent<UnitStats>().attackSpeed * attackRatio;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<Metrics>().countAbilityArcher();
         GetComponent<MovementManager>().enchanced = true;
     }
 

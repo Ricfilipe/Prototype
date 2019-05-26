@@ -31,6 +31,14 @@ public class arrowFollow : MonoBehaviour
                 if (target != null)
                 {
                     if(!target.GetComponentInParent<UnitStats>().undead)
+                     if(target.GetComponentInParent<UnitStats>().team == UnitStats.Team.France)
+                        {
+                            if (target.GetComponentInParent<UnitStats>().HP>0 && target.GetComponentInParent<UnitStats>().HP - damage <= 0)
+                            {
+                                GameObject.FindGameObjectWithTag("GameManager").GetComponent<Metrics>().countArcherKill();
+                            }
+
+                        }
                     target.GetComponentInParent<UnitStats>().HP -= damage;
                 }
                 Destroy(gameObject);

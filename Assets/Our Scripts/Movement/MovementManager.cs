@@ -141,7 +141,15 @@ public class MovementManager : MonoBehaviour
                 {
                     weapon.GetComponent<Animator>().Play("Idle");
 
-                       
+                    switch(myUnitStats.troop){
+                        case UnitStats.Troops.Archer:
+                            gm.GetComponent<Metrics>().countArcherDeath();
+                            break;
+                        case UnitStats.Troops.Infantry:
+                            gm.GetComponent<Metrics>().countKnightDeath();
+                            break;
+
+                    }
                     
                    
                     gm.GetComponent<GameManager>().myCharacterPool.Remove(gameObject);

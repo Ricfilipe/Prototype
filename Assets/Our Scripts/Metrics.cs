@@ -20,7 +20,7 @@ public class Metrics : MonoBehaviour
     int[] archer_killed_per_wave = new int[9];
     int lastActions;
 
-    int currentWave=-1;
+    int currentWave;
 
     private int Actions;
     // Start is called before the first frame update
@@ -30,7 +30,7 @@ public class Metrics : MonoBehaviour
         StreamReader reader = new StreamReader(path);
          currentMetric = reader.ReadToEnd();
 
-
+        lastActions = -1;
     }
 
     // Update is called once per frame
@@ -55,6 +55,7 @@ public class Metrics : MonoBehaviour
             lastActions = Actions;
         }
         currentWave++;
+        
     }
 
 
@@ -83,8 +84,13 @@ public class Metrics : MonoBehaviour
                 {
                     file.WriteLine("Wave " + wave + " APM: " + (apm_per_wave[wave - 1] / (n / 60)));
                 }
-                //TODO Contar K/D por classe
-                //TODO Contar usos de habilidades
+                file.WriteLine("Wave " + wave + " Archers' Kills: " + archer_kills_per_wave[wave-1]);
+                file.WriteLine("Wave " + wave + " Archers Killed: " + archer_killed_per_wave[wave-1]);
+                file.WriteLine("Wave " + wave + " Archers Abilities: " + archer_ability_per_wave[wave - 1]);
+                file.WriteLine("Wave " + wave + " Knights Kills: " + knight_kills_per_wave[wave-1]);
+                file.WriteLine("Wave " + wave + " Knights Killed: " + knight_killed_per_wave[wave - 1]);
+                file.WriteLine("Wave " + wave + " King Kills: " + king_kills_per_wave[wave - 1]);
+                file.WriteLine("Wave " + wave + " King Abilities: " + king_ability_per_wave[wave - 1]);
                 wave++;
             }
 
@@ -112,6 +118,7 @@ public class Metrics : MonoBehaviour
 
     public void countKingKill()
     {
+        Debug.Log(currentWave);
         king_kills_per_wave[currentWave]++;
     }
 
@@ -137,11 +144,25 @@ public class Metrics : MonoBehaviour
 
     public void countAbilityKing()
     {
-        king_ability_per_wave[currentWave]++;
+        if (currentWave <= 0)
+        {
+            king_ability_per_wave[0]++;
+        }
+        else
+        {
+            king_ability_per_wave[currentWave]++;
+        }
     }
 
     public void countAbilityArcher()
     {
-        archer_ability_per_wave[currentWave]++;
+        if (currentWave <= 0)
+        {
+            archer_ability_per_wave[0]++;
+        }
+        else
+        {
+            archer_ability_per_wave[currentWave]++;
+        }
     }
 }

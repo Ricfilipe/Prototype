@@ -181,6 +181,10 @@ public class HorseMovement : MovementManager
 
     public void doDamage()
     {
+        if (target.GetComponentInParent<UnitStats>().HP > 0 && target.GetComponentInParent<UnitStats>().HP - myUnitStats.getAD() <= 0)
+        {
+            gm.GetComponent<Metrics>().countKingKill();
+        }
         target.GetComponentInParent<UnitStats>().HP -= myUnitStats.getAD();
     }
 

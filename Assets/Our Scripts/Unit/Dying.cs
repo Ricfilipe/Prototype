@@ -34,6 +34,22 @@ public class Dying : MonoBehaviour
             GetComponentInParent<Collider>().enabled = false ;
             GetComponent<NavMeshAgent>().enabled = false;
             GetComponent<UnitStats>().dead = true;
+            if (GetComponent<UnitStats>().team== UnitStats.Team.England) {
+                switch (GetComponent<UnitStats>().troop)
+                {
+                    case UnitStats.Troops.Archer:
+
+                        break;
+                    case UnitStats.Troops.King:
+
+                        break;
+                    case UnitStats.Troops.Infantry:
+
+                        break;
+                }
+            }
+
+
             SoundOfDying.Play();
             
             HP.active = false;

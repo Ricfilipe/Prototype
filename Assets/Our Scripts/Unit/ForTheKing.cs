@@ -14,6 +14,7 @@ public class ForTheKing : AbilityTimer
         kingSound[Random.Range(0, kingSound.Length)].Play();
         List<Collider> unitsCollided = new List<Collider>();
         List<Collider> currentUnitsInRange = new List<Collider>();
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<Metrics>().countAbilityKing();
         unitsCollided.AddRange(Physics.OverlapSphere(gameObject.transform.position, detectUnitsRadius));
         foreach (Collider c in unitsCollided.FindAll(x => x.CompareTag("MyUnit")))
         {

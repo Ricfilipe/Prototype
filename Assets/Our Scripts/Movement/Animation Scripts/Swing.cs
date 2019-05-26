@@ -13,6 +13,10 @@ public class Swing : MonoBehaviour
         UnitStats enemyStats = null;
         if (GetComponentInParent<UnitStats>().team == UnitStats.Team.England) {
              enemyStats = GetComponentInParent<MovementManager>().target.GetComponentInParent<UnitStats>();
+            if (enemyStats.HP>0 && enemyStats.HP - damage <= 0)
+            {
+                GameObject.FindGameObjectWithTag("GameManager").GetComponent<Metrics>().countKnightKill();
+            }
         }
         else
         {
