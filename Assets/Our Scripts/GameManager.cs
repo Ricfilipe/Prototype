@@ -604,88 +604,164 @@ public class GameManager : MonoBehaviour
 
     public void makeAction(Vector3 target, typeAction type)
     {
-        switch (type)
+        Vector3 offset = new Vector3(0,0,0);
+        if (King != null)
         {
-            case typeAction.Normal:
-                foreach (GameObject go in this.knightSelected)
+
+            offset.x += 3f;
+
+            DoMovement(target, this.King, type);
+            King.GetComponentInParent<MovementManager>().currentAction.Start();
+        }
+        if (this.knightSelected.Count > 0)
+        {
+            
+            var numlin = this.knightSelected.Count / 10;
+            int i=0;
+            for(; i < numlin; i++)
+            {
+                offset.z = 13.5f;
+                DoMovement(target + offset, this.knightSelected[i * 10], type);                     
+                offset.z = 10.5f;
+                DoMovement(target + offset, this.knightSelected[i * 10+1], type);
+                offset.z = 7.5f;
+                DoMovement(target + offset, this.knightSelected[i * 10+2], type);
+                offset.z = 4.5f;
+                DoMovement(target + offset, this.knightSelected[i * 10+3], type);
+                offset.z = 1.5f;
+                DoMovement(target + offset, this.knightSelected[i * 10+4], type);
+                offset.z = -1.5f;
+                DoMovement(target + offset, this.knightSelected[i * 10+5], type);
+                offset.z = -4.5f;
+                DoMovement(target + offset, this.knightSelected[i * 10+6], type);
+                offset.z = -7.5f;
+                DoMovement(target + offset, this.knightSelected[i * 10+7], type);
+                offset.z = -10.5f;
+                DoMovement(target + offset, this.knightSelected[i * 10+8], type);
+                offset.z = -13.5f;
+                DoMovement(target + offset, this.knightSelected[i * 10 + 9], type);
+                offset.x += 3f;
+            }
+            var lastlin = knightSelected.Count - (i * 10);
+            offset.z = 1.5f;
+            for (int j = i * 10; j < knightSelected.Count;j++) {
+                if (lastlin % 2 == 0)
                 {
-                    go.GetComponent<MovementManager>().currentAction = new Normal(target, go, this);
-                    go.GetComponent<MovementManager>().currentAction.Start();
+                    if (j%2==0)
+                    {
+                        DoMovement(target + offset, this.knightSelected[j], type);
+                    }
+                    else
+                    {
+                        offset.z = -offset.z;
+                        DoMovement(target + offset, this.knightSelected[j], type);
+                        offset.z = (-offset.z) + 3f;
+                    }
 
                 }
-                foreach (GameObject go in this.archerSelected)
+                else
                 {
-                    go.GetComponent<MovementManager>().currentAction = new Normal(target, go, this);
-                    go.GetComponent<MovementManager>().currentAction.Start();
+                    if (j - i * 10 == 0)
+                    {
 
+                        DoMovement(target + new Vector3(offset.x,0,0), this.knightSelected[j], type);
+                        offset.z = offset.z * 2;
+                    }
+                    else if (j % 2 == 0)
+                    {
+                        offset.z = -offset.z;
+                        DoMovement(target + offset, this.knightSelected[j], type);
+                        offset.z = (offset.z) + 3f;
+                    }
+                 
+                    else
+                    {
+                        offset.z = -offset.z;
+                        DoMovement(target + offset, this.knightSelected[j], type);
+                      
+                    }
                 }
-                if (King != null)
-                {
-                    King.GetComponentInParent<MovementManager>().currentAction = new Normal(target, King, this);
-                    King.GetComponentInParent<MovementManager>().currentAction.Start();
-                }
-                break;
-
-            case typeAction.Attack:
-                foreach (GameObject go in this.knightSelected)
-                {
-                    go.GetComponent<MovementManager>().currentAction = new Attack(target, go, this);
-                    go.GetComponent<MovementManager>().currentAction.Start();
-
-                }
-                foreach (GameObject go in this.archerSelected)
-                {
-                    go.GetComponent<MovementManager>().currentAction = new Attack(target, go, this);
-                    go.GetComponent<MovementManager>().currentAction.Start();
-
-                }
-                if (King != null)
-                {
-                    King.GetComponent<MovementManager>().currentAction = new Attack(target, King, this);
-                    King.GetComponent<MovementManager>().currentAction.Start();
-                }
-                break;
-
-            case typeAction.Move:
-                foreach (GameObject go in this.knightSelected)
-                {
-                    go.GetComponent<MovementManager>().currentAction = new Move(target, go, this);
-                    go.GetComponent<MovementManager>().currentAction.Start();
-
-                }
-                foreach (GameObject go in this.archerSelected)
-                {
-                    go.GetComponent<MovementManager>().currentAction = new Move(target, go, this);
-                    go.GetComponent<MovementManager>().currentAction.Start();
-
-                }
-                if (King != null)
-                {
-                    King.GetComponent<MovementManager>().currentAction = new Move(target, King, this);
-                    King.GetComponent<MovementManager>().currentAction.Start();
-                }
-                break;
-            case typeAction.Stop:
-                foreach (GameObject go in this.knightSelected)
-                {
-                    go.GetComponent<MovementManager>().currentAction = new Stop(target, go, this);
-                    go.GetComponent<MovementManager>().currentAction.Start();
-
-                }
-                foreach (GameObject go in this.archerSelected)
-                {
-                    go.GetComponent<MovementManager>().currentAction = new Stop(target, go, this);
-                    go.GetComponent<MovementManager>().currentAction.Start();
-
-                }
-                if (King != null)
-                {
-                    King.GetComponent<MovementManager>().currentAction = new Stop(target, King, this);
-                    King.GetComponent<MovementManager>().currentAction.Start();
-                }
-                break;
+            }
+            if (lastlin > 0)
+            {
+                offset.x += 3f;
+            }
 
         }
+        if (this.archerSelected.Count > 0)
+        {
+            var numlin = this.archerSelected.Count / 8;
+            int i = 0;
+            for (; i < numlin; i++)
+            {
+                offset.z = 10.5f;
+                DoMovement(target + offset, this.archerSelected[i * 8], type);
+                offset.z = 7.5f;
+                DoMovement(target + offset, this.archerSelected[i * 8 + 1], type);
+                offset.z = 4.5f;
+                DoMovement(target + offset, this.archerSelected[i * 8 + 2], type);
+                offset.z = 1.5f;
+                DoMovement(target + offset, this.archerSelected[i * 8 + 3], type);
+                offset.z = -1.5f;
+                DoMovement(target + offset, this.archerSelected[i * 8 + 4], type);
+                offset.z = -4.5f;
+                DoMovement(target + offset, this.archerSelected[i * 8 + 5], type);
+                offset.z = -7.5f;
+                DoMovement(target + offset, this.archerSelected[i * 8 + 6], type);
+                offset.z = -10.5f;
+                DoMovement(target + offset, this.archerSelected[i * 8 + 7], type);
+
+                offset.x += 3f;
+            }
+            var lastlin = archerSelected.Count - (i * 8);
+            offset.z = 1.5f;
+            for (int j = i * 8; j < archerSelected.Count; j++)
+            {
+                if (lastlin % 2 == 0)
+                {
+                    if (j % 2 == 0)
+                    {
+
+                        DoMovement(target + offset, this.archerSelected[j], type);
+                    }
+                    else
+                    {
+                        offset.z = -offset.z;
+                        DoMovement(target + offset, this.archerSelected[j], type);
+                        offset.z = (-offset.z) + 3f;
+                    }
+
+                }
+                else
+                {
+                    if (j - i * 8 == 0)
+                    {
+
+                        DoMovement(target + new Vector3(offset.x, 0, 0), this.archerSelected[j], type);
+                        offset.z = offset.z * 2;
+                    }
+                    else if (j % 2 == 0)
+                    {
+                        offset.z = -offset.z;
+                        DoMovement(target + offset, this.archerSelected[j], type);
+                        offset.z = (offset.z) + 3f;
+                    }
+                    else
+                    {
+                        offset.z = -offset.z;
+                        DoMovement(target + offset, this.archerSelected[j], type);
+                        
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
     }
 
 
@@ -1073,5 +1149,27 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+
+    private void DoMovement(Vector3 target, GameObject go, typeAction type)
+    {
+        switch (type)
+        {
+            case typeAction.Normal:
+                go.GetComponent<MovementManager>().currentAction = new Normal(target, go, this);
+                break;
+            case typeAction.Attack:
+                go.GetComponent<MovementManager>().currentAction = new Attack(target, go, this);
+                break;
+            case typeAction.Move:
+                go.GetComponent<MovementManager>().currentAction = new Move(target, go, this);
+                break;
+            case typeAction.Stop:
+                go.GetComponent<MovementManager>().currentAction = new Stop(target, go, this);
+                break;
+        }
+        go.GetComponentInChildren<MovementManager>().currentAction.Start();
+    }
+
 }
 

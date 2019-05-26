@@ -56,7 +56,7 @@ namespace movement
                 }
                 else
                 {
-                    if (j == 0)
+                    if (j-i*colDef == 0)
                     {
                         army[j].GetComponentInChildren<Enemies>().offset = new Vector2(0, -x * i-1.5f);
                         y = y * 2;
@@ -64,11 +64,12 @@ namespace movement
                     else if (j % 2 == 0)
                     {
                         army[j].GetComponentInChildren<Enemies>().offset = new Vector2(y, -x * i - 1.5f);
+                        y += 3f;
                     }
                     else
                     {
                         army[j].GetComponentInChildren<Enemies>().offset = new Vector2(-y, -x * i - 1.5f);
-                        y += 3f;
+                      
                     }
 
                 }

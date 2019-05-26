@@ -101,6 +101,10 @@ public class MovementManager : MonoBehaviour
 
         if (GetComponent<Dying>().state == Dying.State.Alive)
         {
+            if (GetComponent<NavMeshAgent>().isStopped)
+            {
+                currentAction = null;
+            }
 
             if (currentAction != null)
             {
