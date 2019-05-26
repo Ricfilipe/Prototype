@@ -15,10 +15,7 @@ public class Metrics : MonoBehaviour
         string path = "Assets/currentMetrics.txt";
         StreamReader reader = new StreamReader(path);
          currentMetric = reader.ReadToEnd();
-        int number = int.Parse(currentMetric); 
-        reader.Close();
-        number++;
-        System.IO.File.WriteAllText(path, ""+(number));
+
 
     }
 
@@ -43,7 +40,7 @@ public class Metrics : MonoBehaviour
 
     public void toFile()
     {
-
+        string path = "Assets/currentMetrics.txt";
         using (System.IO.StreamWriter file =
            new System.IO.StreamWriter(@"metrics" + currentMetric + ".txt"))
         {
@@ -65,5 +62,8 @@ public class Metrics : MonoBehaviour
                 file.WriteLine("Lost");
             }
         }
+        int number = int.Parse(currentMetric);
+        number++;
+        System.IO.File.WriteAllText(path, "" + (number));
     }
 }

@@ -25,7 +25,8 @@ public class GameManager : MonoBehaviour
     public int indice = 0;
     public float wave_lenght = 0;
 
-   
+    [HideInInspector]
+    private bool paused=false;
    
     public float timerForSound = 0f;
     [HideInInspector]
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool baseSelected=false;
 
-
+    
 
 
     private GameObject lastClick;
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
 
 
     [Header("HUD")]
+    public GameObject pauseMenu;
     public GameObject endingPanel;
     public GameObject endingText;
     private Text ending;
@@ -143,332 +145,352 @@ public class GameManager : MonoBehaviour
         {
             timerForSound -= Time.fixedDeltaTime;
         }
-
-        RaycastHit hitOut;
-        if (!activateSelectArea)
+        if (!paused)
         {
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitOut, 300))
+            RaycastHit hitOut;
+            if (!activateSelectArea)
+            {
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitOut, 300))
+                {
+
+                    if (hitOut.collider.tag == "Enemy")
+                    {
+                        hitOut.collider.gameObject.GetComponent<Enemies>().hover = true;
+                        Cursor.SetCursor(cursors[3], new Vector2(16, 16), CursorMode.ForceSoftware);
+                    }
+                    else if (hitOut.collider.tag == "MyUnit")
+                    {
+                        hitOut.collider.gameObject.GetComponentInParent<MovementManager>().hover = true;
+                        if (currentAction == typeAction.Normal)
+                        {
+                            Cursor.SetCursor(cursors[4], new Vector2(16, 16), CursorMode.ForceSoftware);
+                        }
+                    }
+                    else
+                    {
+                        switch (currentAction)
+                        {
+                            case typeAction.Attack:
+                                Cursor.SetCursor(cursors[0], new Vector2(0, 0), CursorMode.ForceSoftware);
+                                break;
+                            case typeAction.Move:
+                                Cursor.SetCursor(cursors[1], new Vector2(0, 0), CursorMode.ForceSoftware);
+                                break;
+                            default:
+                                Cursor.SetCursor(cursors[2], new Vector2(0, 0), CursorMode.ForceSoftware);
+                                break;
+                        }
+
+
+                    }
+
+
+
+                }
+                else
+                {
+                    Cursor.SetCursor(cursors[2], new Vector2(0, 0), CursorMode.Auto);
+                }
+            }
+
+
+            silverText.GetComponent<Text>().text = "Silver: " + silver;
+
+            if (Input.GetMouseButtonDown(0))
             {
 
-                if (hitOut.collider.tag == "Enemy")
+                RaycastHit hit;
+
+                if (!EventSystem.current.IsPointerOverGameObject())
                 {
-                    hitOut.collider.gameObject.GetComponent<Enemies>().hover = true;
-                    Cursor.SetCursor(cursors[3], new Vector2(16, 16), CursorMode.ForceSoftware);
-                }
-                else if (hitOut.collider.tag == "MyUnit")
-                {
-                    hitOut.collider.gameObject.GetComponentInParent<MovementManager>().hover = true;
+                    UIclick = false;
                     if (currentAction == typeAction.Normal)
                     {
-                        Cursor.SetCursor(cursors[4], new Vector2(16, 16), CursorMode.ForceSoftware);
+                        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
+                        {
+
+
+                            activateSelectArea = true;
+                            startPos = hit.point;
+
+
+
+                        }
                     }
-                }
-                else {
-                    switch (currentAction) {
-                        case typeAction.Attack:
-                            Cursor.SetCursor(cursors[0], new Vector2(0, 0), CursorMode.ForceSoftware);
-                            break;
-                        case typeAction.Move:
-                            Cursor.SetCursor(cursors[1], new Vector2(0, 0), CursorMode.ForceSoftware);
-                            break;
-                        default:
-                        Cursor.SetCursor(cursors[2], new Vector2(0, 0), CursorMode.ForceSoftware);
-                            break;
-                }
-
-        
-                }
-
-
-
-            }
-            else {
-                Cursor.SetCursor(cursors[2], new Vector2(0, 0), CursorMode.Auto);
-            }
-        }
-
-
-        silverText.GetComponent<Text>().text = "Silver: " + silver;
-
-        if (Input.GetMouseButtonDown(0))
-        {
-
-            RaycastHit hit;
-
-            if (!EventSystem.current.IsPointerOverGameObject())
-            {
-                UIclick = false;
-                if (currentAction == typeAction.Normal)
-                {
-                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
+                    else
                     {
+                        actionDone = true;
+                        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
+                        {
+
+                            if (currentAction == typeAction.Banner)
+                            {
+                                banner.transform.position = new Vector3(hit.point.x, banner.transform.position.y, hit.point.z);
+                                changeToNormal();
+
+                            }
+                            if (hit.collider.tag == "Enemy")
+                            {
+                                makeAction(hit.collider.gameObject, currentAction);
+                                changeToNormal();
 
 
-                        activateSelectArea = true;
-                        startPos = hit.point;
+                                if (currentAction == typeAction.Move)
+                                {
+                                    playMoveSound();
+                                }
+                                else
+                                {
+
+                                    playAttackSound();
+
+                                }
 
 
+                            }
+                            else if (hit.collider.tag == "MyUnit" && currentAction == typeAction.Move)
+                            {
+                                playMoveSound();
+                                makeAction(hit.collider.gameObject, currentAction);
+                                changeToNormal();
+                            }
+                            else
+                            {
+                                if (currentAction == typeAction.Attack)
+                                {
 
+                                    playAttackSound();
+
+                                    Vector3 helper = hit.point;
+                                    StartCoroutine(animations[1].click(helper));
+
+                                    float min = 60f;
+                                    int idx = -1;
+                                    for (int i = 0; i < enemyPool.Count; i++)
+                                    {
+                                        float tempMin = (enemyPool[i].transform.position - helper).magnitude;
+                                        if (tempMin <= min)
+                                        {
+                                            min = tempMin;
+                                            idx = i;
+                                        }
+                                    }
+                                    if (idx != -1)
+                                    {
+                                        makeAction(enemyPool[idx], currentAction);
+                                        changeToNormal();
+                                    }
+                                    else
+                                    {
+                                        makeAction(hit.point, currentAction);
+                                        changeToNormal();
+                                    }
+                                }
+                                else
+                                {
+                                    playAttackSound();
+                                    makeAction(hit.point, currentAction);
+                                    changeToNormal();
+                                    StartCoroutine(animations[2].click(hit.point));
+                                }
+                            }
+                        }
                     }
                 }
                 else
                 {
-                    actionDone = true;
-                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
-                    {
-                        
-                        if (currentAction == typeAction.Banner)
-                        {
-                            banner.transform.position = new Vector3(hit.point.x, banner.transform.position.y, hit.point.z);
-                            changeToNormal();
-                            
-                        }
-                        if (hit.collider.tag == "Enemy")
-                        {
-                            makeAction(hit.collider.gameObject, currentAction);
-                            changeToNormal();
-
-
-                            if (currentAction == typeAction.Move)
-                            {
-                                playMoveSound();
-                            }
-                            else {
-
-                                playAttackSound();
-
-                            }
-
-
-                        }else if(hit.collider.tag == "MyUnit" && currentAction == typeAction.Move)
-                        {
-                            playMoveSound();
-                            makeAction(hit.collider.gameObject, currentAction);
-                            changeToNormal();
-                        }
-                        else
-                        {
-                            if (currentAction == typeAction.Attack)
-                            {
-
-                                playAttackSound();
-
-                                Vector3 helper = hit.point;
-                                StartCoroutine(animations[1].click(helper));
-                                
-                                float min = 60f;
-                                int idx = -1;
-                                for (int i = 0; i < enemyPool.Count; i++)
-                                {
-                                    float tempMin = (enemyPool[i].transform.position - helper).magnitude;
-                                    if (tempMin <= min)
-                                    {
-                                        min = tempMin;
-                                        idx = i;
-                                    }
-                                }
-                                if (idx != -1)
-                                {
-                                    makeAction(enemyPool[idx], currentAction);
-                                    changeToNormal();
-                                }
-                                else
-                                {
-                                    makeAction(hit.point, currentAction);
-                                    changeToNormal();
-                                }
-                            }
-                            else
-                            {
-                                playAttackSound();
-                                makeAction(hit.point, currentAction);
-                                changeToNormal();
-                                StartCoroutine(animations[2].click(hit.point));
-                            }
-                        }
-                    }
+                    UIclick = true;
                 }
-            }
-            else
-            {
-                UIclick = true;
-            }
 
-            
-        }
-        else if (Input.GetMouseButtonUp(0) && !UIclick)
-        {
-            activateSelectArea = false;
 
-            if (currentAction == typeAction.Normal && !actionDone)
+            }
+            else if (Input.GetMouseButtonUp(0) && !UIclick)
             {
-                Vector3 squareStart = Camera.main.WorldToScreenPoint(startPos);
-                if (Math.Abs(endPos.x - squareStart.x) < 0.5 && Math.Abs(endPos.y - squareStart.y) < 0.5)
+                activateSelectArea = false;
+
+                if (currentAction == typeAction.Normal && !actionDone)
                 {
-                    RaycastHit hit;
-                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
+                    Vector3 squareStart = Camera.main.WorldToScreenPoint(startPos);
+                    if (Math.Abs(endPos.x - squareStart.x) < 0.5 && Math.Abs(endPos.y - squareStart.y) < 0.5)
                     {
-
-                        if (hit.collider.tag == "MyUnit")
+                        RaycastHit hit;
+                        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
                         {
-                            if (lastClick == hit.collider.gameObject.GetComponentInParent<UnitStats>().gameObject && Time.time-lastTime <=0.5f)
-                            {
-                                if (!shiftKeysDown())
-                                {
-                                    clearSelection();
-                                }
-                                Troops type = hit.collider.gameObject.GetComponent<UnitStats>().troop;
 
-                                foreach ( GameObject go in myCharacterPool)
-                                {  
-                                    if (go.GetComponent<UnitStats>().troop == type)
+                            if (hit.collider.tag == "MyUnit")
+                            {
+                                if (lastClick == hit.collider.gameObject.GetComponentInParent<UnitStats>().gameObject && Time.time - lastTime <= 0.5f)
+                                {
+                                    if (!shiftKeysDown())
                                     {
-                                        addToSelection(go);
+                                        clearSelection();
                                     }
-                                }                              
-                            }
-                            else
-                            {
-                                lastClick = hit.collider.gameObject.GetComponentInParent<UnitStats>().gameObject;
-                                lastTime = Time.time;
-                                if (shiftKeysDown())
-                                {
+                                    Troops type = hit.collider.gameObject.GetComponent<UnitStats>().troop;
 
-                                    addOrRemoveFromSelection(hit);
-                                    baseSelected = false;
-                                    Base.GetComponentInParent<Outline>().enabled = false;
-                                    banner.active = false;
-
+                                    foreach (GameObject go in myCharacterPool)
+                                    {
+                                        if (go.GetComponent<UnitStats>().troop == type)
+                                        {
+                                            addToSelection(go);
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    clearSelection();
-                                    addToSelection(hit);
-                                    baseSelected = false;
-                                    Base.GetComponentInParent<Outline>().enabled = false;
-                                    banner.active = false;
+                                    lastClick = hit.collider.gameObject.GetComponentInParent<UnitStats>().gameObject;
+                                    lastTime = Time.time;
+                                    if (shiftKeysDown())
+                                    {
+
+                                        addOrRemoveFromSelection(hit);
+                                        baseSelected = false;
+                                        Base.GetComponentInParent<Outline>().enabled = false;
+                                        banner.active = false;
+
+                                    }
+                                    else
+                                    {
+                                        clearSelection();
+                                        addToSelection(hit);
+                                        baseSelected = false;
+                                        Base.GetComponentInParent<Outline>().enabled = false;
+                                        banner.active = false;
+                                    }
                                 }
                             }
-                        }
-                        else if (hit.collider.tag == "Base")
+                            else if (hit.collider.tag == "Base")
                             {
                                 clearSelection();
                                 baseSelected = true;
                                 Base.GetComponentInParent<Outline>().enabled = true;
                                 banner.active = true;
                             }
-                        
+
+                        }
+
                     }
-
-                }
-                else if(!actionDone)
-                {
-
-                    Rect selectRect = new Rect(squareStart.x, squareStart.y, endPos.x - squareStart.x, endPos.y - squareStart.y);
-                    int count = 0;
-                    foreach (GameObject go in myCharacterPool)
+                    else if (!actionDone)
                     {
-                        if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.GetComponentInChildren<NavMeshAgent>().transform.position), true))
-                        {
-                            if (count == 0)
-                            {
-                                if (!shiftKeysDown())
-                                {
-                                    clearSelection();
-                                }
-                                baseSelected = false;
-                                Base.GetComponentInParent<Outline>().enabled = false;
-                                banner.active = false;
-                                count++;
 
+                        Rect selectRect = new Rect(squareStart.x, squareStart.y, endPos.x - squareStart.x, endPos.y - squareStart.y);
+                        int count = 0;
+                        foreach (GameObject go in myCharacterPool)
+                        {
+                            if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.GetComponentInChildren<NavMeshAgent>().transform.position), true))
+                            {
+                                if (count == 0)
+                                {
+                                    if (!shiftKeysDown())
+                                    {
+                                        clearSelection();
+                                    }
+                                    baseSelected = false;
+                                    Base.GetComponentInParent<Outline>().enabled = false;
+                                    banner.active = false;
+                                    count++;
+
+                                }
+                                addToSelection(go);
                             }
-                            addToSelection(go);
                         }
                     }
+
+                    selectSquareImage.gameObject.SetActive(false);
+                }
+                if (actionDone)
+                    actionDone = false;
+            }
+
+            else if (Input.GetMouseButton(0) && activateSelectArea)
+            {
+
+                if (!selectSquareImage.gameObject.activeInHierarchy)
+                {
+                    selectSquareImage.gameObject.SetActive(true);
                 }
 
-                selectSquareImage.gameObject.SetActive(false);
-            }
-            if (actionDone)
-                actionDone = false;
-        }
+                endPos = Input.mousePosition;
+                Vector3 squareStart = Camera.main.WorldToScreenPoint(startPos);
+                squareStart.z = 0f;
 
-        else if (Input.GetMouseButton(0) && activateSelectArea )
+                Vector3 centre = (squareStart + endPos) / 2f;
+
+                selectSquareImage.position = centre;
+
+                float sizex = Mathf.Abs(squareStart.x - endPos.x);
+                float sizey = Mathf.Abs(squareStart.y - endPos.y);
+
+                selectSquareImage.sizeDelta = new Vector2(sizex, sizey);
+
+                Rect selectRect = new Rect(squareStart.x, squareStart.y, endPos.x - squareStart.x, endPos.y - squareStart.y);
+                foreach (GameObject go in myCharacterPool)
+                {
+                    if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.GetComponentInChildren<NavMeshAgent>().transform.position), true))
+                    {
+                        go.GetComponentInParent<MovementManager>().hover = true;
+                    }
+                }
+
+            }
+
+
+            if (Input.GetMouseButtonDown(1) && (knightSelected.Count > 0 || archerSelected.Count > 0 || King != null) && currentAction == typeAction.Normal)
+            {
+
+                RaycastHit hit;
+
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
+                {
+                    if (hit.collider.tag == "Enemy")
+                    {
+                        makeAction(hit.collider.gameObject, typeAction.Normal);
+                        playAttackSound();
+                    }
+                    else
+                    {
+                        makeAction(hit.point, typeAction.Normal);
+                        StartCoroutine(animations[0].click(hit.point));
+                        playMoveSound();
+                    }
+
+                }
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                changeToNormal();
+            }
+            if ((knightSelected.Count > 0 || archerSelected.Count > 0 || King != null))
+            {
+                if (Input.GetKey(KeyCode.A))
+                {
+                    changeToAttack();
+                }
+                if (Input.GetKey(KeyCode.S))
+                {
+                    makeAction(null, typeAction.Stop);
+                }
+
+                if (Input.GetKey(KeyCode.M))
+                {
+                    changeToMove();
+                }
+            }
+
+            getNumberKey();
+            Spawn();
+            objectivesText.text = "Objectives:\n" + "Wave: " + (wave) + "\n" + "Enemies: " + enemyPool.Count;
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-
-            if (!selectSquareImage.gameObject.activeInHierarchy)
+            if (paused)
             {
-                selectSquareImage.gameObject.SetActive(true);
+                UnPause();
             }
-
-            endPos = Input.mousePosition;
-            Vector3 squareStart = Camera.main.WorldToScreenPoint(startPos);
-            squareStart.z = 0f;
-
-            Vector3 centre = (squareStart + endPos) / 2f;
-
-            selectSquareImage.position = centre;
-
-            float sizex = Mathf.Abs(squareStart.x - endPos.x);
-            float sizey = Mathf.Abs(squareStart.y - endPos.y);
-
-            selectSquareImage.sizeDelta = new Vector2(sizex, sizey);
-
-            Rect selectRect = new Rect(squareStart.x, squareStart.y, endPos.x - squareStart.x, endPos.y - squareStart.y);
-            foreach (GameObject go in myCharacterPool)
+            else
             {
-                if (selectRect.Contains(Camera.main.WorldToScreenPoint(go.GetComponentInChildren<NavMeshAgent>().transform.position), true))
-                {
-                    go.GetComponentInParent<MovementManager>().hover = true;
-                }
-            }
-
-        }
-
-
-        if (Input.GetMouseButtonDown(1) && (knightSelected.Count > 0 || archerSelected.Count>0 || King!=null) && currentAction == typeAction.Normal)
-        {
-
-            RaycastHit hit;
-
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
-            {
-                if (hit.collider.tag == "Enemy")
-                {
-                    makeAction(hit.collider.gameObject, typeAction.Normal);
-                    playAttackSound();
-                }
-                else
-                {
-                    makeAction(hit.point, typeAction.Normal);
-                    StartCoroutine(animations[0].click(hit.point));
-                    playMoveSound();
-                }
-
-            }
-        }else if (Input.GetMouseButtonDown(1)){
-            changeToNormal();
-        }
-        if ((knightSelected.Count > 0 || archerSelected.Count > 0 || King != null)) {
-            if (Input.GetKey(KeyCode.A))
-            {
-                changeToAttack();
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                makeAction(null, typeAction.Stop);
-            }
-
-            if (Input.GetKey(KeyCode.M))
-            {
-                changeToMove();
+                Pause();
             }
         }
-
-        getNumberKey();
-        Spawn();
-        objectivesText.text = "Objectives:\n" + "Wave: " + (wave) + "\n" + "Enemies: " + enemyPool.Count;
-
     }
 
     public void clearSelection()
@@ -1183,6 +1205,26 @@ public class GameManager : MonoBehaviour
         endingPanel.active = true;
         Time.timeScale = 0f;
         metrics.toFile();
+    }
+
+    private void Pause()
+    {
+        if (Time.timeScale != 0f)
+        {
+           
+            pauseMenu.active = true;
+            paused = true;
+            activateSelectArea = false;
+            selectSquareImage.gameObject.SetActive(false);
+            Time.timeScale = 0f;
+        }
+    }
+
+    public void UnPause()
+    {
+        Time.timeScale = 1f;
+        pauseMenu.active = false ;
+        paused = false;
     }
 
     public void Restart()
