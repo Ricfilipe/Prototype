@@ -1248,6 +1248,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("scene");
     }
 
+    public void toMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
 
 
 }
