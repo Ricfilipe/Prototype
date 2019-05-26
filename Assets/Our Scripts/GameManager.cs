@@ -1251,6 +1251,7 @@ public class GameManager : MonoBehaviour
     public void toMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        
     }
 
 
