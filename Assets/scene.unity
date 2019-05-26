@@ -24517,11 +24517,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
-      propertyPath: wave9.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
       propertyPath: enemySpawnPosition
       value: 
       objectReference: {fileID: 2035353748}
@@ -24537,6 +24532,11 @@ PrefabInstance:
       objectReference: {fileID: 1651150523}
     - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
+      propertyPath: selectSquareImage
+      value: 
+      objectReference: {fileID: 100126941}
+    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
+        type: 3}
       propertyPath: objectivo
       value: 
       objectReference: {fileID: 932061906}
@@ -24550,76 +24550,6 @@ PrefabInstance:
       propertyPath: banner
       value: 
       objectReference: {fileID: 282134886}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: wave8.Array.data[0]
-      value: 
-      objectReference: {fileID: 6798591894359715933, guid: 24e250e731c5f3a4c94b0eba9a690651,
-        type: 3}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: wave8.Array.data[1]
-      value: 
-      objectReference: {fileID: 6538839719058614551, guid: 841a201007261044cb1304e31a1288c0,
-        type: 3}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: wave8.Array.data[2]
-      value: 
-      objectReference: {fileID: 1867648100068828106, guid: 0f10668c74572e648b985bccadf3d8dd,
-        type: 3}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: wave8.Array.data[3]
-      value: 
-      objectReference: {fileID: 7801032094146887993, guid: 4da31875ee156f148a84d05283ca57c4,
-        type: 3}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: wave9.Array.data[0]
-      value: 
-      objectReference: {fileID: 1937925464541444306, guid: 889b00fb032f16042801cc26ba391670,
-        type: 3}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: wave9.Array.data[1]
-      value: 
-      objectReference: {fileID: 6072477178082687211, guid: cf657f7ee34841a45b80c03de4f8f32d,
-        type: 3}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: wave9.Array.data[2]
-      value: 
-      objectReference: {fileID: 3321758317701617990, guid: de501f0ec74632f4ab38e8919cdff73b,
-        type: 3}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: wave9.Array.data[4]
-      value: 
-      objectReference: {fileID: 4464327130204477802, guid: 332b3ceefa95bd94ba7ac81403e4e1c7,
-        type: 3}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: wave9.Array.data[3]
-      value: 
-      objectReference: {fileID: 8289478858958803829, guid: 1d09a588a648b23469c1944e0ff5c525,
-        type: 3}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: wave9.Array.data[5]
-      value: 
-      objectReference: {fileID: 1493484755427894382, guid: 1bdc4ff66176e604484d2516074a3517,
-        type: 3}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: selectSquareImage
-      value: 
-      objectReference: {fileID: 100126941}
-    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
-        type: 3}
-      propertyPath: wave
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9079459042214660677, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
       propertyPath: m_LocalPosition.x

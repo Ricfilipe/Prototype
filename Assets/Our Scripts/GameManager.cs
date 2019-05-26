@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
         seq.list.Add(new SingleMessage("Soldier","My King, the french are advancing", ""));
         seq.list.Add(new SingleMessage("King","Prepare for Battle", ""));
         messenger.addToQueue(seq);
-        metrics = new Metrics();
+        
     }
 
     // Update is called once per frame
@@ -807,7 +807,9 @@ public class GameManager : MonoBehaviour
             if (wave-1 >= 9)
             {
                 //WIN
-                //metrics.toFile();
+                metrics.setWin();
+                metrics.addWaveTimer(wave_lenght, waves.Length-1);
+                metrics.toFile();
             }
             else
             {
@@ -818,7 +820,11 @@ public class GameManager : MonoBehaviour
                     enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
                     GameObject.Instantiate(w, enemySpawnPosition.transform.position, Quaternion.identity);
                 }
-                //metrics.toFile();
+               
+                if (wave > 1) {
+                    metrics.addWaveTimer(wave_lenght,wave-2);
+                }
+                wave_lenght = 0;
             }
         }
         else
