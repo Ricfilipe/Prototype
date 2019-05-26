@@ -141,7 +141,7 @@ public class MovementManager : MonoBehaviour
                 {
                     weapon.GetComponent<Animator>().Play("Idle");
 
-                        gm.GetComponent<GameManager>().Defeat();
+                       
                     
                    
                     gm.GetComponent<GameManager>().myCharacterPool.Remove(gameObject);

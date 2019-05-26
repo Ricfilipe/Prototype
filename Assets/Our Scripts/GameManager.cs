@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour
             }
 
 
-            silverText.GetComponent<Text>().text = "Silver: " + silver;
+            silverText.GetComponent<Text>().text = "Moral: " + silver;
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -204,12 +204,14 @@ public class GameManager : MonoBehaviour
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
                     UIclick = false;
+                    metrics.IncActions();
                     if (currentAction == typeAction.Normal)
                     {
+
                         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
                         {
 
-
+                           
                             activateSelectArea = true;
                             startPos = hit.point;
 
@@ -371,7 +373,7 @@ public class GameManager : MonoBehaviour
                     }
                     else if (!actionDone)
                     {
-
+                        metrics.IncActions();
                         Rect selectRect = new Rect(squareStart.x, squareStart.y, endPos.x - squareStart.x, endPos.y - squareStart.y);
                         int count = 0;
                         foreach (GameObject go in myCharacterPool)
@@ -436,7 +438,7 @@ public class GameManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(1) && (knightSelected.Count > 0 || archerSelected.Count > 0 || King != null) && currentAction == typeAction.Normal)
             {
-
+                metrics.IncActions();
                 RaycastHit hit;
 
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300))
@@ -457,21 +459,25 @@ public class GameManager : MonoBehaviour
             }
             else if (Input.GetMouseButtonDown(1))
             {
+
                 changeToNormal();
             }
             if ((knightSelected.Count > 0 || archerSelected.Count > 0 || King != null))
             {
-                if (Input.GetKey(KeyCode.A))
+                if (Input.GetKeyDown(KeyCode.A))
                 {
+                    metrics.IncActions();
                     changeToAttack();
                 }
-                if (Input.GetKey(KeyCode.S))
+                if (Input.GetKeyDown(KeyCode.S))
                 {
+                    metrics.IncActions();
                     makeAction(null, typeAction.Stop);
                 }
 
-                if (Input.GetKey(KeyCode.M))
+                if (Input.GetKeyDown(KeyCode.M))
                 {
+                    metrics.IncActions();
                     changeToMove();
                 }
             }
@@ -982,42 +988,52 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Alpha1))
         {
+            metrics.IncActions();
             selectGroupAction(0);
         }
         else if (Input.GetKey(KeyCode.Alpha2))
         {
+            metrics.IncActions();
             selectGroupAction(1);
         }
         else if (Input.GetKey(KeyCode.Alpha3))
         {
+            metrics.IncActions();
             selectGroupAction(2);
         }
         else if (Input.GetKey(KeyCode.Alpha4))
         {
+            metrics.IncActions();
             selectGroupAction(3);
         }
         else if (Input.GetKey(KeyCode.Alpha5))
         {
+            metrics.IncActions();
             selectGroupAction(4);
         }
         else if (Input.GetKey(KeyCode.Alpha6))
         {
+            metrics.IncActions();
             selectGroupAction(5);
         }
         else if (Input.GetKey(KeyCode.Alpha7))
         {
+            metrics.IncActions();
             selectGroupAction(6);
         }
         else if (Input.GetKey(KeyCode.Alpha8))
         {
+            metrics.IncActions();
             selectGroupAction(7);
         }
         else if (Input.GetKey(KeyCode.Alpha9))
         {
+            metrics.IncActions();
             selectGroupAction(8);
         }
         else if (Input.GetKey(KeyCode.Alpha0))
         {
+            metrics.IncActions();
             selectGroupAction(9);
         }
        

@@ -64,6 +64,7 @@ public class PanelInterface:MonoBehaviour
 
 
     private void click() {
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<Metrics>().IncActions();
         selection.GetComponent<generateSelection>().changeSelection(gameObject);
     }
 
