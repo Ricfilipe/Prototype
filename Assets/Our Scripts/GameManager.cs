@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1.0f;
         knightSelected = new List<GameObject>();
         archerSelected = new List<GameObject>();
         messenger= GetComponent<VoiceManager>();
@@ -135,13 +136,13 @@ public class GameManager : MonoBehaviour
         MessageSequence seq = new MessageSequence();
         seq.list.Add(new SingleMessage("Henry V", " The french are well arrayed for battle.", ""));
         seq.list.Add(new SingleMessage("Soldier", "There's five to one! O that we now had here but one ten thousand of those men in England that do no work to-day", "Infantaria"));
-        seq.list.Add(new SingleMessage("Henry V", "Fear not, if we are marked to die, we are enough to do our country loss. and if to live, the fewer men the greater share of honor. This day is called the feast of Crispian?", ""));
+        seq.list.Add(new SingleMessage("Henry V", "Fear not, if we are marked to die, we are enough to do our country loss. and if to live, the fewer men the greater share of honor. This day is called the feast of Crispian?", "Rei"));
         seq.list.Add(new SingleMessage("Soldier", "Aye, my lord.", "Infantaria"));
-        seq.list.Add(new SingleMessage("Henry V", " He that shall live this day, and see old age, will yearly on the vigil feast his neighbors, and say \"Tomorrow is Saint Crispian\".", ""));
-        seq.list.Add(new SingleMessage("Henry V", " Then he will strip his sleeve and show his scars and say, \"These wounds I had on Crispin's Day\". The story shall the good man teach his son;", ""));
-        seq.list.Add(new SingleMessage("Henry V", "And Crispin Crispian shall ne'er go by, from this day to the ending of the world, but we in it shall be remembered - we few, we happy few, we band of brothers!", ""));
+        seq.list.Add(new SingleMessage("Henry V", " He that shall live this day, and see old age, will yearly on the vigil feast his neighbors, and say \"Tomorrow is Saint Crispian\".", "Rei"));
+        seq.list.Add(new SingleMessage("Henry V", " Then he will strip his sleeve and show his scars and say, \"These wounds I had on Crispin's Day\". The story shall the good man teach his son;", "Rei"));
+        seq.list.Add(new SingleMessage("Henry V", "And Crispin Crispian shall ne'er go by, from this day to the ending of the world, but we in it shall be remembered - we few, we happy few, we band of brothers!", "Rei"));
         seq.list.Add(new SingleMessage("Soldier", "God's will my liege! Would that you and I alone without more help, could fight this royal battle!", "Infantaria"));
-        seq.list.Add(new SingleMessage("Henry V", " Why, now thou hast unwish'd five thousand more men; which likes me better than to wish us one. The men know their places. God be with us all!", ""));
+        seq.list.Add(new SingleMessage("Henry V", " Why, now thou hast unwish'd five thousand more men; which likes me better than to wish us one. The men know their places. God be with us all!", "Rei"));
 
         messenger.addToQueue(seq);
         
@@ -865,7 +866,7 @@ public class GameManager : MonoBehaviour
                 if (!waitForDestroy)
                 {
                     messenger.addToQueue(new TimedMessage(10, "Soldier", "My king, the french are attacking our camp, we won't be able to call reinforcements or upgrade our units, after the attack", "Infantaria"));
-                    messenger.addToQueue(new TimedMessage(20, "King","This is going to be our Last Stand, prepare yourselves", ""));                   
+                    messenger.addToQueue(new TimedMessage(20, "King","This is going to be our Last Stand, prepare yourselves", "Rei"));                   
                     waitForDestroy = true;
                     waveTimer = 1;
                     wave_lenght += 30;
