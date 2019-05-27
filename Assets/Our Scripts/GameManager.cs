@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> enemyPool = new List<GameObject>();
     public GameObject enemySpawnPosition;
     public GameObject Base;
+    public GameObject baseDestroyer;
 
     [Header("State")]
     public int wave = 0;
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
     private GameObject lastClick;
     private float lastTime;
 
+    private bool waitForDestroy;
 
     [HideInInspector]
     public typeAction currentAction = typeAction.Normal;
@@ -69,7 +71,7 @@ public class GameManager : MonoBehaviour
     public ParticleClick[] animations = new ParticleClick[3];
     public GameObject banner;
     private Text objectivesText;
-
+    private bool nodescription;
 
     [Header("Waves")]
     public GameObject[] wave1;
@@ -118,6 +120,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         ending = endingText.GetComponent<Text>();
         Cursor.SetCursor(cursors[2], new Vector2(0, 0), CursorMode.Auto);
         numberOfEnemies = 2;
@@ -126,7 +129,7 @@ public class GameManager : MonoBehaviour
         selectSquareImage.gameObject.SetActive(false);
         Base.GetComponent<Outline>().enabled = false;
         banner.active = false;
-        silver = 1000;
+        silver = 100;
         int[] a = { 1,0,0, 0,1,0, 0,0,1, 2,0,0, 1,1,1 };
         wave_numbers = a;
         MessageSequence seq = new MessageSequence();
@@ -147,7 +150,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
+      if(baseDestroyed)
+        {
+            Base.active = false;
+        }
 
         if (timerForSound > 0)
         {
@@ -596,6 +602,10 @@ public class GameManager : MonoBehaviour
 
     public void addToSelection(GameObject go)
     {
+        if(go == null)
+        {
+            return;
+        }
 
         Troops type = go.GetComponentInParent<UnitStats>().troop;
         switch (type)
@@ -848,9 +858,36 @@ public class GameManager : MonoBehaviour
                 }
                 return;
             }
-            waveTimer = 10;
-            wave++;
-            if (wave-1 >= 9)
+            
+            
+            if (wave - 1 >= waves.Length-1 && !baseDestroyed)
+            {
+                if (!waitForDestroy)
+                {
+                    messenger.addToQueue(new TimedMessage(10, "Soldier", "My king, the french are attacking our camp, we won't be able to call reinforcements or upgrade our units", ""));
+                    messenger.addToQueue(new TimedMessage(20, "King","This is going to be our Last Stand, prepare yourselves", ""));                   
+                    waitForDestroy = true;
+                    waveTimer = 1;
+                    wave_lenght += 30;
+                    return;
+                }
+                else
+                {
+                  
+                    GameObject.Instantiate(baseDestroyer,new Vector3(-284.5f,0,-208.5f),new Quaternion());
+                    wave++;
+                    waveTimer = 1;
+                    return;
+                }
+            }
+            else
+            {
+                wave++;
+                waveTimer = 10;
+                wave_lenght += waveTimer;
+            }
+
+            if (wave-1 >= waves.Length)
             {
                 Victory();
                 metrics.setWin();

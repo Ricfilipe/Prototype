@@ -40,23 +40,27 @@ public class ActionMenu : MonoBehaviour
     void Update()
     {
         emptyButtons();
+        if (gm.baseDestroyed)
+        {
+            upgradeMenu = false;
+        }
         if (gm.baseSelected)
         {
             if (upgradeMenu)
             {
                 //Menu para os Updgrades
                 if(UnitStats.knightLevel[0]<3)
-                actions[0].GetComponentInChildren<Text>().text = "Knight HP\n$"+(costKnightHPUpgrade + UnitStats.knightLevel[0]*100);
+                actions[0].GetComponentInChildren<Text>().text = "Knight HP\n"+(costKnightHPUpgrade + UnitStats.knightLevel[0]*100);
                 if (UnitStats.knightLevel[1] < 3)
-                    actions[1].GetComponentInChildren<Text>().text = "Knight Attack\n$"+(costKnightADUpgrade + UnitStats.knightLevel[1]*100);
+                    actions[1].GetComponentInChildren<Text>().text = "Knight Attack\n"+(costKnightADUpgrade + UnitStats.knightLevel[1]*100);
                 if (UnitStats.knightLevel[2] < 3)
-                    actions[2].GetComponentInChildren<Text>().text = "Knight Speed\n$"+(costKnightSpeedUpgrade + UnitStats.knightLevel[2]*100);
+                    actions[2].GetComponentInChildren<Text>().text = "Knight Speed\n"+(costKnightSpeedUpgrade + UnitStats.knightLevel[2]*100);
                 if (UnitStats.archerLevel[0] < 3)
-                    actions[3].GetComponentInChildren<Text>().text = "Archer HP\n$"+(costArcherHPUpgrade + UnitStats.archerLevel[0]*100);
+                    actions[3].GetComponentInChildren<Text>().text = "Archer HP\n"+(costArcherHPUpgrade + UnitStats.archerLevel[0]*100);
                 if (UnitStats.archerLevel[1] < 3)
-                    actions[4].GetComponentInChildren<Text>().text = "Archer Attack\n$"+(costArcherADUpgrade + UnitStats.archerLevel[1]*100);
+                    actions[4].GetComponentInChildren<Text>().text = "Archer Attack\n"+(costArcherADUpgrade + UnitStats.archerLevel[1]*100);
                 if (UnitStats.archerLevel[2] < 3)
-                    actions[5].GetComponentInChildren<Text>().text = "Archer Speed\n$"+(costArcherSpeedUpgrade + UnitStats.archerLevel[2]*100);
+                    actions[5].GetComponentInChildren<Text>().text = "Archer Speed\n"+(costArcherSpeedUpgrade + UnitStats.archerLevel[2]*100);
 
                 if(gm.silver>= costKnightHPUpgrade + UnitStats.knightLevel[0] * 100 && UnitStats.knightLevel[0] < 3)
                 {
@@ -103,8 +107,8 @@ public class ActionMenu : MonoBehaviour
             else
             {
                 //Menu para Base
-                actions[1].GetComponentInChildren<Text>().text = "Archer\n$200";
-                actions[0].GetComponentInChildren<Text>().text = "Knight\n$150";
+                actions[1].GetComponentInChildren<Text>().text = "Archer\n200";
+                actions[0].GetComponentInChildren<Text>().text = "Knight\n150";
                 if (gm.silver > 150) //valor provisório
                 {
                     actionButtons[0].interactable = true;

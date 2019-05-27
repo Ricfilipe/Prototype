@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class  Message 
 {
+    public bool hasTimer = false;
+    public int time = 0;
     // Start is called before the first frame update
     public abstract string getMessage();
 

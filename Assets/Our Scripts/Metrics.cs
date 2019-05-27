@@ -59,6 +59,7 @@ public class Metrics : MonoBehaviour
     }
 
 
+
     public void addWaveTimer(float time, int wave_nr)
     {
         Debug.Log(wave_nr);
@@ -70,7 +71,7 @@ public class Metrics : MonoBehaviour
         }
         else
         {
-            apm_per_wave[0] = Actions-lastActions;
+            apm_per_wave[wave_nr-1] = Actions-lastActions;
             lastActions = Actions;
         }
         currentWave++;
@@ -112,7 +113,7 @@ public class Metrics : MonoBehaviour
                 file.WriteLine("Wave " + wave + " King Abilities: " + king_ability_per_wave[wave - 1]);
                 wave++;
             }
-
+            Debug.Log(apm_per_wave);
                 
             if (win)
             {
@@ -131,6 +132,7 @@ public class Metrics : MonoBehaviour
 
     public void IncActions()
     {
+        Debug.Log("actions");
         Actions++;
        
     }
@@ -158,7 +160,7 @@ public class Metrics : MonoBehaviour
 
     public void countKnightDeath()
     {
-        archer_killed_per_wave[currentWave]++;
+        knight_killed_per_wave[currentWave]++;
     }
 
     public void countAbilityKing()

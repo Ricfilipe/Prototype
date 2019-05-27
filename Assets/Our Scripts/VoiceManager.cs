@@ -18,6 +18,7 @@ public class VoiceManager : MonoBehaviour
     private Text textName;
     private Image image;
 
+    private float temp=-1;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,14 @@ public class VoiceManager : MonoBehaviour
                 currentMessage = queue[0];
                 queue.RemoveAt(0);
                 Panel.active = true;
+                if (currentMessage.hasTimer)
+                {
+                    GameObject.FindGameObjectWithTag("Description").active = false;
+                }
+                else
+                {
+                    GameObject.FindGameObjectWithTag("Description").active = true ;
+                }
             }
             else
             {
@@ -46,21 +55,44 @@ public class VoiceManager : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (currentMessage.hasTimer)
             {
-                if (!currentMessage.advance())
+                if(temp == -1)
                 {
-                    currentMessage = null;
-                    return;
+                    temp = currentMessage.time;
+                }else if(temp > 0)
+                {
+                    temp -= Time.deltaTime;
+                }
+                else
+                {
+                    temp = -1;
+                    if (!currentMessage.advance())
+                    {
+                        currentMessage = null;
+                        return;
+                    }
+                }
+                
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    if (!currentMessage.advance())
+                    {
+                        currentMessage = null;
+                        return;
+                    }
                 }
             }
-            textName.text = currentMessage.getName();
-            text.text = currentMessage.getMessage();
-            if(currentMessage.getImage() != null)
-            {
-                image.sprite = currentMessage.getImage();
-            }
-
+                textName.text = currentMessage.getName();
+                text.text = currentMessage.getMessage();
+                if (currentMessage.getImage() != null)
+                {
+                    image.sprite = currentMessage.getImage();
+                }
+            
         }
     }
     public void addToQueue(Message mes)
