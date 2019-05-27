@@ -130,8 +130,16 @@ public class GameManager : MonoBehaviour
         int[] a = { 1,0,0, 0,1,0, 0,0,1, 2,0,0, 1,1,1 };
         wave_numbers = a;
         MessageSequence seq = new MessageSequence();
-        seq.list.Add(new SingleMessage("Soldier","My King, the french are advancing", ""));
-        seq.list.Add(new SingleMessage("King","Prepare for Battle", ""));
+        seq.list.Add(new SingleMessage("Henry V", " The french are well arrayed for battle.", ""));
+        seq.list.Add(new SingleMessage("Soldier", "There's five to one! O that we now had here but one ten thousand of those men in England that do no work to-day", ""));
+        seq.list.Add(new SingleMessage("Henry V", "Fear not, if we are marked to die, we are enough to do our country loss. and if to live, the fewer men the greater share of honor. This day is called the feast of Crispian?", ""));
+        seq.list.Add(new SingleMessage("Soldier", "Aye, my lord.", ""));
+        seq.list.Add(new SingleMessage("Henry V", " He that shall live this day, and see old age, will yearly on the vigil feast his neighbors, and say \"Tomorrow is Saint Crispian\".", ""));
+        seq.list.Add(new SingleMessage("Henry V", " Then he will strip his sleeve and show his scars and say, \"These wounds I had on Crispin's Day\". The story shall the good man teach his son;", ""));
+        seq.list.Add(new SingleMessage("Henry V", "And Crispin Crispian shall ne'er go by, from this day to the ending of the world, but we in it shall be remembered - we few, we happy few, we band of brothers!", ""));
+        seq.list.Add(new SingleMessage("Soldier", "God's will my liege! Would that you and I alone without more help, could fight this royal battle!", ""));
+        seq.list.Add(new SingleMessage("Henry V", " Why, now thou hast unwish'd five thousand more men; which likes me better than to wish us one. The men know their places. God be with us all!", ""));
+
         messenger.addToQueue(seq);
         
     }
@@ -656,7 +664,8 @@ public class GameManager : MonoBehaviour
     public void selectGroup(int index)
     {
         List<GameObject> list = groups[index];
-
+        clearSelection();
+        
         foreach (GameObject go in list)
         {
             addToSelection(go);
@@ -831,7 +840,7 @@ public class GameManager : MonoBehaviour
                 metrics.addWaveTimer(wave_lenght, indice / 3);
                 wave_lenght = 0;
             }
-            if (waveTimer > 0)
+            if (waveTimer > 0 && messenger.isEmpty())
             {
                 waveTimer -= Time.deltaTime;
                 return;
@@ -1059,9 +1068,14 @@ public class GameManager : MonoBehaviour
 
     public void selectGroupAction(int idx)
     {
+        if (groups[idx] == null)
+        {
+            groups[idx] = new List<GameObject>();
+        }
         if (Input.GetKey(KeyCode.LeftShift))
         {
             List<GameObject> currentGroup = groups[idx];
+
 
             foreach(GameObject go in archerSelected)
             {
@@ -1071,6 +1085,7 @@ public class GameManager : MonoBehaviour
 
             foreach (GameObject go in knightSelected)
             {
+
                 if (!currentGroup.Contains(go))
                     currentGroup.Add(go);
             }
@@ -1087,7 +1102,7 @@ public class GameManager : MonoBehaviour
             addGroup(idx);
         }
         else {
-            clearSelection();
+       
             selectGroup(idx);
         }
 

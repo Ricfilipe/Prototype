@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -65,5 +66,10 @@ public class VoiceManager : MonoBehaviour
     public void addToQueue(Message mes)
     {
         queue.Add(mes);
+    }
+
+    internal bool isEmpty()
+    {
+        return queue.Count == 0;
     }
 }
