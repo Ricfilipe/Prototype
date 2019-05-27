@@ -18,8 +18,8 @@ public class displayHud : MonoBehaviour
         this.description = descriptionObject.GetComponent<Text>();
         this.gm = gameManager.GetComponent<GameManager>();
         images[0] = Resources.Load<Sprite>("hhhh");
-        images[1] = Resources.Load<Sprite>("Infantaria");
-        images[2] = Resources.Load<Sprite>("Infantaria");
+        images[1] = Resources.Load<Sprite>("Infantaria2");
+        images[2] = Resources.Load<Sprite>("Arqueiro");
         imageObject.GetComponent<Image>().sprite = images[0];
     }
 
