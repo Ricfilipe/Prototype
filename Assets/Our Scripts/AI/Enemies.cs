@@ -121,6 +121,7 @@ public abstract class Enemies : MonoBehaviour
             }
             else
             {
+                DetectTargetingUnits();
                 enemyInAction.destination = (nearestUnit.gameObject.GetComponentInParent<UnitStats>().GetComponentInChildren<NavMeshAgent>().transform.position);
 
                 enemyInAction.stoppingDistance = unitStats.range;
@@ -173,7 +174,7 @@ public abstract class Enemies : MonoBehaviour
         transform.rotation = Quaternion.LookRotation((helper- helper2).normalized, Vector3.up);
         updateDistance = Vector3.Distance(helper2,helper);
 
-        if (updateDistance <= unitStats.range)
+        if (updateDistance <= unitStats.range+nearestUnit.gameObject.GetComponentInParent<UnitStats>().size)
         {
             attacking = true;
             if (globalAttackTimer <= 0)

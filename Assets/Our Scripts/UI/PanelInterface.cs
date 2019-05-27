@@ -16,7 +16,7 @@ public class PanelInterface:MonoBehaviour
     {
         this.hp = HPBar.GetComponent<MenuHPBar>();
         this.GetComponent<Button>().onClick.AddListener(click);
-        
+      
     }
 
     public void UpdateProgressionBar(MovementManager move)

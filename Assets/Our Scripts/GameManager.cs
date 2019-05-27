@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     [Header("Objects")]
     public List<GameObject> myCharacterPool = new List<GameObject>();
     public List<GameObject> enemyPool = new List<GameObject>();
-    public GameObject enemySpawnPosition;
+    public GameObject[] enemySpawnPosition;
     public GameObject Base;
     public GameObject baseDestroyer;
 
@@ -134,13 +134,13 @@ public class GameManager : MonoBehaviour
         wave_numbers = a;
         MessageSequence seq = new MessageSequence();
         seq.list.Add(new SingleMessage("Henry V", " The french are well arrayed for battle.", ""));
-        seq.list.Add(new SingleMessage("Soldier", "There's five to one! O that we now had here but one ten thousand of those men in England that do no work to-day", ""));
+        seq.list.Add(new SingleMessage("Soldier", "There's five to one! O that we now had here but one ten thousand of those men in England that do no work to-day", "Infantaria"));
         seq.list.Add(new SingleMessage("Henry V", "Fear not, if we are marked to die, we are enough to do our country loss. and if to live, the fewer men the greater share of honor. This day is called the feast of Crispian?", ""));
-        seq.list.Add(new SingleMessage("Soldier", "Aye, my lord.", ""));
+        seq.list.Add(new SingleMessage("Soldier", "Aye, my lord.", "Infantaria"));
         seq.list.Add(new SingleMessage("Henry V", " He that shall live this day, and see old age, will yearly on the vigil feast his neighbors, and say \"Tomorrow is Saint Crispian\".", ""));
         seq.list.Add(new SingleMessage("Henry V", " Then he will strip his sleeve and show his scars and say, \"These wounds I had on Crispin's Day\". The story shall the good man teach his son;", ""));
         seq.list.Add(new SingleMessage("Henry V", "And Crispin Crispian shall ne'er go by, from this day to the ending of the world, but we in it shall be remembered - we few, we happy few, we band of brothers!", ""));
-        seq.list.Add(new SingleMessage("Soldier", "God's will my liege! Would that you and I alone without more help, could fight this royal battle!", ""));
+        seq.list.Add(new SingleMessage("Soldier", "God's will my liege! Would that you and I alone without more help, could fight this royal battle!", "Infantaria"));
         seq.list.Add(new SingleMessage("Henry V", " Why, now thou hast unwish'd five thousand more men; which likes me better than to wish us one. The men know their places. God be with us all!", ""));
 
         messenger.addToQueue(seq);
@@ -864,7 +864,7 @@ public class GameManager : MonoBehaviour
             {
                 if (!waitForDestroy)
                 {
-                    messenger.addToQueue(new TimedMessage(10, "Soldier", "My king, the french are attacking our camp, we won't be able to call reinforcements or upgrade our units", ""));
+                    messenger.addToQueue(new TimedMessage(10, "Soldier", "My king, the french are attacking our camp, we won't be able to call reinforcements or upgrade our units, after the attack", "Infantaria"));
                     messenger.addToQueue(new TimedMessage(20, "King","This is going to be our Last Stand, prepare yourselves", ""));                   
                     waitForDestroy = true;
                     waveTimer = 1;
@@ -896,12 +896,12 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                int i = 0;
                 foreach( GameObject w in waves[wave-1])
                 {
-                    float x = UnityEngine.Random.Range(-10, 10);
-                    float z = UnityEngine.Random.Range(-10, 10);
-                    enemySpawnPosition.transform.position = new Vector3(enemySpawnPosition.transform.position.x + x, enemySpawnPosition.transform.position.y, enemySpawnPosition.transform.position.z + z);
-                    GameObject.Instantiate(w, enemySpawnPosition.transform.position, Quaternion.identity);
+
+                    GameObject.Instantiate(w, enemySpawnPosition[i].transform.position, Quaternion.identity);
+                    i++;
                 }
                
                 if (wave > 1) {

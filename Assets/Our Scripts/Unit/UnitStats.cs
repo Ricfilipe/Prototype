@@ -53,14 +53,14 @@ public class UnitStats : MonoBehaviour
     				case Troops.Infantry:
 
 	    				this.range=3f;
-	    				this.size=5;
+	    				this.size=0;
 	    				this.HP= InfantryMaxHP;
                         this.attackSpeed = 1.5f;
 	    				break;
 
 	    			case Troops.Archer:
 	    				this.range=30;
-	    				this.size=4;	    				
+	    				this.size=0;	    				
 	    				this.HP=ArcherMaxHP;
                         this.attackSpeed = 1.5f;
                         break;
@@ -68,7 +68,7 @@ public class UnitStats : MonoBehaviour
 	    			case Troops.King:
 	    				this.speed=6;
 	    				this.range=5f;
-	    				this.size=9;
+	    				this.size=1;
 	    				this.MaxHP=100;
 	    				this.HP= 100;
 	    				this.AD=10;
@@ -103,7 +103,7 @@ public class UnitStats : MonoBehaviour
 	    			case Troops.Cavalry:
 	    				this.speed= 10;
 	    				this.range=3f;
-	    				this.size=8;
+	    				this.size=1;
 	    				this.MaxHP=18;
 	    				this.HP=18;
 	    				this.AD=4;

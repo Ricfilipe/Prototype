@@ -113,7 +113,7 @@ public class Metrics : MonoBehaviour
                 file.WriteLine("Wave " + wave + " King Abilities: " + king_ability_per_wave[wave - 1]);
                 wave++;
             }
-            Debug.Log(apm_per_wave);
+            
                 
             if (win)
             {
@@ -132,7 +132,7 @@ public class Metrics : MonoBehaviour
 
     public void IncActions()
     {
-        Debug.Log("actions");
+    
         Actions++;
        
     }

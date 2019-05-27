@@ -107,9 +107,9 @@ public class ActionMenu : MonoBehaviour
             else
             {
                 //Menu para Base
-                actions[1].GetComponentInChildren<Text>().text = "Archer\n200";
-                actions[0].GetComponentInChildren<Text>().text = "Knight\n150";
-                if (gm.silver > 150) //valor provisório
+                actions[1].GetComponentInChildren<Text>().text = "Archer\n100";
+                actions[0].GetComponentInChildren<Text>().text = "Knight\n50";
+                if (gm.silver > 50)
                 {
                     actionButtons[0].interactable = true;
                     actionButtons[0].onClick.AddListener(buyKnight);
@@ -120,7 +120,7 @@ public class ActionMenu : MonoBehaviour
                     actionButtons[0].interactable = false;
                 }
 
-                if (gm.silver > 200) //valor provisório
+                if (gm.silver > 100) 
                 {
                     actionButtons[1].interactable = true;
                     actionButtons[1].onClick.AddListener(buyArcher);
@@ -252,7 +252,7 @@ public class ActionMenu : MonoBehaviour
     public void knightUpgradeAttack()
     {
         
-        if(UnitStats.knightLevel[1]!=3 && gm.silver>= costKnightADUpgrade + 100* UnitStats.knightLevel[0])
+        if(UnitStats.knightLevel[1]!=3 && gm.silver>= costKnightADUpgrade + 100* UnitStats.knightLevel[1])
         {
             gameManager.GetComponent<Metrics>().IncActions();
             gm.silver -= costKnightADUpgrade + 100 * UnitStats.knightLevel[1];
@@ -264,7 +264,7 @@ public class ActionMenu : MonoBehaviour
 
     public void knightUpgradeHP()
     {
-        if (UnitStats.knightLevel[0] != 3 && gm.silver >= costKnightHPUpgrade + 100 * UnitStats.knightLevel[1])
+        if (UnitStats.knightLevel[0] != 3 && gm.silver >= costKnightHPUpgrade + 100 * UnitStats.knightLevel[0])
         {
             gameManager.GetComponent<Metrics>().IncActions();
             gm.silver -= costKnightHPUpgrade + 100 * UnitStats.knightLevel[0];
@@ -292,7 +292,7 @@ public class ActionMenu : MonoBehaviour
 
     public void archerUpgradeAttack()
     {
-        if (UnitStats.archerLevel[1] != 3 && gm.silver >= costArcherADUpgrade + 100 * UnitStats.archerLevel[0])
+        if (UnitStats.archerLevel[1] != 3 && gm.silver >= costArcherADUpgrade + 100 * UnitStats.archerLevel[1])
         {
 
             gameManager.GetComponent<Metrics>().IncActions();
@@ -304,7 +304,7 @@ public class ActionMenu : MonoBehaviour
 
     public void archerUpgradeHP()
     {
-        if (UnitStats.archerLevel[0] != 3 && gm.silver >= costArcherHPUpgrade + 100 * UnitStats.archerLevel[1])
+        if (UnitStats.archerLevel[0] != 3 && gm.silver >= costArcherHPUpgrade + 100 * UnitStats.archerLevel[0])
         {
             gameManager.GetComponent<Metrics>().IncActions();
             gm.silver -= costArcherHPUpgrade + 100 * UnitStats.archerLevel[0];
@@ -334,10 +334,10 @@ public class ActionMenu : MonoBehaviour
 
 
     public void buyKnight() {
-        if (gm.silver >= 150)
+        if (gm.silver >= 50)
         {
             gameManager.GetComponent<Metrics>().IncActions();
-            gm.silver = gm.silver - 150;
+            gm.silver = gm.silver - 50;
             GameObject go = Instantiate(knight);
             spawn(go);
         }
@@ -346,10 +346,10 @@ public class ActionMenu : MonoBehaviour
 
     public void buyArcher()
     {
-        if (gm.silver >= 200)
+        if (gm.silver >= 100)
         {
             gameManager.GetComponent<Metrics>().IncActions();
-            gm.silver = gm.silver - 200;
+            gm.silver = gm.silver - 100;
             GameObject go = Instantiate(archer);
             spawn(go);
         }

@@ -12,13 +12,16 @@ public class SingleMessage : Message
     {
         this.text = text;
         this.name = name;
+
         if (path.Equals(""))
         {
             image = null;
         }
         else
         {
+         
             image = Resources.Load<Sprite>(path);
+            Debug.Log(image);
         }
     }
 

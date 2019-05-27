@@ -176,7 +176,7 @@ public class MovementManager : MonoBehaviour
             transform.rotation = Quaternion.LookRotation((helper - helper2).normalized, Vector3.up);
 
 
-            if ((transform.position - target.transform.position).magnitude <= myUnitStats.range)
+            if ((transform.position - target.transform.position).magnitude <= myUnitStats.range )
             {
                 attacking = true;
                 if (globalAttackTimer <= 0)
