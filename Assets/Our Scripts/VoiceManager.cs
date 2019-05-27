@@ -70,6 +70,6 @@ public class VoiceManager : MonoBehaviour
 
     internal bool isEmpty()
     {
-        return queue.Count == 0;
+        return queue.Count == 0 && currentMessage == null;
     }
 }

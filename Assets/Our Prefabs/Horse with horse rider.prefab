@@ -20448,7 +20448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeTime: 10
-  cooldown: 60
+  cooldown: 20
   name: For The King
   hasActivation: 1
   hasCd: 1

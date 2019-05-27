@@ -13,12 +13,13 @@ public class EnemyHorse : Enemies
     public Vector3 firstMove;
     public float waitTimeBeforeAttack;
     private bool didFirst=true;
+    private GameObject targeting;
 
     protected override void Start()
     {
        
         agent = GetComponentInChildren<NavMeshAgent>();
-        detectUnitsRadius = 70.0f;
+        detectUnitsRadius = 20.0f;
         base.Start();
         agent.speed = unitStats.speed;
         firstMove.y = transform.position.y;
@@ -38,9 +39,52 @@ public class EnemyHorse : Enemies
             }
             else
             {
+                if (nearestUnit != null)
+                {
+                    agent.destination = (nearestUnit.gameObject.GetComponentInParent<UnitStats>().GetComponentInChildren<NavMeshAgent>().transform.position);
 
-                base.EnemyMovement();
+                    agent.stoppingDistance = unitStats.range;
+                    Attack();
+                }
+                else
+                {
+                    if (targeting == null)
+                    {
 
+                        GameObject King = null;
+                        float min = float.MaxValue;
+                        foreach (GameObject archer in gm.myCharacterPool)
+                        {
+
+                            if (archer.GetComponentInChildren<UnitStats>().troop == UnitStats.Troops.Archer)
+                            {
+                                var tempMin = Vector3.Distance(transform.position, archer.GetComponentInChildren<NavMeshAgent>().transform.position);
+
+                                if (tempMin < min)
+                                {
+                                    DetectTargetingUnits();
+                                    min = tempMin;
+                                    targeting = archer;
+                                }
+                            }
+                            else if (archer.GetComponentInChildren<UnitStats>().troop == UnitStats.Troops.King)
+                            {
+                                King = archer;
+                            }
+                        }
+                        if (targeting == null)
+                        {
+                            targeting = King;
+                        }
+
+                    }
+
+                    agent.destination = targeting.GetComponentInChildren<NavMeshAgent>().transform.position;
+                    DetectTargetingUnits();
+                }
+                
+
+                
             }
 
             if ((transform.position - firstMove).magnitude < 1f )

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -42,8 +43,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool baseSelected=false;
 
-    
-
+    [HideInInspector]
+    public bool baseDestroyed = false;
 
     private GameObject lastClick;
     private float lastTime;
@@ -111,8 +112,7 @@ public class GameManager : MonoBehaviour
         knightSelected = new List<GameObject>();
         archerSelected = new List<GameObject>();
         messenger= GetComponent<VoiceManager>();
-        waves = new GameObject[][] {wave1,wave2,wave3,wave4,wave5,wave6,wave7,wave8,wave9 };
-        
+        getWaves();
     }
 
     // Start is called before the first frame update
@@ -840,9 +840,12 @@ public class GameManager : MonoBehaviour
                 metrics.addWaveTimer(wave_lenght, indice / 3);
                 wave_lenght = 0;
             }
-            if (waveTimer > 0 && messenger.isEmpty())
+            if (waveTimer > 0)
             {
-                waveTimer -= Time.deltaTime;
+                if (messenger.isEmpty())
+                {
+                    waveTimer -= Time.deltaTime;
+                }
                 return;
             }
             waveTimer = 10;
@@ -1270,6 +1273,37 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public int  getWaves()
+    {
+
+        string path = "Assets/config.txt";
+        StreamReader reader = new StreamReader(path);
+        string strWaves = reader.ReadToEnd();
+        int n_waves = int.Parse(strWaves);
+        Debug.Log(n_waves);
+        switch (n_waves)
+        {
+            case 4:
+                waves = new GameObject[][] { wave1, wave2, wave8, wave9 };
+                break;
+            case 5:
+                waves = new GameObject[][] { wave1, wave2, wave3, wave8, wave9 };
+                break;
+            case 6:
+                waves = new GameObject[][] { wave1, wave2, wave3, wave4, wave8, wave9 };
+                break;
+            case 7:
+                waves = new GameObject[][] { wave1, wave2, wave3, wave4, wave5, wave8, wave9 };
+                break;
+            case 8:
+                waves = new GameObject[][] { wave1, wave2, wave3, wave4, wave5, wave6, wave8, wave9 };
+                break;
+            case 9:
+                waves = new GameObject[][] { wave1, wave2, wave3, wave4, wave5, wave6, wave7, wave8, wave9 };
+                break;
+        }
+        return n_waves;
+    }
 
 }
 

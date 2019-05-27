@@ -6,18 +6,18 @@ using UnityEngine;
 public class Metrics : MonoBehaviour
 {
  
-    float[] wave_times = new float[9];
+    float[] wave_times ;
     int KDRatio;
     private string currentMetric;
     private bool win;
-    int[] apm_per_wave = new int[9];
-    int[] king_ability_per_wave = new int[9];
-    int[] archer_ability_per_wave = new int[9];
-    int[] archer_kills_per_wave = new int[9];
-    int[] king_kills_per_wave = new int[9];
-    int[] knight_kills_per_wave = new int[9];
-    int[] knight_killed_per_wave = new int[9];
-    int[] archer_killed_per_wave = new int[9];
+    int[] apm_per_wave;
+    int[] king_ability_per_wave ;
+    int[] archer_ability_per_wave;
+    int[] archer_kills_per_wave ;
+    int[] king_kills_per_wave ;
+    int[] knight_kills_per_wave ;
+    int[] knight_killed_per_wave;
+    int[] archer_killed_per_wave; 
     int lastActions;
 
     int currentWave;
@@ -26,11 +26,30 @@ public class Metrics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        string path2 = "Assets/config.txt";
+        StreamReader reader1 = new StreamReader(path2);
+        string strWaves = reader1.ReadToEnd();
+        int n_waves = int.Parse(strWaves);
+
+        reader1.Close();
+
+        wave_times = new float[n_waves];
+        apm_per_wave = new int[n_waves];
+         king_ability_per_wave = new int[n_waves];
+         archer_ability_per_wave = new int[n_waves];
+        archer_kills_per_wave = new int[n_waves];
+        king_kills_per_wave = new int[n_waves];
+         knight_kills_per_wave = new int[n_waves];
+         knight_killed_per_wave = new int[n_waves];
+         archer_killed_per_wave = new int[n_waves];
+
         string path = "Assets/currentMetrics.txt";
         StreamReader reader = new StreamReader(path);
          currentMetric = reader.ReadToEnd();
 
         lastActions = -1;
+        reader.Close();
     }
 
     // Update is called once per frame

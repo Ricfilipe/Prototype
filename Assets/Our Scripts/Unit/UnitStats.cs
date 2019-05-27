@@ -10,7 +10,7 @@ public class UnitStats : MonoBehaviour
     [HideInInspector]
     public int MaxHP, HP,AD;
     [HideInInspector]
-    public static int InfantryMaxHP = 6, InfantryAD=3, ArcherMaxHP=4, ArcherAD=2, InfantrySpeed= 4, ArcherSpeed=3;
+    public static int InfantryMaxHP = 15, InfantryAD=2, ArcherMaxHP=4, ArcherAD=1, InfantrySpeed= 6, ArcherSpeed=5;
     [HideInInspector]
     public static int[] knightLevel = { 0, 0, 0 };
     [HideInInspector]
@@ -51,6 +51,7 @@ public class UnitStats : MonoBehaviour
     			switch(troop)
     			{
     				case Troops.Infantry:
+
 	    				this.range=3f;
 	    				this.size=5;
 	    				this.HP= InfantryMaxHP;
@@ -58,7 +59,7 @@ public class UnitStats : MonoBehaviour
 	    				break;
 
 	    			case Troops.Archer:
-	    				this.range=20;
+	    				this.range=30;
 	    				this.size=4;	    				
 	    				this.HP=ArcherMaxHP;
                         this.attackSpeed = 1.5f;
@@ -68,9 +69,9 @@ public class UnitStats : MonoBehaviour
 	    				this.speed=6;
 	    				this.range=5f;
 	    				this.size=9;
-	    				this.MaxHP=13;
-	    				this.HP=13;
-	    				this.AD=3;
+	    				this.MaxHP=100;
+	    				this.HP= 100;
+	    				this.AD=10;
                         this.attackSpeed = 1.5f;
                         break;
     			}
@@ -80,22 +81,22 @@ public class UnitStats : MonoBehaviour
     			switch(troop)
     			{
     				case Troops.Archer:
-	    				this.speed=3;
-	    				this.range=18;
+	    				this.speed=5;
+	    				this.range=30;
 	    				this.size=4;
-	    				this.MaxHP=3;
-	    				this.HP=3;
+	    				this.MaxHP=12;
+	    				this.HP=12;
 	    				this.AD=2;
                         this.attackSpeed = 1.5f;
                         break;
     				
     				case Troops.Infantry:
-    					this.speed= 4;
+    					this.speed= 6;
 	    				this.range=3f;
 	    				this.size=5;
-	    				this.MaxHP=5;
-	    				this.HP=5;
-	    				this.AD=2;
+	    				this.MaxHP=18;
+	    				this.HP=18;
+	    				this.AD=3;
                         this.attackSpeed = 1.5f;
                         break;
 
@@ -103,18 +104,18 @@ public class UnitStats : MonoBehaviour
 	    				this.speed= 10;
 	    				this.range=3f;
 	    				this.size=8;
-	    				this.MaxHP=5;
-	    				this.HP=5;
-	    				this.AD=2;
+	    				this.MaxHP=18;
+	    				this.HP=18;
+	    				this.AD=4;
                         this.attackSpeed = 1.5f;
                         break;
 
 	    			case Troops.CrossBowMan:
-	    				this.speed=4;
-	    				this.range=15;
+	    				this.speed=6;
+	    				this.range=20;
 	    				this.size=4;
-	    				this.MaxHP=3;
-	    				this.HP=3;
+	    				this.MaxHP=12;
+	    				this.HP=12;
 	    				this.AD=2;
                         this.attackSpeed = 1.5f;
                         break;

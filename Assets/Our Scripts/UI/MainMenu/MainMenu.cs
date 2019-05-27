@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour
     private Text textSlider;
     private Slider realSlider;
 
-    private string num;
+    private float num;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +24,7 @@ public class MainMenu : MonoBehaviour
     void Update()
     {
         textSlider.text = "Number of Waves: "+ realSlider.value;
+        num = realSlider.value;
     }
 
     public void Play()

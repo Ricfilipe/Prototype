@@ -586,7 +586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeTime: 5
-  cooldown: 20
+  cooldown: 10
   name: Make It Rain
   hasActivation: 1
   hasCd: 1
