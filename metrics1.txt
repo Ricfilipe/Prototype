@@ -1,0 +1,83 @@
+Metrics for Game 1
+Wave 1 Duration: 20
+Wave 1 APM: 3
+Wave 1 Archers' Kills: 0
+Wave 1 Archers Killed: 0
+Wave 1 Archers Abilities: 0
+Wave 1 Knights Kills: 0
+Wave 1 Knights Killed: 0
+Wave 1 King Kills: 0
+Wave 1 King Abilities: 0
+Wave 2 Duration: 76,22641
+Wave 2 APM: 0
+Wave 2 Archers' Kills: 6
+Wave 2 Archers Killed: 0
+Wave 2 Archers Abilities: 0
+Wave 2 Knights Kills: 1
+Wave 2 Knights Killed: 7
+Wave 2 King Kills: 6
+Wave 2 King Abilities: 0
+Wave 3 Duration: 63,43787
+Wave 3 APM: 0
+Wave 3 Archers' Kills: 2
+Wave 3 Archers Killed: 6
+Wave 3 Archers Abilities: 0
+Wave 3 Knights Kills: 0
+Wave 3 Knights Killed: 2
+Wave 3 King Kills: 3
+Wave 3 King Abilities: 0
+Wave 4 Duration: 0
+Wave 4 APM: 0
+Wave 4 Archers' Kills: 0
+Wave 4 Archers Killed: 0
+Wave 4 Archers Abilities: 0
+Wave 4 Knights Kills: 0
+Wave 4 Knights Killed: 0
+Wave 4 King Kills: 0
+Wave 4 King Abilities: 0
+Wave 5 Duration: 0
+Wave 5 APM: 0
+Wave 5 Archers' Kills: 0
+Wave 5 Archers Killed: 0
+Wave 5 Archers Abilities: 0
+Wave 5 Knights Kills: 0
+Wave 5 Knights Killed: 0
+Wave 5 King Kills: 0
+Wave 5 King Abilities: 0
+Wave 6 Duration: 0
+Wave 6 APM: 0
+Wave 6 Archers' Kills: 0
+Wave 6 Archers Killed: 0
+Wave 6 Archers Abilities: 0
+Wave 6 Knights Kills: 0
+Wave 6 Knights Killed: 0
+Wave 6 King Kills: 0
+Wave 6 King Abilities: 0
+Wave 7 Duration: 0
+Wave 7 APM: 0
+Wave 7 Archers' Kills: 0
+Wave 7 Archers Killed: 0
+Wave 7 Archers Abilities: 0
+Wave 7 Knights Kills: 0
+Wave 7 Knights Killed: 0
+Wave 7 King Kills: 0
+Wave 7 King Abilities: 0
+Wave 8 Duration: 0
+Wave 8 APM: 0
+Wave 8 Archers' Kills: 0
+Wave 8 Archers Killed: 0
+Wave 8 Archers Abilities: 0
+Wave 8 Knights Kills: 0
+Wave 8 Knights Killed: 0
+Wave 8 King Kills: 0
+Wave 8 King Abilities: 0
+Wave 9 Duration: 0
+Wave 9 APM: 0
+Wave 9 Archers' Kills: 0
+Wave 9 Archers Killed: 0
+Wave 9 Archers Abilities: 0
+Wave 9 Knights Kills: 0
+Wave 9 Knights Killed: 0
+Wave 9 King Kills: 0
+Wave 9 King Abilities: 0
+Lost
