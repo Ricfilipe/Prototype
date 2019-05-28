@@ -111,6 +111,13 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        UnitStats.archerLevel[0] = 0;
+        UnitStats.archerLevel[1] = 0;
+        UnitStats.archerLevel[2] = 0;
+
+        UnitStats.knightLevel[0] = 0;
+        UnitStats.knightLevel[1] = 0;
+        UnitStats.knightLevel[2] = 0;
         Time.timeScale = 1.0f;
         knightSelected = new List<GameObject>();
         archerSelected = new List<GameObject>();
