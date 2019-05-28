@@ -861,7 +861,7 @@ public class GameManager : MonoBehaviour
             }
             
             
-            if (wave - 1 >= waves.Length-1 && !baseDestroyed)
+            if (wave  == waves.Length-1 && !baseDestroyed)
             {
                 if (!waitForDestroy)
                 {
@@ -877,8 +877,8 @@ public class GameManager : MonoBehaviour
                   
                     GameObject.Instantiate(baseDestroyer,new Vector3(-284.5f,0,-208.5f),new Quaternion());
                     wave++;
-                    waveTimer = 1;
-                    return;
+                    waveTimer = 34;
+                   
                 }
             }
             else
