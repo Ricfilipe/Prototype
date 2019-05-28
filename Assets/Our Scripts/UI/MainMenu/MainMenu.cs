@@ -31,7 +31,7 @@ public class MainMenu : MonoBehaviour
     {
         string path = "Assets/config.txt";
         System.IO.File.WriteAllText(path, "" + (num));
-        SceneManager.LoadScene("scene");
+        SceneManager.LoadScene(1);
     }
 
     public void Quit()
