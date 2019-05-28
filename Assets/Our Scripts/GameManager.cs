@@ -876,9 +876,10 @@ public class GameManager : MonoBehaviour
                 {
                   
                     GameObject.Instantiate(baseDestroyer,new Vector3(-284.5f,0,-208.5f),new Quaternion());
-                    wave++;
-                    waveTimer = 34;
+                   
+                    waveTimer = 40;
                     wave_lenght += waveTimer;
+                    return;
                 }
             }
             else
