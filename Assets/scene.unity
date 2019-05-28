@@ -21264,7 +21264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4595575863912506, guid: 33deafc3f1eb3264c90abc4bcecf0631, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 196.64
+      value: 73.5
       objectReference: {fileID: 0}
     - target: {fileID: 4595575863912506, guid: 33deafc3f1eb3264c90abc4bcecf0631, type: 3}
       propertyPath: m_LocalPosition.y
@@ -23332,6 +23332,18 @@ PrefabInstance:
       propertyPath: enemySpawnPosition.Array.data[4]
       value: 
       objectReference: {fileID: 749934071}
+    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
+        type: 3}
+      propertyPath: wave1.Array.data[0]
+      value: 
+      objectReference: {fileID: -3118219856047403178, guid: 7dffb4c536eb8c943a512e5e70aae818,
+        type: 3}
+    - target: {fileID: 9079459042214660730, guid: 0ca524db14217f245878c82f2047a21d,
+        type: 3}
+      propertyPath: wave1.Array.data[1]
+      value: 
+      objectReference: {fileID: 9115654595756569308, guid: 0bae6e09ca57d014e826f6d21234d389,
+        type: 3}
     - target: {fileID: 9079459042214660677, guid: 0ca524db14217f245878c82f2047a21d,
         type: 3}
       propertyPath: m_LocalPosition.x
