@@ -114,7 +114,12 @@ public class GameManager : MonoBehaviour
         UnitStats.archerLevel[0] = 0;
         UnitStats.archerLevel[1] = 0;
         UnitStats.archerLevel[2] = 0;
-
+        UnitStats.InfantryMaxHP = 15;
+        UnitStats.InfantryAD = 2;
+        UnitStats.ArcherMaxHP = 4;
+        UnitStats.ArcherAD = 1;
+        UnitStats.InfantrySpeed = 6;
+        UnitStats.ArcherSpeed = 5;
         UnitStats.knightLevel[0] = 0;
         UnitStats.knightLevel[1] = 0;
         UnitStats.knightLevel[2] = 0;
