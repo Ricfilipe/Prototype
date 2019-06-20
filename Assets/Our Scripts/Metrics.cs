@@ -27,12 +27,9 @@ public class Metrics : MonoBehaviour
     void Start()
     {
 
-        string path2 = "Assets/config.txt";
-        StreamReader reader1 = new StreamReader(path2);
-        string strWaves = reader1.ReadToEnd();
-        int n_waves = int.Parse(strWaves);
 
-        reader1.Close();
+        int n_waves = 9;
+
 
         wave_times = new float[n_waves];
         apm_per_wave = new int[n_waves];
@@ -44,12 +41,9 @@ public class Metrics : MonoBehaviour
          knight_killed_per_wave = new int[n_waves];
          archer_killed_per_wave = new int[n_waves];
 
-        string path = "Assets/currentMetrics.txt";
-        StreamReader reader = new StreamReader(path);
-         currentMetric = reader.ReadToEnd();
 
         lastActions = -1;
-        reader.Close();
+
     }
 
     // Update is called once per frame
@@ -86,48 +80,7 @@ public class Metrics : MonoBehaviour
 
     public void toFile()
     {
-        string path = "Assets/currentMetrics.txt";
-        using (System.IO.StreamWriter file =
-           new System.IO.StreamWriter(@"metrics" + currentMetric + ".txt"))
-        {
-            file.WriteLine("Metrics for Game " + currentMetric);
-            int wave = 1;
-            foreach (float n in wave_times)
-            {
-                // If the line doesn't contain the word 'Second', write the line to the file.
-                file.WriteLine("Wave " + wave + " Duration: " + n);
-                if ((n / 60) == 0)
-                {
-                    file.WriteLine("Wave " + wave + " APM: " + (apm_per_wave[wave - 1]));
-                }
-                else
-                {
-                    file.WriteLine("Wave " + wave + " APM: " + (apm_per_wave[wave - 1] / (n / 60)));
-                }
-                file.WriteLine("Wave " + wave + " Archers' Kills: " + archer_kills_per_wave[wave-1]);
-                file.WriteLine("Wave " + wave + " Archers Killed: " + archer_killed_per_wave[wave-1]);
-                file.WriteLine("Wave " + wave + " Archers Abilities: " + archer_ability_per_wave[wave - 1]);
-                file.WriteLine("Wave " + wave + " Knights Kills: " + knight_kills_per_wave[wave-1]);
-                file.WriteLine("Wave " + wave + " Knights Killed: " + knight_killed_per_wave[wave - 1]);
-                file.WriteLine("Wave " + wave + " King Kills: " + king_kills_per_wave[wave - 1]);
-                file.WriteLine("Wave " + wave + " King Abilities: " + king_ability_per_wave[wave - 1]);
-                wave++;
-            }
-            
-                
-            if (win)
-            {
-                file.WriteLine("Won");
-            }
-            else
-            {
-                file.WriteLine("Lost");
-            }
-        }
-       
-        int number = int.Parse(currentMetric);
-        number++;
-        System.IO.File.WriteAllText(path, "" + (number));
+
     }
 
     public void IncActions()
@@ -139,7 +92,7 @@ public class Metrics : MonoBehaviour
 
     public void countKingKill()
     {
-        Debug.Log(currentWave);
+        
         king_kills_per_wave[currentWave]++;
     }
 
